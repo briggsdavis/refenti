@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 // Added Link to the imports from react-router-dom
-import { HashRouter, Routes, Route, useLocation, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -49,7 +49,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const App: React.FC = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <ScrollToTop />
       <div className="min-h-screen bg-refenti-offwhite text-refenti-charcoal font-sans selection:bg-refenti-gold selection:text-white">
         <Navbar />
@@ -118,7 +118,7 @@ const App: React.FC = () => {
           </div>
         </footer>
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
