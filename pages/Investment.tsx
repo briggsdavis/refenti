@@ -86,7 +86,12 @@ const Investment: React.FC = () => {
 
         <div className="flex-1 space-y-40 md:space-y-64 pb-40">
           {/* About Refenti */}
-          <section id="about" ref={el => sectionRefs.current['about'] = el} className="pt-20 space-y-12 reveal">
+          <section 
+            id="about" 
+            // Fix: Ref callback must return void or undefined to satisfy TypeScript Ref types
+            ref={el => { sectionRefs.current['about'] = el; }} 
+            className="pt-20 space-y-12 reveal"
+          >
             <div className="space-y-4">
               <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Identity</p>
               <h2 className="font-display text-5xl md:text-7xl font-light text-refenti-charcoal uppercase leading-tight">About <span className="text-refenti-gold italic">Refenti</span></h2>
@@ -102,7 +107,12 @@ const Investment: React.FC = () => {
           </section>
 
           {/* Mandate */}
-          <section id="mandate" ref={el => sectionRefs.current['mandate'] = el} className="reveal">
+          <section 
+            id="mandate" 
+            // Fix: Ref callback must return void or undefined to satisfy TypeScript Ref types
+            ref={el => { sectionRefs.current['mandate'] = el; }} 
+            className="reveal"
+          >
             <div className="bg-refenti-charcoal p-12 md:p-24 rounded-[4rem] text-white shadow-2xl relative overflow-hidden">
               <div className="relative z-10 space-y-12">
                 <div className="space-y-4">
@@ -129,7 +139,12 @@ const Investment: React.FC = () => {
           </section>
 
           {/* Activities */}
-          <section id="activities" ref={el => sectionRefs.current['activities'] = el} className="reveal space-y-16">
+          <section 
+            id="activities" 
+            // Fix: Ref callback must return void or undefined to satisfy TypeScript Ref types
+            ref={el => { sectionRefs.current['activities'] = el; }} 
+            className="reveal space-y-16"
+          >
             <div className="text-center space-y-4">
               <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Scope of Operations</p>
               <h2 className="font-display text-5xl md:text-7xl font-light text-refenti-charcoal uppercase leading-tight">Core <span className="text-refenti-gold italic">Activities</span></h2>
@@ -150,7 +165,12 @@ const Investment: React.FC = () => {
           </section>
 
           {/* Model */}
-          <section id="model" ref={el => sectionRefs.current['model'] = el} className="space-y-32 reveal">
+          <section 
+            id="model" 
+            // Fix: Ref callback must return void or undefined to satisfy TypeScript Ref types
+            ref={el => { sectionRefs.current['model'] = el; }} 
+            className="space-y-32 reveal"
+          >
             <div className="grid md:grid-cols-2 gap-16 items-start">
               <div className="space-y-12">
                 <div className="space-y-4">
@@ -209,7 +229,12 @@ const Investment: React.FC = () => {
           </section>
 
           {/* Reach */}
-          <section id="reach" ref={el => sectionRefs.current['reach'] = el} className="space-y-24 reveal">
+          <section 
+            id="reach" 
+            // Fix: Ref callback must return void or undefined to satisfy TypeScript Ref types
+            ref={el => { sectionRefs.current['reach'] = el; }} 
+            className="space-y-24 reveal"
+          >
             <div className="grid md:grid-cols-2 gap-16">
               <div className="space-y-12">
                 <div className="space-y-4">

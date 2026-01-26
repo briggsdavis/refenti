@@ -115,7 +115,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="overflow-hidden bg-refenti-offwhite">
-      <section className="relative h-[95vh] w-full flex items-end justify-center bg-refenti-offwhite pb-12 md:pb-20 overflow-hidden">
+      <section className="relative h-[95vh] w-full flex items-end justify-center bg-refenti-offwhite pb-16 md:pb-28 overflow-hidden">
         {/* Parallax Image Layer */}
         <div 
           className="absolute inset-[-5%]"
@@ -131,16 +131,19 @@ const Home: React.FC = () => {
         {/* Static Gradient Overlay Layer */}
         <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/40 to-transparent pointer-events-none" />
         
-        <div className="relative z-10 text-center space-y-8 md:space-y-12 px-6 max-w-6xl mx-auto reveal active">
+        <div className="relative z-10 text-center space-y-10 md:space-y-14 px-6 max-w-6xl mx-auto reveal active">
           <div className="space-y-4 md:space-y-6">
-            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[7px] md:text-[9px] opacity-90">
+            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[8px] md:text-[10px] opacity-90">
               Institutional Investment & Development
             </p>
-            <h1 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-light text-refenti-charcoal tracking-tighter leading-none">
+            <h1 className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light text-refenti-charcoal tracking-tighter leading-none">
               Refenti <br className="sm:hidden" /> Realty <br className="hidden sm:block" /> Group
             </h1>
           </div>
-          <Link to="/contact" className="inline-block py-4.5 px-13 md:py-5.5 md:px-18 bg-refenti-charcoal text-white rounded-2xl text-[9px] md:text-[10px] font-bold uppercase tracking-ultra shadow-lg hover:bg-refenti-gold transition-all duration-500">
+          <Link 
+            to="/contact" 
+            className="inline-block py-5 px-14 md:py-6 md:px-20 bg-refenti-charcoal text-white rounded-2xl text-[10px] md:text-[12px] font-bold uppercase tracking-ultra shadow-lg hover:bg-refenti-gold transition-all duration-500 active:scale-95"
+          >
             Inquire
           </Link>
         </div>

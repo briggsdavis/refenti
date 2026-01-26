@@ -106,7 +106,8 @@ const About: React.FC = () => {
           {/* Section 1: Overview */}
           <section 
             id="about-refenti"
-            ref={el => sectionRefs.current['about-refenti'] = el}
+            // Fix: Ref callback must return void or undefined to satisfy TypeScript Ref types
+            ref={el => { sectionRefs.current['about-refenti'] = el; }}
             className="pt-20"
           >
             <div className="grid md:grid-cols-12 gap-12 items-start">
@@ -139,7 +140,8 @@ const About: React.FC = () => {
           {/* Section 2: What We Stand For */}
           <section 
             id="stand-for"
-            ref={el => sectionRefs.current['stand-for'] = el}
+            // Fix: Ref callback must return void or undefined to satisfy TypeScript Ref types
+            ref={el => { sectionRefs.current['stand-for'] = el; }}
           >
              <div className="space-y-16">
                 <div className="text-center space-y-4">
@@ -187,7 +189,8 @@ const About: React.FC = () => {
           {/* Section 3: Governance & SVH */}
           <section 
             id="governance"
-            ref={el => sectionRefs.current['governance'] = el}
+            // Fix: Ref callback must return void or undefined to satisfy TypeScript Ref types
+            ref={el => { sectionRefs.current['governance'] = el; }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               <div className="lg:col-span-6 order-2 lg:order-1 reveal">
