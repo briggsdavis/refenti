@@ -143,8 +143,8 @@ const ProjectDetail: React.FC = () => {
         
         <div className="relative z-10 text-center space-y-12 px-4 max-w-6xl mx-auto reveal active">
           <div className="space-y-6">
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.7em] text-[10px] md:text-xs">The Refenti Collection</p>
             <h1 className="font-display text-7xl md:text-[10rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">{project.name}</h1>
+            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.7em] text-[10px] md:text-xs">The Refenti Collection</p>
           </div>
         </div>
       </section>

@@ -58,8 +58,8 @@ const Investment: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent pointer-events-none" />
         <div className="relative z-10 text-center space-y-6 md:space-y-14 px-4 max-w-6xl mx-auto reveal active">
           <div className="space-y-3 md:space-y-6">
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.4em] md:tracking-[0.6em] text-[9px] md:text-xs">Precision in Real Estate</p>
             <h1 className="font-display text-6xl md:text-[10rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">Investment</h1>
+            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.4em] md:tracking-[0.6em] text-[9px] md:text-xs">Precision in Real Estate</p>
           </div>
         </div>
       </section>
@@ -100,7 +100,7 @@ const Investment: React.FC = () => {
                   Refenti Realty Group identifies and realizes the potential of urban landscapes. We build with a long-term mindset that values execution above all.
                 </p>
                 <div className="aspect-square rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl">
-                  <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="High-Rise Vision" />
+                  <img src="https://images.unsplash.com/photo-1497366616548-37526070297c?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="High-Rise Vision" />
                 </div>
               </div>
               <div className="space-y-6 md:space-y-8 md:pt-24">

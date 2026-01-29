@@ -122,12 +122,12 @@ const Home: React.FC = () => {
         
         <div className="relative z-10 text-center space-y-8 md:space-y-14 px-4 sm:px-6 max-w-6xl mx-auto reveal active">
           <div className="space-y-3 md:space-y-6">
-            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[7px] md:text-[10px] opacity-90">
-              Refining urban landscapes
-            </p>
             <h1 className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light text-refenti-charcoal tracking-tighter leading-none">
               Refenti <br className="sm:hidden" /> Realty <br className="hidden sm:block" /> Group
             </h1>
+            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[7px] md:text-[10px] opacity-90">
+              Refining urban landscapes
+            </p>
           </div>
         </div>
       </section>
@@ -138,10 +138,10 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="mb-12 md:mb-24 reveal">
             <div className="space-y-1 md:space-y-2 text-center md:text-left">
-              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[7px] md:text-[8px]">The Collection</p>
               <h2 className="font-display text-5xl sm:text-6xl md:text-9xl font-light text-black tracking-tighter uppercase leading-none select-none">
                 Portfolio
               </h2>
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[7px] md:text-[8px]">The Collection</p>
             </div>
           </div>
 
@@ -154,8 +154,8 @@ const Home: React.FC = () => {
                   </div>
                 </Link>
                 <div className="mt-6 md:mt-10 space-y-2 md:space-y-4 px-2 md:px-4">
-                  <p className="text-[7px] md:text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">{projects[0].assetClass}</p>
                   <h3 className="font-display text-2xl md:text-4xl font-light text-refenti-charcoal leading-none">{projects[0].name}</h3>
+                  <p className="text-[7px] md:text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">{projects[0].assetClass}</p>
                   <p className="text-gray-600 font-light text-sm max-w-md leading-relaxed text-justify">{projects[0].description}</p>
                 </div>
               </div>
@@ -181,8 +181,8 @@ const Home: React.FC = () => {
       <section className="py-20 md:py-40 px-4 sm:px-6 bg-refenti-offwhite reveal">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16 space-y-2 md:space-y-3">
-            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[8px] md:text-[9px] opacity-80">Current Milestones</p>
             <h2 className="font-display text-3xl md:text-6xl font-light text-refenti-charcoal">Featured Updates</h2>
+            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[8px] md:text-[9px] opacity-80">Current Milestones</p>
           </div>
           
           {featuredEvents.length > 0 ? (

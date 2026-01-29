@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
   const handleMouseLeave = () => {
     menuTimeoutRef.current = window.setTimeout(() => {
       setIsMenuOpen(false);
-    }, 400); // Slightly longer delay for better UX
+    }, 400); 
   };
 
   return (
@@ -139,7 +139,7 @@ const Navbar: React.FC = () => {
         >
           <div className="bg-white rounded-[3rem] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden border border-gray-100/50 flex min-h-[480px]">
             <div className="w-[38%] p-12 space-y-10 border-r border-gray-100 bg-white">
-              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">Selected Works</p>
+              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">Refenti Collection</p>
               <div className="space-y-8">
                 {projects.map((project) => (
                   <Link
@@ -199,9 +199,9 @@ const Navbar: React.FC = () => {
           transition-all duration-700 cubic-bezier(0.19, 1, 0.22, 1) px-8 py-16 overflow-y-auto
           ${isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}
         `}>
-          <div className="max-w-md mx-auto space-y-12">
+          <div className="max-w-md mx-auto space-y-16">
             <div className="space-y-8">
-              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase border-b border-gray-100 pb-4 opacity-70">Refenti Values</p>
+              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase border-b border-gray-100 pb-4 opacity-70">Refenti Navigation</p>
               <ul className="space-y-6">
                 {navLinks.map(link => (
                   <li key={link.path} className="overflow-hidden">
@@ -211,6 +211,24 @@ const Navbar: React.FC = () => {
                     >
                       {link.name}
                     </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Mobile-specific Project Collection Links */}
+            <div className="space-y-8 pt-8 border-t border-gray-100">
+              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-70">The Collection</p>
+              <ul className="space-y-6">
+                {projects.map(project => (
+                  <li key={project.id} className="overflow-hidden">
+                    <Link 
+                      to={`/projects/${project.id}`}
+                      className="font-display text-3xl text-refenti-charcoal/70 hover:text-refenti-gold transition-all block uppercase tracking-tight"
+                    >
+                      {project.name}
+                    </Link>
+                    <p className="text-[8px] font-bold text-gray-400 tracking-extrawide uppercase mt-1">{project.location}</p>
                   </li>
                 ))}
               </ul>

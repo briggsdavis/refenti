@@ -69,8 +69,8 @@ const Contact: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/70 to-transparent pointer-events-none" />
         <div className="relative z-10 text-center space-y-8 md:space-y-12 px-4 max-w-6xl mx-auto reveal active">
           <div className="space-y-4">
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.5em] text-[10px]">Direct Engagement</p>
             <h1 className="font-display text-6xl md:text-8xl lg:text-[9rem] font-light text-refenti-charcoal tracking-tight leading-none uppercase">Contact</h1>
+            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.5em] text-[10px]">Direct Engagement</p>
           </div>
         </div>
       </section>
@@ -158,11 +158,11 @@ const Contact: React.FC = () => {
                         </svg>
                       </button>
 
-                      {/* Dropdown Options List - Forced opaque background and elevated z-index */}
+                      {/* Dropdown Options List - Remade for total opacity and highest z-index */}
                       <div 
                         className={`
-                          absolute top-full left-0 w-full mt-2 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] 
-                          border border-gray-100 overflow-hidden z-[200] transition-all duration-500 origin-top
+                          absolute top-full left-0 w-full mt-2 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.15)] 
+                          border border-gray-100 overflow-hidden z-[999] transition-all duration-500 origin-top
                           ${isDropdownOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-4 pointer-events-none'}
                         `}
                         style={{ backgroundColor: '#ffffff' }}
@@ -174,7 +174,7 @@ const Contact: React.FC = () => {
                               type="button"
                               onClick={() => selectType(type)}
                               className={`
-                                w-full text-left px-8 py-4 text-[13px] font-bold uppercase tracking-widest transition-all
+                                w-full text-left px-8 py-5 text-[11px] font-bold uppercase tracking-widest transition-all
                                 ${formData.type === type ? 'text-refenti-gold bg-refenti-offwhite' : 'text-gray-500 hover:text-refenti-charcoal hover:bg-gray-50'}
                               `}
                             >

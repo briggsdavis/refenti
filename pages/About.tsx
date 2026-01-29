@@ -58,8 +58,8 @@ const About: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/70 to-transparent pointer-events-none" />
         <div className="relative z-10 text-center space-y-6 md:space-y-14 px-4 max-w-6xl mx-auto reveal active">
           <div className="space-y-3 md:space-y-6">
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.4em] md:tracking-[0.6em] text-[9px] md:text-xs">Crafting a Legacy</p>
             <h1 className="font-display text-6xl md:text-[10rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">About</h1>
+            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.4em] md:tracking-[0.6em] text-[9px] md:text-xs">Crafting a Legacy</p>
           </div>
         </div>
       </section>

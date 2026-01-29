@@ -59,8 +59,8 @@ const BoleRefenti: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/40 to-transparent pointer-events-none" />
         
         <div className="relative z-10 text-center space-y-4 px-6 max-w-6xl mx-auto reveal active">
-          <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.6em] text-[10px] md:text-xs">Boutique Residential Collection</p>
           <h1 className="font-display text-7xl md:text-[11rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">Refenti Bole</h1>
+          <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.6em] text-[10px] md:text-xs">Boutique Residential Collection</p>
         </div>
       </section>
 

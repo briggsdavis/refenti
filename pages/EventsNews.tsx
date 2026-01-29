@@ -79,8 +79,8 @@ const EventsNews: React.FC = () => {
         
         <div className="relative z-10 text-center space-y-8 px-4 max-w-6xl mx-auto reveal active">
           <div className="space-y-6">
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.7em] text-[10px] md:text-xs">Institutional Updates</p>
             <h1 className="font-display text-7xl md:text-[9rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">News</h1>
+            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.7em] text-[10px] md:text-xs">Institutional Updates</p>
           </div>
         </div>
       </section>
