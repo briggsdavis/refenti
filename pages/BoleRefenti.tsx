@@ -1,238 +1,143 @@
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-
-const FeatureSection: React.FC<{ feature: string; index: number }> = ({ feature, index }) => {
-  const [targetProgress, setTargetProgress] = useState(0);
-  const [smoothedProgress, setSmoothedProgress] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const requestRef = useRef<number>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      const start = windowHeight;
-      const end = windowHeight * 0.15;
-      const current = rect.top;
-      
-      let p = (start - current) / (start - end);
-      p = Math.min(Math.max(p, 0), 1);
-      setTargetProgress(p);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const animate = () => {
-      setSmoothedProgress((prev) => {
-        const diff = targetProgress - prev;
-        const next = prev + diff * 0.025;
-        if (Math.abs(diff) < 0.0001) return targetProgress;
-        return next;
-      });
-      requestRef.current = requestAnimationFrame(animate);
-    };
-    requestRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
-    };
-  }, [targetProgress]);
-
-  const isLeft = index % 2 === 0;
-  const widthPercentage = 40 + (smoothedProgress * 60);
-
-  return (
-    <div 
-      ref={sectionRef}
-      className={`max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-24 py-16 px-8 md:px-12 ${!isLeft ? 'md:flex-row-reverse' : ''}`}
-    >
-      <div className={`w-full md:w-1/2 h-[50vh] md:h-[60vh] flex ${isLeft ? 'justify-end' : 'justify-start'}`}>
-        <div 
-          className="h-full overflow-hidden rounded-[3.5rem] shadow-2xl relative"
-          style={{ 
-            width: `${widthPercentage}%`,
-            transition: 'none' 
-          }}
-        >
-          <div 
-            className="absolute h-full"
-            style={{ 
-              width: '50vw',
-              right: isLeft ? 0 : 'auto',
-              left: !isLeft ? 0 : 'auto'
-            }}
-          >
-            <img 
-              src={`https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200&sig=${index + 105}`} 
-              className="w-full h-full object-cover"
-              alt={feature}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className={`w-full md:w-1/2 space-y-6 reveal px-4 md:px-12`}>
-        <div className="space-y-2">
-          <span className="text-refenti-gold font-display text-7xl font-light opacity-10 leading-none select-none">
-            0{index + 1}
-          </span>
-          <h3 className="font-display text-4xl md:text-5xl font-light tracking-tight text-refenti-charcoal leading-[1.1]">
-            {feature}
-          </h3>
-        </div>
-        <div className="space-y-4 max-w-lg">
-          <p className="text-gray-700 font-light leading-relaxed text-lg">
-            At Bole High-Rise, {feature.toLowerCase()} is more than an amenity: it is a cornerstone of the resident experience. Every detail reflects our commitment to structural integrity and aesthetic purity.
-          </p>
-          <div className="flex items-center gap-6">
-            <div className="w-12 h-[1px] bg-refenti-gold" />
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.3em] text-[10px]">Standard of Excellence</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import React, { useState, useEffect } from 'react';
 
 const BoleRefenti: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const projectFeatures = [
-    "Commercial Space",
-    "Premium Hotel",
-    "Luxury Apartments",
-    "Infinity Pool",
-    "32 Stories",
-    "Bole Central District",
-    "Two-Floor Amenity Deck"
+  const keyFeatures = [
+    "Boutique Luxury Apartments",
+    "5,000 Built-Up Area",
+    "500 Plot Size",
+    "Secure Basement Parking",
+    "Private Reservoir Infrastructure",
+    "Exclusive Lifestyle Lounge",
+    "Service-Oriented Arrival Zone",
+    "Single-Unit Luxury Floors"
+  ];
+
+  const detailSections = [
+    {
+      title: "Boutique Quality Management",
+      subtitle: "Service Excellence",
+      text: "The ground floor serves as the heart for the building services. This area incorporates a professional reception and structured parking management. This infrastructure is designed to provide a high-security, service-oriented arrival experience for residents. The management model mirrors luxury standards to maintain the premium market positioning of the asset.",
+      image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200"
+    },
+    {
+      title: "Low-Density Residential Layout",
+      subtitle: "Absolute Privacy",
+      text: "The residential stack is engineered for maximum privacy. It features a unique single-unit per floor configuration on the third through seventh levels. The second floor contains two units, while higher levels transition to total floor exclusivity. This architectural choice targets those seeking high-privacy urban residences with 360-degree exterior views.",
+      image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200"
+    },
+    {
+      title: "Penthouse and Private Amenities",
+      subtitle: "The Signature Asset",
+      text: "The property is capped by a high-value duplex penthouse occupying the eighth and ninth floors. A distinguishing feature of this unit is the inclusion of a private swimming pool. Dedicated lifestyle spaces, including a resident-only lounge, further enhance the standing of the building as a top-tier luxury residence.",
+      image: "https://images.unsplash.com/photo-1512918766775-256e15637686?auto=format&fit=crop&q=80&w=1200"
+    }
   ];
 
   return (
     <div className="bg-refenti-offwhite min-h-screen">
-      {/* Hero Banner */}
-      <section className="relative h-screen w-full flex items-end justify-center bg-refenti-offwhite overflow-hidden pb-32">
+      {/* Hero Section */}
+      <section className="relative h-[85vh] w-full flex items-end justify-center overflow-hidden pb-24">
         <div 
           className="absolute inset-[-5%]"
           style={{ 
-            backgroundImage: `url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            transform: `translateY(${-scrollY * 0.1}px)`,
+            transform: `translateY(${-scrollY * 0.12}px)`,
             willChange: 'transform'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/40 to-transparent pointer-events-none" />
         
-        <div className="relative z-10 text-center space-y-12 px-4 max-w-6xl mx-auto reveal active">
-          <div className="space-y-6">
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.7em] text-[10px] md:text-xs">The Signature Collection</p>
-            <h1 className="font-display text-7xl md:text-[10rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">Bole High-Rise</h1>
-          </div>
+        <div className="relative z-10 text-center space-y-4 px-6 max-w-6xl mx-auto reveal active">
+          <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.6em] text-[10px] md:text-xs">Boutique Residential Collection</p>
+          <h1 className="font-display text-7xl md:text-[11rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">Refenti Bole</h1>
         </div>
       </section>
 
-      {/* Action Bar */}
-      <section className="relative bg-refenti-offwhite border-b border-gray-200 reveal active">
-        <div className="max-w-7xl mx-auto px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center md:items-start reveal">
-             <p className="text-refenti-charcoal font-sans font-bold uppercase tracking-[0.2em] text-[10px] opacity-60">Project Inquiry Portal</p>
-          </div>
-          
-          <div className="flex flex-col items-center md:items-end gap-2 reveal">
-            <button className="bg-refenti-charcoal text-white px-12 py-4 rounded-full font-sans font-bold uppercase tracking-widest text-[10px] hover:bg-refenti-gold transition-all shadow-xl active:scale-95">
-              Download Brochure
-            </button>
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-refenti-gold animate-pulse" />
-              <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-refenti-gold">Under Construction</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Introductory Section */}
-      <section className="pt-24 md:pt-40 pb-16 px-8 md:px-12 bg-refenti-offwhite reveal">
+      {/* Asset Narrative Section */}
+      <section className="py-32 px-8 md:px-12 bg-white reveal">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-12 reveal">
-            <div className="space-y-8">
-              <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal leading-tight uppercase">
-                A Vision of <br/><span className="text-refenti-gold italic">Vertical Luxury</span>
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Asset Narrative</p>
+              <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal uppercase leading-tight">
+                Project <span className="text-refenti-gold italic">Vision</span>
               </h2>
-              <p className="text-xl text-gray-800 font-light leading-relaxed max-w-xl">
-                Bole High-Rise is a visionary development that seamlessly integrates ultra-luxury residential living with premium commercial facilities. Situated at the apex of the financial district in Addis Ababa, this architectural landmark offers a bespoke lifestyle defined by structural elegance and unparalleled convenience.
-              </p>
             </div>
+            <p className="text-sm md:text-base text-gray-700 font-light leading-relaxed max-w-lg text-justify">
+              Refenti Bole is a boutique residential development focused on high-end, low-density living. The project utilizes a service-oriented model structured to prioritize privacy and exclusive site access. Every architectural choice has been made to target a niche market seeking total floor exclusivity and 360-degree views.
+            </p>
           </div>
-
-          <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-[4rem] shadow-2xl reveal">
-             <img 
-               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" 
-               className="w-full h-full object-cover" 
-               alt="Bole High-Rise Architecture" 
-             />
-             <div className="absolute inset-0 bg-gradient-to-t from-refenti-charcoal/20 to-transparent" />
+          <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] shadow-2xl">
+             <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover" alt="Bole Perspective" />
           </div>
         </div>
       </section>
 
       {/* Project Features Section */}
-      <section className="py-20 px-8 md:px-12 bg-refenti-offwhite reveal">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="flex items-center gap-6">
-            <h2 className="font-display text-4xl md:text-5xl font-light text-refenti-charcoal uppercase">
-              Project <span className="text-refenti-gold italic">Features</span>
-            </h2>
-            <div className="flex-1 h-px bg-gray-200" />
+      <section className="py-24 px-8 bg-refenti-offwhite reveal border-t border-gray-100">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="space-y-3">
+            <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Scope of Attributes</p>
+            <h2 className="font-display text-4xl md:text-5xl font-light text-refenti-charcoal uppercase">Project <span className="text-refenti-gold italic">Features</span></h2>
           </div>
-          
-          <div className="flex flex-wrap gap-4">
-            {projectFeatures.map((feature, idx) => (
-              <div 
-                key={idx} 
-                className="bg-white px-10 py-5 rounded-full shadow-sm border border-gray-200 flex items-center justify-center group hover:shadow-md hover:-translate-y-1 transition-all duration-500 cursor-default reveal"
-                style={{ transitionDelay: `${idx * 100}ms` }}
-              >
-                <span className="text-[11px] font-bold uppercase tracking-widest text-refenti-charcoal group-hover:text-refenti-gold transition-colors">
-                  {feature}
-                </span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-200 border border-gray-200 rounded-[3rem] overflow-hidden shadow-sm">
+            {keyFeatures.map((feature, idx) => (
+              <div key={idx} className="bg-white p-10 md:p-14 flex flex-col justify-center items-center text-center group hover:bg-refenti-offwhite transition-colors duration-500">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4 group-hover:text-refenti-gold">Attribute 0{idx + 1}</span>
+                <p className="font-display text-xl md:text-2xl text-refenti-charcoal leading-tight">{feature}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Detailed Features Scroll Section */}
-      <section className="bg-refenti-offwhite pb-32">
-        <div className="w-full">
-          {projectFeatures.map((feature, idx) => (
-            <FeatureSection key={feature} feature={feature} index={idx} />
+      {/* Main Attributes Section */}
+      <section className="bg-white py-32">
+        <div className="max-w-7xl mx-auto px-8 md:px-12 mb-16">
+           <div className="space-y-3">
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Technical Depth</p>
+              <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal uppercase">Main <span className="text-refenti-gold italic">Attributes</span></h2>
+            </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-8 md:px-12">
+          {detailSections.map((section, idx) => (
+            <div 
+              key={idx} 
+              className={`flex flex-col md:flex-row items-center gap-16 md:gap-32 py-24 md:py-40 border-b border-gray-50 last:border-0 reveal ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+            >
+              <div className="w-full md:w-1/2 aspect-[4/5] rounded-[4rem] overflow-hidden shadow-2xl relative">
+                <img src={section.image} className="w-full h-full object-cover" alt={section.title} />
+                <div className="absolute inset-0 bg-refenti-charcoal/5 pointer-events-none" />
+              </div>
+              
+              <div className="w-full md:w-1/2 space-y-8">
+                <div className="space-y-3">
+                  <p className="text-refenti-gold font-sans font-bold uppercase tracking-widest text-[10px]">{section.subtitle}</p>
+                  <h3 className="font-display text-5xl md:text-7xl font-light text-refenti-charcoal leading-none uppercase">
+                    {section.title.split(' ').slice(0, -1).join(' ')} <br/>
+                    <span className="text-refenti-gold italic">{section.title.split(' ').slice(-1)}</span>
+                  </h3>
+                </div>
+                <div className="w-20 h-px bg-refenti-gold" />
+                <p className="text-gray-700 font-light text-sm leading-relaxed max-w-lg text-justify">
+                  {section.text}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </section>
-
-      {/* Discreet Closing Section */}
-      <footer className="py-24 px-8 bg-white text-center reveal border-t border-gray-200">
-        <div className="max-w-3xl mx-auto space-y-8">
-          <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase leading-none">
-            Define Your <span className="text-refenti-gold italic">Legacy</span>
-          </h2>
-          <p className="text-gray-700 text-base font-light tracking-wide leading-relaxed">
-            Limited residential units remaining. Discover a level of exclusivity reserved for the most discerning investors.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };

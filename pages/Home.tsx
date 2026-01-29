@@ -32,7 +32,7 @@ const EventCard: React.FC<{ event: EventItem; index: number }> = ({ event, index
         </button>
 
         <div className={`overflow-hidden transition-all duration-700 ease-in-out ${isOpen ? 'max-h-40 opacity-100 mt-4 pt-4 border-t border-gray-100' : 'max-h-0 opacity-0'}`}>
-          <p className="text-gray-600 text-[13px] font-light leading-relaxed">
+          <p className="text-gray-600 text-[13px] font-light leading-relaxed text-justify">
             {event.details}
           </p>
         </div>
@@ -65,29 +65,21 @@ const PhilosophySection: React.FC = () => {
   return (
     <section ref={sectionRef} className="py-24 md:py-40 px-4 md:px-8 bg-refenti-offwhite flex items-center justify-center">
       <div 
-        className="max-w-6xl w-full bg-white p-10 md:p-20 shadow-sm border border-gray-100 relative overflow-hidden transition-all duration-700 ease-out reveal"
+        className="max-w-6xl w-full bg-white p-8 md:p-20 shadow-sm border border-gray-100 relative overflow-hidden transition-all duration-700 ease-out reveal"
         style={{ 
           borderTopLeftRadius: progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
           borderTopRightRadius: progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
           borderRadius: baseRadius
         }}
       >
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8 md:space-y-12 reveal">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          <div className="space-y-6 md:space-y-12 reveal">
             <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-light text-refenti-charcoal leading-[1.1] tracking-tight">
-              Active <span className="text-refenti-gold italic">Asset</span> <br/> Management.
+              The Art of <br/> <span className="text-refenti-gold italic">Urban</span> <br/> Development.
             </h2>
-            <p className="text-gray-600 leading-relaxed text-sm md:text-base font-light max-w-sm">
-              Operating under Solstice Ventures Holding, Refenti goes beyond construction to manage living ecosystems through disciplined governance and premium delivery.
+            <p className="text-gray-600 leading-relaxed text-sm md:text-base font-light max-w-sm text-justify">
+              Operating under Solstice Ventures Holding, Refenti manages structural ecosystems through architectural precision and high-standard delivery.
             </p>
-            <div className="flex gap-8 items-center">
-              <Link to="/about" className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[8px] border-b border-refenti-gold pb-1">
-                Overview
-              </Link>
-              <Link to="/investment" className="bg-refenti-charcoal text-white px-8 py-4 rounded-xl text-[9px] font-bold uppercase tracking-ultra hover:bg-refenti-gold transition-all shadow-sm">
-                Strategy
-              </Link>
-            </div>
           </div>
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] md:rounded-[3rem] shadow-sm border border-gray-50 reveal">
              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover opacity-90" alt="Interior" />
@@ -115,8 +107,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="overflow-hidden bg-refenti-offwhite">
-      <section className="relative h-[95vh] w-full flex items-end justify-center bg-refenti-offwhite pb-16 md:pb-28 overflow-hidden">
-        {/* Parallax Image Layer */}
+      <section className="relative min-h-[80vh] md:min-h-screen w-full flex items-end justify-center bg-refenti-offwhite pb-16 md:pb-28 overflow-hidden">
         <div 
           className="absolute inset-[-5%]"
           style={{ 
@@ -127,69 +118,59 @@ const Home: React.FC = () => {
             willChange: 'transform'
           }}
         />
-        
-        {/* Static Gradient Overlay Layer */}
         <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/40 to-transparent pointer-events-none" />
         
-        <div className="relative z-10 text-center space-y-10 md:space-y-14 px-6 max-w-6xl mx-auto reveal active">
-          <div className="space-y-4 md:space-y-6">
-            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[8px] md:text-[10px] opacity-90">
-              Institutional Investment & Development
+        <div className="relative z-10 text-center space-y-8 md:space-y-14 px-4 sm:px-6 max-w-6xl mx-auto reveal active">
+          <div className="space-y-3 md:space-y-6">
+            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[7px] md:text-[10px] opacity-90">
+              Refining urban landscapes
             </p>
             <h1 className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light text-refenti-charcoal tracking-tighter leading-none">
               Refenti <br className="sm:hidden" /> Realty <br className="hidden sm:block" /> Group
             </h1>
           </div>
-          <Link 
-            to="/contact" 
-            className="inline-block py-5 px-14 md:py-6 md:px-20 bg-refenti-charcoal text-white rounded-2xl text-[10px] md:text-[12px] font-bold uppercase tracking-ultra shadow-lg hover:bg-refenti-gold transition-all duration-500 active:scale-95"
-          >
-            Inquire
-          </Link>
         </div>
       </section>
 
       <PhilosophySection />
 
-      <section className="py-24 md:py-48 px-6 md:px-12 bg-white rounded-[3rem] md:rounded-[6rem] shadow-sm relative z-10 -mt-12 md:-mt-24 border-t border-gray-50">
+      <section className="py-20 md:py-48 px-4 sm:px-6 md:px-12 bg-white rounded-[2.5rem] md:rounded-[6rem] shadow-sm relative z-10 -mt-8 md:-mt-24 border-t border-gray-50">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end reveal">
-            <div className="space-y-2">
-              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[8px]">The Collections</p>
-              <h2 className="font-display text-6xl md:text-9xl font-light text-black tracking-tighter uppercase leading-none select-none">
+          <div className="mb-12 md:mb-24 reveal">
+            <div className="space-y-1 md:space-y-2 text-center md:text-left">
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[7px] md:text-[8px]">The Collection</p>
+              <h2 className="font-display text-5xl sm:text-6xl md:text-9xl font-light text-black tracking-tighter uppercase leading-none select-none">
                 Portfolio
               </h2>
             </div>
-            <Link to="/projects" className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px] flex items-center gap-6 group mb-2">
-              View All <span className="w-12 h-px bg-refenti-gold group-hover:w-20 transition-all duration-700" />
-            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
             {projects.length > 0 && (
               <div className="md:col-span-7 group relative reveal">
-                <div className="overflow-hidden aspect-video rounded-[2.5rem] shadow-lg border border-gray-100 bg-white">
-                  <img src={projects[0].image} className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000" alt={projects[0].name} />
-                </div>
-                <div className="mt-10 space-y-4 px-4">
-                  <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">{projects[0].type}</p>
-                  <h3 className="font-display text-3xl md:text-4xl font-light text-refenti-charcoal leading-none">{projects[0].name}</h3>
-                  <p className="text-gray-600 font-light text-sm max-w-md leading-relaxed">{projects[0].description}</p>
-                  <Link to={`/projects/${projects[0].id}`} className="mt-4 inline-block bg-refenti-charcoal text-white px-10 py-4 rounded-xl text-[9px] font-bold uppercase tracking-ultra hover:bg-refenti-gold transition-all">
-                    Details
-                  </Link>
+                <Link to={`/projects/${projects[0].id}`} className="block">
+                  <div className="overflow-hidden aspect-video rounded-[2rem] md:rounded-[2.5rem] shadow-lg border border-gray-100 bg-white">
+                    <img src={projects[0].image} className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000" alt={projects[0].name} />
+                  </div>
+                </Link>
+                <div className="mt-6 md:mt-10 space-y-2 md:space-y-4 px-2 md:px-4">
+                  <p className="text-[7px] md:text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">{projects[0].assetClass}</p>
+                  <h3 className="font-display text-2xl md:text-4xl font-light text-refenti-charcoal leading-none">{projects[0].name}</h3>
+                  <p className="text-gray-600 font-light text-sm max-w-md leading-relaxed text-justify">{projects[0].description}</p>
                 </div>
               </div>
             )}
 
             {projects.length > 1 && (
               <div className="md:col-span-5 md:mt-32 group reveal">
-                <div className="overflow-hidden aspect-[4/5] rounded-[2rem] shadow-lg border border-gray-100 bg-white">
-                  <img src={projects[1].image} className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000" alt={projects[1].name} />
-                </div>
-                <div className="mt-8 px-4">
-                  <h3 className="font-display text-3xl font-light text-refenti-charcoal mb-2">{projects[1].name}</h3>
-                  <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">{projects[1].type}</p>
+                <Link to={`/projects/${projects[1].id}`} className="block">
+                  <div className="overflow-hidden aspect-[4/5] rounded-[2rem] shadow-lg border border-gray-100 bg-white">
+                    <img src={projects[1].image} className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000" alt={projects[1].name} />
+                  </div>
+                </Link>
+                <div className="mt-6 md:mt-8 px-2 md:px-4">
+                  <h3 className="font-display text-2xl md:text-3xl font-light text-refenti-charcoal mb-1 md:mb-2">{projects[1].name}</h3>
+                  <p className="text-[7px] md:text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">{projects[1].assetClass}</p>
                 </div>
               </div>
             )}
@@ -197,33 +178,24 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-24 md:py-40 px-6 bg-refenti-offwhite reveal">
+      <section className="py-20 md:py-40 px-4 sm:px-6 bg-refenti-offwhite reveal">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 space-y-3">
-            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[9px] opacity-80">Exclusivity</p>
-            <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal">Featured Engagements</h2>
+          <div className="text-center mb-12 md:mb-16 space-y-2 md:space-y-3">
+            <p className="text-refenti-gold font-sans font-bold tracking-ultra uppercase text-[8px] md:text-[9px] opacity-80">Current Milestones</p>
+            <h2 className="font-display text-3xl md:text-6xl font-light text-refenti-charcoal">Featured Updates</h2>
           </div>
           
           {featuredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {featuredEvents.map((event, idx) => (
                 <EventCard key={event.id} event={event} index={idx} />
               ))}
             </div>
           ) : (
-             <div className="text-center text-gray-500 font-display italic text-xl">
-               No upcoming featured events at this moment.
+             <div className="text-center text-gray-500 font-display italic text-lg md:text-xl py-20">
+               No recent updates at this moment.
              </div>
           )}
-
-          <div className="mt-20 text-center">
-            <Link 
-              to="/events-news" 
-              className="inline-block border border-refenti-gold text-refenti-gold px-12 py-5 rounded-2xl text-[10px] font-bold uppercase tracking-ultra hover:bg-refenti-gold hover:text-white transition-all duration-500 shadow-sm"
-            >
-              View All Events & News
-            </Link>
-          </div>
         </div>
       </section>
     </div>

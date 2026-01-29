@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,19 +8,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
               'refenti-offwhite': '#F7F3F0',
-              'refenti-gold': '#D4AF37',
-              'refenti-charcoal': '#333333',
+              'refenti-gold': '#b7a371',
+              'refenti-charcoal': '#414141',
             },
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              display: ['Cormorant Garamond', 'serif'],
+              sans: ['Nunito Sans', 'sans-serif'],
+              display: ['Nunito Sans', 'sans-serif'],
             },
             letterSpacing: {
               'extrawide': '0.4em',
@@ -31,12 +31,18 @@
       };
     </script>
     <style>
+      html, body, #root {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
       body {
         background-color: #F7F3F0;
-        color: #333333;
+        color: #414141;
         overflow-x: hidden;
         font-weight: 300;
         -webkit-font-smoothing: antialiased;
+        font-family: 'Nunito Sans', sans-serif;
       }
       ::-webkit-scrollbar {
         width: 4px;
@@ -45,7 +51,7 @@
         background: #F7F3F0;
       }
       ::-webkit-scrollbar-thumb {
-        background: #D4AF37;
+        background: #b7a371;
       }
       .glass-nav {
         background: rgba(255, 255, 255, 0.7);
@@ -68,6 +74,11 @@
       .subtle-shadow {
         box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.05);
       }
+
+      /* Fullscreen expansion animation for projects */
+      .expand-x {
+        transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+      }
     </style>
   <script type="importmap">
 {
@@ -82,8 +93,8 @@
 }
 </script>
 </head>
-  <body>
-    <div id="root"></div>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>

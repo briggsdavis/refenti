@@ -8,9 +8,9 @@ export interface ProjectDetailSection {
 export interface Project {
   id: string;
   name: string;
-  type: 'Sales' | 'Leasing';
+  assetClass: 'Residential' | 'Mixed-Use' | 'Commercial' | 'Hospitality';
   location: string;
-  image: string; // This acts as the hero banner
+  image: string;
   description: string;
   brochureUrl?: string;
   introTitle?: string;

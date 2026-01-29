@@ -23,7 +23,8 @@ const AdminProjectEditor: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<Partial<Project>>({
     name: '',
-    type: 'Sales',
+    // Fix: 'type' does not exist in type 'Partial<Project>'. Changed to 'assetClass'.
+    assetClass: 'Residential',
     location: '',
     image: '',
     description: '',

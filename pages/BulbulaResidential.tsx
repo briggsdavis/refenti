@@ -1,237 +1,141 @@
 
-import React, { useState, useEffect, useRef } from 'react';
-
-const FeatureSection: React.FC<{ feature: string; index: number; projectName: string }> = ({ feature, index, projectName }) => {
-  const [targetProgress, setTargetProgress] = useState(0);
-  const [smoothedProgress, setSmoothedProgress] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const requestRef = useRef<number>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      const start = windowHeight;
-      const end = windowHeight * 0.15;
-      const current = rect.top;
-      
-      let p = (start - current) / (start - end);
-      p = Math.min(Math.max(p, 0), 1);
-      setTargetProgress(p);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const animate = () => {
-      setSmoothedProgress((prev) => {
-        const diff = targetProgress - prev;
-        const next = prev + diff * 0.025;
-        if (Math.abs(diff) < 0.0001) return targetProgress;
-        return next;
-      });
-      requestRef.current = requestAnimationFrame(animate);
-    };
-    requestRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
-    };
-  }, [targetProgress]);
-
-  const isLeft = index % 2 === 0;
-  const widthPercentage = 40 + (smoothedProgress * 60);
-
-  return (
-    <div 
-      ref={sectionRef}
-      className={`max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-24 py-16 px-8 md:px-12 ${!isLeft ? 'md:flex-row-reverse' : ''}`}
-    >
-      <div className={`w-full md:w-1/2 h-[50vh] md:h-[60vh] flex ${isLeft ? 'justify-end' : 'justify-start'}`}>
-        <div 
-          className="h-full overflow-hidden rounded-[3.5rem] shadow-2xl relative"
-          style={{ 
-            width: `${widthPercentage}%`,
-            transition: 'none' 
-          }}
-        >
-          <div 
-            className="absolute h-full"
-            style={{ 
-              width: '50vw',
-              right: isLeft ? 0 : 'auto',
-              left: !isLeft ? 0 : 'auto'
-            }}
-          >
-            <img 
-              src={`https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200&sig=${index + 305}`} 
-              className="w-full h-full object-cover"
-              alt={feature}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className={`w-full md:w-1/2 space-y-6 reveal px-4 md:px-12`}>
-        <div className="space-y-2">
-          <span className="text-refenti-gold font-display text-7xl font-light opacity-10 leading-none select-none">
-            0{index + 1}
-          </span>
-          <h3 className="font-display text-4xl md:text-5xl font-light tracking-tight text-refenti-charcoal leading-[1.1]">
-            {feature}
-          </h3>
-        </div>
-        <div className="space-y-4 max-w-lg">
-          <p className="text-gray-800 font-light leading-relaxed text-lg">
-            At {projectName}, {feature.toLowerCase()} is more than an amenity: it is a cornerstone of the resident experience, ensuring a sanctuary for modern families.
-          </p>
-          <div className="flex items-center gap-6">
-            <div className="w-12 h-[1px] bg-refenti-gold" />
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.3em] text-[10px]">Standard of Excellence</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import React, { useState, useEffect } from 'react';
 
 const BulbulaResidential: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const projectFeatures = [
-    "Luxury Living",
-    "Family Friendly",
-    "Secure Perimeter",
-    "Lush Gardens",
-    "Fitness Center",
-    "Modern Interiors",
-    "Quiet Neighborhood"
+  const keyFeatures = [
+    "Mixed-Use Commercial and Hotel",
+    "30,000 Built-Up Area",
+    "4,622 Plot Size",
+    "Premium Hotel Floors 5 to 10",
+    "7,000 Daily Footfall Baseline",
+    "Two-Level Basement Parking",
+    "800 Ground Terrace",
+    "Refenti Role: Developer and Operator"
+  ];
+
+  const detailSections = [
+    {
+      title: "Commercial Asset Specification",
+      subtitle: "Professional Retail & Office",
+      text: "The asset features high-capacity commercial and retail zones designed for professional tenant operations and high-volume pedestrian traffic. The floor plate incorporates wide circulation areas to ensure smooth traffic flow across the ground, first, and second levels. Professional office spaces occupy the third floor, providing a stabilized daytime occupancy base for the complex.",
+      image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200"
+    },
+    {
+      title: "Leisure and Lifestyle Infrastructure",
+      subtitle: "Destination Social Hub",
+      text: "The development includes specialized open-air hospitality zones, notably a signature ground-floor terrace and a garden-style restaurant facility. The top floor is designated for a premium restaurant and swimming pool concept, serving as the building's primary leisure anchor. These features are positioned to maximize the property value as a regional dining and social destination.",
+      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200"
+    },
+    {
+      title: "Hospitality and Amenity Integration",
+      subtitle: "The Hotel Ecosystem",
+      text: "The hotel component consists of planned rooms and suites integrated with a comprehensive amenity floor on the fourth level. This level includes a gym, spa, and reception. This structural layout ensures hotel guests have direct internal access to the retail and dining ecosystem. The operational launch of these floors is intended to diversify the asset revenue streams and increase total property valuation.",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200"
+    }
   ];
 
   return (
     <div className="bg-refenti-offwhite min-h-screen">
-      {/* Hero Banner */}
-      <section className="relative h-screen w-full flex items-end justify-center bg-refenti-offwhite overflow-hidden pb-32">
+      {/* Hero Section */}
+      <section className="relative h-[85vh] w-full flex items-end justify-center overflow-hidden pb-24">
         <div 
           className="absolute inset-[-5%]"
           style={{ 
-            backgroundImage: `url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1449156001437-37c645d9bc01?auto=format&fit=crop&q=80&w=2000')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            transform: `translateY(${-scrollY * 0.1}px)`,
+            transform: `translateY(${-scrollY * 0.12}px)`,
             willChange: 'transform'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/40 to-transparent pointer-events-none" />
         
-        <div className="relative z-10 text-center space-y-12 px-4 max-w-6xl mx-auto reveal active">
-          <div className="space-y-6">
-            <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.7em] text-[10px] md:text-xs">The Modern Homestead</p>
-            <h1 className="font-display text-7xl md:text-[10rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">Bulbula Residential</h1>
-          </div>
+        <div className="relative z-10 text-center space-y-4 px-6 max-w-6xl mx-auto reveal active">
+          <p className="text-refenti-gold font-sans font-bold uppercase tracking-[0.6em] text-[10px] md:text-xs">Mixed-Use Asset Collection</p>
+          <h1 className="font-display text-7xl md:text-[11rem] font-light text-refenti-charcoal tracking-tighter leading-none uppercase">Refenti Bulbula</h1>
         </div>
       </section>
 
-      {/* Action Bar */}
-      <section className="relative bg-refenti-offwhite border-b border-gray-200 reveal active">
-        <div className="max-w-7xl mx-auto px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center md:items-start reveal">
-             <p className="text-refenti-charcoal font-sans font-bold uppercase tracking-[0.2em] text-[10px] opacity-60">Project Inquiry Portal</p>
-          </div>
-          
-          <div className="flex flex-col items-center md:items-end gap-2 reveal">
-            <button className="bg-refenti-charcoal text-white px-12 py-4 rounded-full font-sans font-bold uppercase tracking-widest text-[10px] hover:bg-refenti-gold transition-all shadow-xl active:scale-95">
-              Download Brochure
-            </button>
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-refenti-gold animate-pulse" />
-              <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-refenti-gold">Under Construction</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Introductory Section */}
-      <section className="pt-24 md:pt-40 pb-16 px-8 md:px-12 bg-refenti-offwhite reveal">
+      {/* Asset Narrative Section */}
+      <section className="py-32 px-8 md:px-12 bg-white reveal">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-12 reveal">
-            <div className="space-y-8">
-              <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal leading-tight uppercase">
-                Where Modernity <br/><span className="text-refenti-gold italic">Breathes</span>
-              </h2>
-              <p className="text-xl text-gray-800 font-light leading-relaxed max-w-xl">
-                At Bulbula Residential, we focus on the harmony between urban living and environmental serenity. Each unit is a testament to light, space, and family well-being in the heart of Addis Ababa.
-              </p>
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Asset Narrative</p>
+              <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal uppercase leading-tight">Project <span className="text-refenti-gold italic">Convergence</span></h2>
             </div>
+            <p className="text-sm md:text-base text-gray-700 font-light leading-relaxed max-w-lg text-justify">
+              Refenti Bulbula is a flagship mixed-use asset in the Bole Bulbula district. This project integrates premium commercial space with a high-capacity hotel component designed to operate as a self-sustaining urban destination. With a plot size of 4,622 sqm and an estimated daily footfall of 7,000, it represents a core node for commercial activity and leisure.
+            </p>
           </div>
-
-          <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-[4rem] shadow-2xl reveal">
-             <img 
-               src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200" 
-               className="w-full h-full object-cover" 
-               alt="Bulbula Residential Architecture" 
-             />
-             <div className="absolute inset-0 bg-gradient-to-t from-refenti-charcoal/20 to-transparent" />
+          <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] shadow-2xl">
+             <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover" alt="Bulbula Commercial Hub" />
           </div>
         </div>
       </section>
 
       {/* Project Features Section */}
-      <section className="py-20 px-8 md:px-12 bg-refenti-offwhite reveal">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="flex items-center gap-6">
-            <h2 className="font-display text-4xl md:text-5xl font-light text-refenti-charcoal uppercase">
-              Project <span className="text-refenti-gold italic">Features</span>
-            </h2>
-            <div className="flex-1 h-px bg-gray-200" />
+      <section className="py-24 px-8 bg-refenti-offwhite reveal border-t border-gray-100">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="space-y-3">
+            <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Operational Data</p>
+            <h2 className="font-display text-4xl md:text-5xl font-light text-refenti-charcoal uppercase">Project <span className="text-refenti-gold italic">Features</span></h2>
           </div>
-          
-          <div className="flex flex-wrap gap-4">
-            {projectFeatures.map((feature, idx) => (
-              <div 
-                key={idx} 
-                className="bg-white px-10 py-5 rounded-full shadow-sm border border-gray-200 flex items-center justify-center group hover:shadow-md hover:-translate-y-1 transition-all duration-500 cursor-default reveal"
-                style={{ transitionDelay: `${idx * 100}ms` }}
-              >
-                <span className="text-[11px] font-bold uppercase tracking-widest text-refenti-charcoal group-hover:text-refenti-gold transition-colors">
-                  {feature}
-                </span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-200 border border-gray-200 rounded-[3rem] overflow-hidden shadow-sm">
+            {keyFeatures.map((feature, idx) => (
+              <div key={idx} className="bg-white p-10 md:p-14 flex flex-col justify-center items-center text-center group hover:bg-refenti-offwhite transition-colors duration-500">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4 group-hover:text-refenti-gold">Attribute 0{idx + 1}</span>
+                <p className="font-display text-xl md:text-2xl text-refenti-charcoal leading-tight">{feature}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Detailed Features Scroll Section */}
-      <section className="bg-refenti-offwhite pb-32">
-        <div className="w-full">
-          {projectFeatures.map((feature, idx) => (
-            <FeatureSection key={feature} feature={feature} index={idx} projectName="Bulbula Residential" />
+      {/* Main Attributes Section */}
+      <section className="bg-white pb-32">
+        <div className="max-w-7xl mx-auto px-8 md:px-12 py-24">
+           <div className="space-y-3">
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Technical Specs</p>
+              <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal uppercase">Main <span className="text-refenti-gold italic">Attributes</span></h2>
+            </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-8 md:px-12">
+          {detailSections.map((section, idx) => (
+            <div 
+              key={idx} 
+              className={`flex flex-col md:flex-row items-center gap-16 md:gap-32 py-24 md:py-40 border-b border-gray-50 last:border-0 reveal ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+            >
+              <div className="w-full md:w-1/2 aspect-[4/5] rounded-[4rem] overflow-hidden shadow-2xl relative">
+                <img src={section.image} className="w-full h-full object-cover" alt={section.title} />
+                <div className="absolute inset-0 bg-refenti-charcoal/5 pointer-events-none" />
+              </div>
+              
+              <div className="w-full md:w-1/2 space-y-8">
+                <div className="space-y-3">
+                  <p className="text-refenti-gold font-sans font-bold uppercase tracking-widest text-[10px]">{section.subtitle}</p>
+                  <h3 className="font-display text-5xl md:text-7xl font-light text-refenti-charcoal leading-none uppercase">
+                    {section.title.split(' ').slice(0, -1).join(' ')} <br/>
+                    <span className="text-refenti-gold italic">{section.title.split(' ').slice(-1)}</span>
+                  </h3>
+                </div>
+                <div className="w-20 h-px bg-refenti-gold" />
+                <p className="text-gray-700 font-light text-sm leading-relaxed max-w-lg text-justify">
+                  {section.text}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </section>
-
-      {/* Discreet Closing Section */}
-      <footer className="py-24 px-8 bg-white text-center reveal border-t border-gray-200">
-        <div className="max-w-3xl mx-auto space-y-8">
-          <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase leading-none">
-            Secure Your <span className="text-refenti-gold italic">Family Space</span>
-          </h2>
-          <p className="text-gray-700 text-base font-light tracking-wide leading-relaxed">
-            Limited residential units remaining. Discover a level of serenity reserved for the modern urban family.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };

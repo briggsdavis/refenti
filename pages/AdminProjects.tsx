@@ -44,7 +44,8 @@ const AdminProjects: React.FC = () => {
               </div>
               <div>
                 <h3 className="font-display text-3xl text-refenti-charcoal leading-none mb-2">{p.name}</h3>
-                <p className="text-[10px] uppercase tracking-widest text-gray-300 font-bold">{p.location} • {p.type}</p>
+                {/* Fix: Property 'type' does not exist on type 'Project'. Using 'assetClass' instead. */}
+                <p className="text-[10px] uppercase tracking-widest text-gray-300 font-bold">{p.location} • {p.assetClass}</p>
               </div>
             </div>
             <div className="flex gap-4">

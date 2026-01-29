@@ -89,7 +89,7 @@ const FeatureSection: React.FC<{ section: { title: string; text: string; image: 
           </h3>
         </div>
         <div className="space-y-4 max-w-lg">
-          <p className="text-gray-700 font-light leading-relaxed text-lg">
+          <p className="text-gray-700 font-light leading-relaxed text-sm text-justify">
             {section.text}
           </p>
           <div className="flex items-center gap-6">
@@ -175,41 +175,42 @@ const ProjectDetail: React.FC = () => {
         </div>
       </section>
 
-      {/* Introductory Section */}
-      <section className="pt-24 md:pt-40 pb-16 px-8 md:px-12 bg-refenti-offwhite reveal">
+      {/* Asset Narrative Section */}
+      <section className="py-24 md:py-40 px-8 md:px-12 bg-white reveal">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-12 reveal">
-            <div className="space-y-8">
+          <div className="space-y-8 reveal">
+            <div className="space-y-3">
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Asset Narrative</p>
               <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal leading-tight uppercase">
                 {project.introTitle?.split(' ')[0]} <br/>
                 <span className="text-refenti-gold italic">{project.introTitle?.split(' ').slice(1).join(' ')}</span>
               </h2>
-              <p className="text-xl text-gray-700 font-light leading-relaxed max-w-xl">
-                {project.introText}
-              </p>
             </div>
+            <p className="text-sm text-gray-700 font-light leading-relaxed max-w-xl text-justify">
+              {project.introText}
+            </p>
           </div>
 
-          <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-[4rem] shadow-2xl reveal">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] shadow-2xl reveal">
              <img 
                src={project.introImage || project.image} 
                className="w-full h-full object-cover" 
                alt={`${project.name} Perspective`} 
              />
-             <div className="absolute inset-0 bg-gradient-to-t from-refenti-charcoal/20 to-transparent" />
+             <div className="absolute inset-0 bg-gradient-to-t from-refenti-charcoal/20 to-transparent pointer-events-none" />
           </div>
         </div>
       </section>
 
-      {/* Project Features (Pills) */}
+      {/* Project Features Section */}
       {project.projectFeatures && project.projectFeatures.length > 0 && (
-        <section className="py-20 px-8 md:px-12 bg-refenti-offwhite reveal">
-          <div className="max-w-7xl mx-auto space-y-12">
-            <div className="flex items-center gap-6">
+        <section className="py-24 px-8 md:px-12 bg-refenti-offwhite reveal border-t border-gray-100">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="space-y-3 text-center md:text-left">
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Scope of Amenities</p>
               <h2 className="font-display text-4xl md:text-5xl font-light text-refenti-charcoal uppercase">
                 Project <span className="text-refenti-gold italic">Features</span>
               </h2>
-              <div className="flex-1 h-px bg-gray-100" />
             </div>
             
             <div className="flex flex-wrap gap-4">
@@ -229,8 +230,16 @@ const ProjectDetail: React.FC = () => {
         </section>
       )}
 
-      {/* Detailed Features Scroll Section */}
-      <section className="bg-refenti-offwhite pb-32">
+      {/* Main Attributes Section */}
+      <section className="bg-white py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-8 md:px-12 mb-16">
+           <div className="space-y-3 text-center md:text-left">
+              <p className="text-refenti-gold font-sans font-bold uppercase tracking-ultra text-[9px]">Technical Depth</p>
+              <h2 className="font-display text-4xl md:text-6xl font-light text-refenti-charcoal uppercase">
+                Main <span className="text-refenti-gold italic">Attributes</span>
+              </h2>
+            </div>
+        </div>
         <div className="w-full">
           {project.detailSections?.map((section, idx) => (
             <FeatureSection key={idx} section={section} index={idx} projectName={project.name} />
@@ -243,7 +252,7 @@ const ProjectDetail: React.FC = () => {
           <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase leading-none">
             Define Your <span className="text-refenti-gold italic">Legacy</span>
           </h2>
-          <p className="text-gray-600 text-base font-light tracking-wide leading-relaxed">
+          <p className="text-gray-600 text-base font-light tracking-wide leading-relaxed text-justify">
             Discover a level of exclusivity reserved for the most discerning global citizens.
           </p>
         </div>

@@ -35,8 +35,8 @@ const Navbar: React.FC = () => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Investment', path: '/investment' },
-    { name: 'Projects', path: '/projects', isDropdown: true },
-    { name: 'Events & News', path: '/events-news' },
+    { name: 'Portfolio', path: '/projects', isDropdown: true },
+    { name: 'News', path: '/news' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
   const handleMouseLeave = () => {
     menuTimeoutRef.current = window.setTimeout(() => {
       setIsMenuOpen(false);
-    }, 300);
+    }, 400); // Slightly longer delay for better UX
   };
 
   return (
@@ -76,7 +76,8 @@ const Navbar: React.FC = () => {
                     onMouseLeave={handleMouseLeave}
                     className="relative hidden lg:block"
                   >
-                    <button
+                    <Link
+                      to={link.path}
                       className={`
                         relative text-[9px] font-bold tracking-ultra uppercase transition-all py-1 flex items-center gap-2
                         text-refenti-charcoal/80 hover:text-refenti-gold
@@ -90,7 +91,7 @@ const Navbar: React.FC = () => {
                       >
                         <path d="M19 9l-7 7-7-7" />
                       </svg>
-                    </button>
+                    </Link>
                   </li>
                 );
               }
@@ -126,20 +127,19 @@ const Navbar: React.FC = () => {
           </ul>
         </nav>
 
-        {/* Dropdown Menu */}
+        {/* Dropdown Desktop */}
         <div 
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className={`
-            absolute top-[calc(100%+1rem)] left-1/2 -translate-x-1/2 w-[850px] 
-            bg-white rounded-[3rem] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden hidden lg:block
-            transition-all duration-1000 cubic-bezier(0.19, 1, 0.22, 1) origin-top border border-gray-100/50
+            absolute top-[calc(100%-0.5rem)] left-1/2 -translate-x-1/2 w-[850px] pt-4
+            transition-all duration-1000 cubic-bezier(0.19, 1, 0.22, 1) origin-top
             ${isMenuOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-4 scale-98 pointer-events-none'}
           `}
         >
-          <div className="flex min-h-[480px]">
+          <div className="bg-white rounded-[3rem] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden border border-gray-100/50 flex min-h-[480px]">
             <div className="w-[38%] p-12 space-y-10 border-r border-gray-100 bg-white">
-              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">Collections</p>
+              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase opacity-80">Selected Works</p>
               <div className="space-y-8">
                 {projects.map((project) => (
                   <Link
@@ -164,16 +164,6 @@ const Navbar: React.FC = () => {
                   </Link>
                 ))}
               </div>
-              
-              <div className="pt-8">
-                <Link 
-                  to="/projects"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="inline-block px-8 py-4 rounded-full bg-refenti-charcoal text-white text-[9px] font-bold tracking-ultra uppercase transition-all hover:bg-refenti-gold shadow-lg"
-                >
-                  Full Portfolio
-                </Link>
-              </div>
             </div>
 
             <div className="w-[62%] relative p-10 bg-refenti-offwhite/30">
@@ -193,7 +183,7 @@ const Navbar: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     <div className="absolute bottom-10 left-10 text-white space-y-2 max-w-xs">
-                       <p className="text-[8px] font-bold tracking-ultra uppercase text-refenti-gold">{project.type}</p>
+                       <p className="text-[8px] font-bold tracking-ultra uppercase text-refenti-gold">{project.assetClass}</p>
                        <h3 className="font-display text-3xl font-light leading-none">{project.name}</h3>
                     </div>
                   </div>
@@ -211,40 +201,19 @@ const Navbar: React.FC = () => {
         `}>
           <div className="max-w-md mx-auto space-y-12">
             <div className="space-y-8">
-              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase border-b border-gray-100 pb-4 opacity-70">Menu</p>
-              <ul className="space-y-8">
-                {navLinks.filter(l => !l.isDropdown).map(link => (
+              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase border-b border-gray-100 pb-4 opacity-70">Refenti Values</p>
+              <ul className="space-y-6">
+                {navLinks.map(link => (
                   <li key={link.path} className="overflow-hidden">
                     <Link 
                       to={link.path}
-                      className="font-display text-4xl text-refenti-charcoal/90 hover:text-refenti-gold transition-all block"
+                      className="font-display text-4xl text-refenti-charcoal/90 hover:text-refenti-gold transition-all block uppercase tracking-tight"
                     >
                       {link.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
-
-            <div className="space-y-8">
-              <p className="text-[8px] font-bold text-refenti-gold tracking-ultra uppercase border-b border-gray-100 pb-4 opacity-70">Featured</p>
-              <div className="space-y-8">
-                {projects.map((project) => (
-                  <Link 
-                    key={project.id} 
-                    to={`/projects/${project.id}`}
-                    className="flex items-center gap-6 group"
-                  >
-                    <div className="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 shadow-sm">
-                      <img src={project.image} className="w-full h-full object-cover" alt={project.name} />
-                    </div>
-                    <div className="space-y-1">
-                      <h4 className="font-display text-xl text-refenti-charcoal group-hover:text-refenti-gold transition-colors">{project.name}</h4>
-                      <p className="text-[8px] font-bold text-gray-500 tracking-extrawide uppercase">{project.location}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
             </div>
           </div>
         </div>
