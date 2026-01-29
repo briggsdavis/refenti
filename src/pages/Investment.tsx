@@ -8,7 +8,7 @@ const SECTIONS = [
   { id: "reach", label: "Presence" },
 ]
 
-const Investment: React.FC = () => {
+function Investment() {
   const [scrollY, setScrollY] = useState(0)
   const [activeSection, setActiveSection] = useState(SECTIONS[0].id)
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
@@ -55,7 +55,7 @@ const Investment: React.FC = () => {
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
-        <div className="reveal active relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-14">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-14">
           <div className="space-y-3 md:space-y-6">
             <h1 className="font-display text-6xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[10rem]">
               Investment
@@ -69,7 +69,7 @@ const Investment: React.FC = () => {
 
       <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6 md:flex-row md:px-12 lg:gap-24">
         {/* Navigation Sidebar - Hidden on mobile/tablet for better UX */}
-        <aside className="reveal active sticky top-48 z-20 hidden h-fit w-64 lg:block xl:w-72">
+        <aside className="sticky top-48 z-20 hidden h-fit w-64 lg:block xl:w-72">
           <div className="space-y-8">
             <p className="border-b border-gray-100 pb-4 font-sans text-[10px] font-bold tracking-[0.4em] text-refenti-gold uppercase">
               Strategy
@@ -98,7 +98,7 @@ const Investment: React.FC = () => {
             ref={(el) => {
               sectionRefs.current["about"] = el
             }}
-            className="reveal space-y-12 pt-12 md:space-y-16 md:pt-40"
+            className="space-y-12 pt-12 md:space-y-16 md:pt-40"
           >
             <div className="space-y-4 md:space-y-6">
               <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
@@ -145,7 +145,7 @@ const Investment: React.FC = () => {
             ref={(el) => {
               sectionRefs.current["mandate"] = el
             }}
-            className="reveal"
+            className=""
           >
             <div className="relative overflow-hidden rounded-[2.5rem] bg-refenti-charcoal p-8 text-white shadow-2xl md:rounded-[4rem] md:p-16 lg:p-24">
               <div className="relative z-10 space-y-12 md:space-y-16">
@@ -206,7 +206,7 @@ const Investment: React.FC = () => {
             ref={(el) => {
               sectionRefs.current["activities"] = el
             }}
-            className="reveal space-y-12 md:space-y-24"
+            className="space-y-12 md:space-y-24"
           >
             <div className="space-y-4 text-center md:space-y-6">
               <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
@@ -267,7 +267,7 @@ const Investment: React.FC = () => {
             ref={(el) => {
               sectionRefs.current["model"] = el
             }}
-            className="reveal space-y-16 md:space-y-32"
+            className="space-y-16 md:space-y-32"
           >
             <div className="grid items-center gap-12 md:grid-cols-2 md:gap-24">
               <div className="space-y-8 md:space-y-12">
@@ -311,7 +311,7 @@ const Investment: React.FC = () => {
             ref={(el) => {
               sectionRefs.current["reach"] = el
             }}
-            className="reveal space-y-16 pb-24 md:space-y-32"
+            className="space-y-16 pb-24 md:space-y-32"
           >
             <div className="grid gap-12 md:grid-cols-2 md:gap-24">
               <div className="space-y-8 md:space-y-12">

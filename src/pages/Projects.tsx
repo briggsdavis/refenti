@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { getProjects } from "../constants"
+import { getProjects } from "../lib/api"
+import type { Project } from "../types"
 
-const Projects: React.FC = () => {
+function Projects() {
   const [scrollY, setScrollY] = useState(0)
-  const projects = getProjects()
+  const [projects, setProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const { data, error } = await getProjects()
+      if (error) {
+        console.error("Failed to load projects:", error.message)
+      } else {
+        setProjects(data)
+      }
+      setLoading(false)
+    }
+    fetchProjects()
   }, [])
 
   return (
@@ -29,7 +44,7 @@ const Projects: React.FC = () => {
         {/* Deep gradient overlay for text legibility and transition to off-white */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/60 to-black/20" />
 
-        <div className="reveal active relative z-10 mx-auto max-w-7xl space-y-12 px-4 text-center">
+        <div className="relative z-10 mx-auto max-w-7xl space-y-12 px-4 text-center">
           <div className="space-y-6 md:space-y-10">
             <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[12rem]">
               Portfolio
@@ -44,12 +59,15 @@ const Projects: React.FC = () => {
       {/* Project Grid */}
       <div className="relative z-10 -mt-16 px-6 pt-24 md:-mt-24 md:px-12 md:pt-40">
         <div className="mx-auto max-w-7xl">
+          {loading ? (
+            <div className="py-20 text-center text-gray-400">Loading projects...</div>
+          ) : (
           <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:gap-32">
             {projects.map((project, idx) => (
               <Link
                 key={project.id}
                 to={`/projects/${project.id}`}
-                className="group reveal active block cursor-pointer space-y-10"
+                className="group block cursor-pointer space-y-10"
                 style={{ transitionDelay: `${idx * 150}ms` }}
               >
                 {/* Project Image Container */}
@@ -91,6 +109,7 @@ const Projects: React.FC = () => {
               </Link>
             ))}
           </div>
+          )}
         </div>
       </div>
     </div>

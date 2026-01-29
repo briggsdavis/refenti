@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getProjects, saveProjects } from "../constants"
+import {
+  createProject,
+  getProjectById,
+  updateProject,
+} from "../lib/api"
 import type { Project, ProjectDetailSection } from "../types"
 
-const AdminInput: React.FC<{
+function AdminInput({
+  label,
+  value,
+  onChange,
+  placeholder,
+  small,
+}: {
   label: string
   value: string
   onChange: (v: string) => void
   placeholder?: string
   small?: boolean
-}> = ({ label, value, onChange, placeholder, small }) => (
+}) {
+  return (
   <div className="group space-y-2">
     <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase transition-colors group-focus-within:text-refenti-charcoal">
       {label}
@@ -21,11 +32,13 @@ const AdminInput: React.FC<{
       className={`w-full border-b-2 border-gray-200 bg-transparent py-4 font-medium text-refenti-charcoal transition-all placeholder:text-gray-300 focus:border-refenti-gold focus:outline-none ${small ? "text-base" : "text-3xl md:text-4xl"}`}
     />
   </div>
-)
+  )
+}
 
-const AdminProjectEditor: React.FC = () => {
+function AdminProjectEditor() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState<Partial<Project>>({
     name: "",
     // Fix: 'type' does not exist in type 'Partial<Project>'. Changed to 'assetClass'.
@@ -42,31 +55,48 @@ const AdminProjectEditor: React.FC = () => {
   })
 
   useEffect(() => {
-    if (id) {
-      const projects = getProjects()
-      const project = projects.find((p) => p.id === id)
-      if (project) setFormData(project)
+    const fetchProject = async () => {
+      if (id) {
+        const { data, error } = await getProjectById(id)
+        if (error) {
+          console.error("Failed to load project:", error.message)
+          alert("Project not found")
+          navigate("/admin/projects")
+        } else {
+          setFormData(data)
+        }
+      }
     }
-  }, [id])
+    fetchProject()
+  }, [id, navigate])
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.name) return
 
-    const projects = getProjects()
-    let updated: Project[]
+    setLoading(true)
     const pid = id || formData.name.toLowerCase().replace(/\s+/g, "-")
-
     const projectData = { ...formData, id: pid } as Project
 
     if (id) {
-      updated = projects.map((p) => (p.id === id ? projectData : p))
+      const { error } = await updateProject(id, projectData)
+      if (error) {
+        console.error("Failed to update project:", error.message)
+        alert("Failed to update project. Please try again.")
+        setLoading(false)
+      } else {
+        navigate("/admin/projects")
+      }
     } else {
-      updated = [...projects, projectData]
+      const { error } = await createProject(projectData)
+      if (error) {
+        console.error("Failed to create project:", error.message)
+        alert("Failed to create project. Please try again.")
+        setLoading(false)
+      } else {
+        navigate("/admin/projects")
+      }
     }
-
-    saveProjects(updated)
-    navigate("/admin/projects")
   }
 
   const addFeature = () =>

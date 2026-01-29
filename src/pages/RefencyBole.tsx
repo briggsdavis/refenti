@@ -2,13 +2,13 @@ import React from "react"
 // Use getProjects() instead of the missing PROJECTS export
 import { getProjects } from "../constants"
 
-const RefencyBole: React.FC = () => {
+function RefencyBole() {
   const property = getProjects()[0]
 
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="reveal relative h-[85vh] w-full overflow-hidden bg-white">
+      <section className="relative h-[85vh] w-full overflow-hidden bg-white">
         <img
           src={property.image}
           className="h-full w-full object-cover opacity-90"
@@ -25,7 +25,7 @@ const RefencyBole: React.FC = () => {
       </section>
 
       {/* Narrative */}
-      <section className="reveal bg-white px-8 py-32">
+      <section className="bg-white px-8 py-32">
         <div className="mx-auto max-w-4xl space-y-16 text-center">
           <p className="font-display text-3xl leading-tight font-light text-refenti-charcoal md:text-5xl">
             {property.description} This development stands as a definitive{" "}
@@ -61,10 +61,10 @@ const RefencyBole: React.FC = () => {
           {property.projectFeatures?.map((feature, idx) => (
             <div
               key={feature}
-              className={`reveal flex flex-col items-center gap-16 md:flex-row ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}`}
+              className={`flex flex-col items-center gap-16 md:flex-row ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}`}
             >
               <div className="w-full overflow-hidden rounded-3xl border border-gray-50 bg-white shadow-xl md:w-3/5">
-                <div className="expand-x h-full w-full origin-center">
+                <div className="transition-transform duration-[1500ms] ease-[cubic-bezier(0.19,1,0.22,1)] h-full w-full origin-center">
                   <img
                     src={`https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200&sig=${idx + 10}`}
                     className="h-full w-full object-cover"
@@ -101,7 +101,7 @@ const RefencyBole: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="reveal bg-white px-8 py-40 text-center">
+      <section className="bg-white px-8 py-40 text-center">
         <div className="mx-auto max-w-4xl space-y-16">
           <div className="space-y-4">
             <h2 className="font-display text-6xl font-light tracking-tight text-refenti-charcoal uppercase md:text-8xl">

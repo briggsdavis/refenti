@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { getNews, saveNews } from "../constants"
+import { createNews, deleteNews, getNews, updateNews } from "../lib/api"
 import type { NewsItem } from "../types"
 
-const AdminNews: React.FC = () => {
+function AdminNews() {
   const [news, setNews] = useState<NewsItem[]>([])
+  const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [formData, setFormData] = useState<Partial<NewsItem>>({
     title: "",
@@ -14,39 +15,76 @@ const AdminNews: React.FC = () => {
   })
 
   useEffect(() => {
-    setNews(getNews())
+    fetchNews()
   }, [])
 
-  const handleSave = (e: React.FormEvent) => {
+  const fetchNews = async () => {
+    const { data, error } = await getNews()
+    if (error) {
+      console.error("Failed to load news:", error.message)
+    } else {
+      setNews(data)
+    }
+    setLoading(false)
+  }
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.title) return
-    let updated: NewsItem[]
+
     if (editingId) {
-      updated = news.map((n) =>
-        n.id === editingId ? ({ ...n, ...formData } as NewsItem) : n,
-      )
+      const { data, error } = await updateNews(editingId, formData)
+      if (error) {
+        console.error("Failed to update news:", error.message)
+        alert("Failed to update news. Please try again.")
+      } else {
+        setNews(news.map((n) => (n.id === editingId ? data : n)))
+        resetForm()
+      }
     } else {
-      updated = [...news, { ...formData, id: "n" + Date.now() } as NewsItem]
+      const newNews = {
+        ...formData,
+        id: "n" + Date.now(),
+      } as NewsItem
+      const { data, error } = await createNews(newNews)
+      if (error) {
+        console.error("Failed to create news:", error.message)
+        alert("Failed to create news. Please try again.")
+      } else {
+        setNews([...news, data])
+        resetForm()
+      }
     }
-    setNews(updated)
-    saveNews(updated)
-    resetForm()
   }
 
   const handleEdit = (n: NewsItem) => {
     setEditingId(n.id)
     setFormData(n)
   }
-  const handleDelete = (id: string) => {
+
+  const handleDelete = async (id: string) => {
     if (confirm("Delete news story?")) {
-      const u = news.filter((n) => n.id !== id)
-      setNews(u)
-      saveNews(u)
+      const { error } = await deleteNews(id)
+      if (error) {
+        console.error("Failed to delete news:", error.message)
+        alert("Failed to delete news. Please try again.")
+      } else {
+        setNews(news.filter((n) => n.id !== id))
+      }
     }
   }
+
   const resetForm = () => {
     setEditingId(null)
     setFormData({ title: "", category: "", date: "", excerpt: "", image: "" })
+  }
+
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-7xl space-y-16 p-8 pb-40 md:p-16">
+        <div className="py-20 text-center text-gray-400">Loading...</div>
+      </div>
+    )
   }
 
   return (

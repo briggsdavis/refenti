@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react"
-import { getEvents, saveEvents } from "../constants"
+import {
+  createEvent,
+  deleteEvent,
+  getEvents,
+  updateEvent,
+} from "../lib/api"
 import type { EventItem } from "../types"
 
-const AdminEvents: React.FC = () => {
+function AdminEvents() {
   const [events, setEvents] = useState<EventItem[]>([])
+  const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [formData, setFormData] = useState<Partial<EventItem>>({
     title: "",
@@ -15,46 +21,79 @@ const AdminEvents: React.FC = () => {
   })
 
   useEffect(() => {
-    setEvents(getEvents())
+    fetchEvents()
   }, [])
 
-  const handleSave = (e: React.FormEvent) => {
+  const fetchEvents = async () => {
+    const { data, error } = await getEvents()
+    if (error) {
+      console.error("Failed to load events:", error.message)
+    } else {
+      setEvents(data)
+    }
+    setLoading(false)
+  }
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.title) return
-    let updated: EventItem[]
+
     if (editingId) {
-      updated = events.map((ev) =>
-        ev.id === editingId ? ({ ...ev, ...formData } as EventItem) : ev,
-      )
+      const { data, error } = await updateEvent(editingId, formData)
+      if (error) {
+        console.error("Failed to update event:", error.message)
+        alert("Failed to update event. Please try again.")
+      } else {
+        setEvents(events.map((ev) => (ev.id === editingId ? data : ev)))
+        resetForm()
+      }
     } else {
-      updated = [
-        ...events,
-        { ...formData, id: Date.now().toString() } as EventItem,
-      ]
+      const newEvent = {
+        ...formData,
+        id: Date.now().toString(),
+      } as EventItem
+      const { data, error } = await createEvent(newEvent)
+      if (error) {
+        console.error("Failed to create event:", error.message)
+        alert("Failed to create event. Please try again.")
+      } else {
+        setEvents([...events, data])
+        resetForm()
+      }
     }
-    setEvents(updated)
-    saveEvents(updated)
-    resetForm()
   }
 
   const handleEdit = (ev: EventItem) => {
     setEditingId(ev.id)
     setFormData(ev)
   }
-  const handleDelete = (id: string) => {
+
+  const handleDelete = async (id: string) => {
     if (confirm("Delete engagement?")) {
-      const u = events.filter((e) => e.id !== id)
-      setEvents(u)
-      saveEvents(u)
+      const { error } = await deleteEvent(id)
+      if (error) {
+        console.error("Failed to delete event:", error.message)
+        alert("Failed to delete event. Please try again.")
+      } else {
+        setEvents(events.filter((e) => e.id !== id))
+      }
     }
   }
-  const toggleFeatured = (id: string) => {
-    const u = events.map((e) =>
-      e.id === id ? { ...e, isFeatured: !e.isFeatured } : e,
-    )
-    setEvents(u)
-    saveEvents(u)
+
+  const toggleFeatured = async (id: string) => {
+    const event = events.find((e) => e.id === id)
+    if (!event) return
+
+    const { data, error } = await updateEvent(id, {
+      isFeatured: !event.isFeatured,
+    })
+    if (error) {
+      console.error("Failed to toggle featured:", error.message)
+    } else {
+      setEvents(events.map((e) => (e.id === id ? data : e)))
+    }
   }
+
   const resetForm = () => {
     setEditingId(null)
     setFormData({
@@ -65,6 +104,14 @@ const AdminEvents: React.FC = () => {
       details: "",
       isFeatured: false,
     })
+  }
+
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-7xl space-y-16 p-8 pb-40 md:p-16">
+        <div className="py-20 text-center text-gray-400">Loading...</div>
+      </div>
+    )
   }
 
   return (

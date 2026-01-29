@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react"
-import { getEvents, getNews } from "../constants"
-import type { NewsItem } from "../types"
+import { useEffect, useState } from "react"
+import { getEvents, getNews } from "../lib/api"
+import type { EventItem, NewsItem } from "../types"
 
-const NewsCard: React.FC<{ item: NewsItem; index: number }> = ({
-  item,
-  index,
-}) => {
+function NewsCard({ item, index }: { item: NewsItem; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <div
-      className="group reveal active relative h-fit overflow-hidden rounded-[2.5rem] bg-white shadow-sm transition-all duration-1000"
+      className="group relative h-fit overflow-hidden rounded-[2.5rem] bg-white shadow-sm transition-all duration-1000"
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <div className="relative aspect-[16/10] overflow-hidden">
@@ -55,15 +52,40 @@ const NewsCard: React.FC<{ item: NewsItem; index: number }> = ({
   )
 }
 
-const EventsNews: React.FC = () => {
+function EventsNews() {
   const [scrollY, setScrollY] = useState(0)
-  const events = getEvents()
-  const news = getNews()
+  const [events, setEvents] = useState<EventItem[]>([])
+  const [news, setNews] = useState<NewsItem[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [eventsResult, newsResult] = await Promise.all([
+        getEvents(),
+        getNews(),
+      ])
+
+      if (eventsResult.error) {
+        console.error("Failed to load events:", eventsResult.error.message)
+      } else {
+        setEvents(eventsResult.data)
+      }
+
+      if (newsResult.error) {
+        console.error("Failed to load news:", newsResult.error.message)
+      } else {
+        setNews(newsResult.data)
+      }
+
+      setLoading(false)
+    }
+    fetchData()
   }, [])
 
   return (
@@ -81,7 +103,7 @@ const EventsNews: React.FC = () => {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
 
-        <div className="reveal active relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center">
           <div className="space-y-6">
             <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[9rem]">
               News
@@ -94,77 +116,81 @@ const EventsNews: React.FC = () => {
       </section>
 
       <div className="px-6 py-24 md:px-12 md:py-40">
-        <div className="mx-auto max-w-7xl space-y-32 md:space-y-48">
-          <section className="space-y-16">
-            <div className="reveal active flex flex-col items-start justify-between border-b border-gray-300 pb-8 md:flex-row md:items-end">
-              <div className="space-y-2">
-                <p className="font-sans text-[8px] font-bold tracking-ultra text-refenti-gold uppercase">
-                  Sector Insights
+        {loading ? (
+          <div className="py-20 text-center text-gray-400">Loading...</div>
+        ) : (
+          <div className="mx-auto max-w-7xl space-y-32 md:space-y-48">
+            <section className="space-y-16">
+              <div className="flex flex-col items-start justify-between border-b border-gray-300 pb-8 md:flex-row md:items-end">
+                <div className="space-y-2">
+                  <p className="font-sans text-[8px] font-bold tracking-ultra text-refenti-gold uppercase">
+                    Sector Insights
+                  </p>
+                  <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase md:text-6xl">
+                    Asset <br className="hidden md:block" /> Milestones
+                  </h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+                {news.map((item, idx) => (
+                  <NewsCard key={item.id} item={item} index={idx} />
+                ))}
+              </div>
+            </section>
+
+            <section className="space-y-20">
+              <div className="space-y-4 text-center">
+                <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
+                  Strategic Engagements
                 </p>
-                <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase md:text-6xl">
-                  Asset <br className="hidden md:block" /> Milestones
+                <h2 className="font-display text-5xl font-light text-refenti-charcoal uppercase md:text-7xl">
+                  Technical Summits
                 </h2>
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
-              {news.map((item, idx) => (
-                <NewsCard key={item.id} item={item} index={idx} />
-              ))}
-            </div>
-          </section>
-
-          <section className="space-y-20">
-            <div className="reveal active space-y-4 text-center">
-              <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
-                Strategic Engagements
-              </p>
-              <h2 className="font-display text-5xl font-light text-refenti-charcoal uppercase md:text-7xl">
-                Technical Summits
-              </h2>
-            </div>
-
-            <div className="mx-auto max-w-5xl space-y-8">
-              {events.map((event, idx) => (
-                <div
-                  key={event.id}
-                  className="group reveal active flex flex-col items-center gap-10 rounded-[3rem] border border-gray-200 bg-white p-8 shadow-sm transition-all duration-700 md:flex-row md:gap-16 md:p-12"
-                  style={{ transitionDelay: `${idx * 200}ms` }}
-                >
-                  <div className="aspect-square w-full flex-shrink-0 overflow-hidden rounded-[2rem] bg-gray-50 shadow-inner md:w-1/3">
-                    <img
-                      src={event.image}
-                      className="h-full w-full object-cover"
-                      alt={event.title}
-                    />
-                  </div>
-                  <div className="flex-1 space-y-6">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-4">
-                        <span className="font-sans text-[10px] font-bold tracking-ultra text-refenti-gold uppercase">
-                          {event.date}
-                        </span>
-                        <span className="h-px w-8 bg-gray-300" />
-                        <span className="font-sans text-[10px] font-bold tracking-ultra text-gray-800 uppercase">
-                          {event.location}
-                        </span>
-                      </div>
-                      <h3 className="font-display text-4xl leading-none font-light text-refenti-charcoal">
-                        {event.title}
-                      </h3>
+              <div className="mx-auto max-w-5xl space-y-8">
+                {events.map((event, idx) => (
+                  <div
+                    key={event.id}
+                    className="group flex flex-col items-center gap-10 rounded-[3rem] border border-gray-200 bg-white p-8 shadow-sm transition-all duration-700 md:flex-row md:gap-16 md:p-12"
+                    style={{ transitionDelay: `${idx * 200}ms` }}
+                  >
+                    <div className="aspect-square w-full flex-shrink-0 overflow-hidden rounded-[2rem] bg-gray-50 shadow-inner md:w-1/3">
+                      <img
+                        src={event.image}
+                        className="h-full w-full object-cover"
+                        alt={event.title}
+                      />
                     </div>
-                    <p className="line-clamp-3 text-justify text-base leading-relaxed font-light text-gray-800">
-                      {event.details}
-                    </p>
-                    <button className="rounded-xl bg-refenti-charcoal px-10 py-4 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold">
-                      Inquire for Details
-                    </button>
+                    <div className="flex-1 space-y-6">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-4">
+                          <span className="font-sans text-[10px] font-bold tracking-ultra text-refenti-gold uppercase">
+                            {event.date}
+                          </span>
+                          <span className="h-px w-8 bg-gray-300" />
+                          <span className="font-sans text-[10px] font-bold tracking-ultra text-gray-800 uppercase">
+                            {event.location}
+                          </span>
+                        </div>
+                        <h3 className="font-display text-4xl leading-none font-light text-refenti-charcoal">
+                          {event.title}
+                        </h3>
+                      </div>
+                      <p className="line-clamp-3 text-justify text-base leading-relaxed font-light text-gray-800">
+                        {event.details}
+                      </p>
+                      <button className="rounded-xl bg-refenti-charcoal px-10 py-4 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold">
+                        Inquire for Details
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
+                ))}
+              </div>
+            </section>
+          </div>
+        )}
       </div>
     </div>
   )

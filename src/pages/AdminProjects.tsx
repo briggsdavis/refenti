@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getProjects, saveProjects } from "../constants"
+import { deleteProject, getProjects } from "../lib/api"
 import type { Project } from "../types"
 
-const AdminProjects: React.FC = () => {
+function AdminProjects() {
   const [projects, setProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
   useEffect(() => {
-    setProjects(getProjects())
+    fetchProjects()
   }, [])
 
-  const handleDelete = (id: string) => {
+  const fetchProjects = async () => {
+    const { data, error } = await getProjects()
+    if (error) {
+      console.error("Failed to load projects:", error.message)
+    } else {
+      setProjects(data)
+    }
+    setLoading(false)
+  }
+
+  const handleDelete = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this project?")) {
-      const updated = projects.filter((p) => p.id !== id)
-      setProjects(updated)
-      saveProjects(updated)
+      const { error } = await deleteProject(id)
+      if (error) {
+        console.error("Failed to delete project:", error.message)
+        alert("Failed to delete project. Please try again.")
+      } else {
+        setProjects(projects.filter((p) => p.id !== id))
+      }
     }
   }
 
@@ -38,6 +53,9 @@ const AdminProjects: React.FC = () => {
         </button>
       </header>
 
+      {loading ? (
+        <div className="py-20 text-center text-gray-400">Loading...</div>
+      ) : (
       <div className="grid gap-6">
         {projects.map((p) => (
           <div
@@ -79,6 +97,7 @@ const AdminProjects: React.FC = () => {
           </div>
         ))}
       </div>
+      )}
     </div>
   )
 }

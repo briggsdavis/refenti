@@ -8,8 +8,10 @@ import {
   useLocation,
 } from "react-router-dom"
 import Navbar from "./components/Navbar"
+import ProtectedRoute from "./components/ProtectedRoute"
 import About from "./pages/About"
 import Admin from "./pages/Admin"
+import AdminLogin from "./pages/AdminLogin"
 import BoleRefenti from "./pages/BoleRefenti"
 import BulbulaResidential from "./pages/BulbulaResidential"
 import Contact from "./pages/Contact"
@@ -27,37 +29,11 @@ const ScrollToTop = () => {
   return null
 }
 
-const useReveal = () => {
-  const { pathname } = useLocation()
-
-  useEffect(() => {
-    const reveals = document.querySelectorAll(".reveal")
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active")
-          }
-        })
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
-      },
-    )
-
-    reveals.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [pathname])
-}
-
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  useReveal()
+function Layout({ children }: { children: React.ReactNode }) {
   return <div className="animate-fade-in">{children}</div>
 }
 
-const App: React.FC = () => {
+function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -66,7 +42,7 @@ const App: React.FC = () => {
   )
 }
 
-const AppContent: React.FC = () => {
+function AppContent() {
   const location = useLocation()
   const isAdmin = location.pathname.startsWith("/admin")
 
@@ -93,7 +69,15 @@ const AppContent: React.FC = () => {
             <Route path="/news" element={<EventsNews />} />
             <Route path="/contact" element={<Contact />} />
 
-            <Route path="/admin/*" element={<Admin />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin/*"
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
@@ -102,7 +86,7 @@ const AppContent: React.FC = () => {
 
       {!isAdmin && (
         <>
-          <footer className="reveal border-t border-gray-100 bg-white px-8 py-16">
+          <footer className="border-t border-gray-100 bg-white px-8 py-16">
             <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-12 md:flex-row">
               <div className="max-w-sm space-y-4">
                 <h2 className="font-display text-2xl font-light tracking-tight text-refenti-gold">

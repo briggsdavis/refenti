@@ -6,7 +6,7 @@ const SECTIONS = [
   { id: "governance", label: "Future Vision" },
 ]
 
-const About: React.FC = () => {
+function About() {
   const [scrollY, setScrollY] = useState(0)
   const [activeSection, setActiveSection] = useState(SECTIONS[0].id)
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
@@ -55,7 +55,7 @@ const About: React.FC = () => {
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/70 to-transparent" />
-        <div className="reveal active relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-14">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-14">
           <div className="space-y-3 md:space-y-6">
             <h1 className="font-display text-6xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[10rem]">
               About
@@ -69,7 +69,7 @@ const About: React.FC = () => {
 
       <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6 md:flex-row md:px-12 lg:gap-24">
         {/* Sticky Sidebar Navigation - Hidden on mobile/tablet for better UX */}
-        <aside className="reveal active sticky top-48 z-20 hidden h-fit w-64 lg:block xl:w-72">
+        <aside className="sticky top-48 z-20 hidden h-fit w-64 lg:block xl:w-72">
           <div className="space-y-8">
             <p className="border-b border-gray-100 pb-4 font-sans text-[10px] font-bold tracking-[0.4em] text-refenti-gold uppercase">
               Perspective
@@ -100,7 +100,7 @@ const About: React.FC = () => {
             }}
             className="pt-12 md:pt-40"
           >
-            <div className="reveal space-y-12 md:space-y-16">
+            <div className="space-y-12 md:space-y-16">
               <div className="space-y-4">
                 <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase sm:text-6xl md:text-8xl">
                   Building <br /> for the{" "}
@@ -111,26 +111,26 @@ const About: React.FC = () => {
 
               <div className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
                 <div className="space-y-6 text-lg leading-relaxed font-light text-gray-700 md:space-y-10 md:text-2xl">
-                  <p className="reveal text-justify">
+                  <p className="text-justify">
                     Refenti Realty Group transforms how we perceive urban space.
                     Part of Solstice Ventures Holding, we create environments
                     that feel deliberate, permanent, and deeply connected to the
                     city's identity.
                   </p>
-                  <div className="reveal relative aspect-video overflow-hidden rounded-[2rem] shadow-lg md:rounded-[2.5rem]">
+                  <div className="relative aspect-video overflow-hidden rounded-[2rem] shadow-lg md:rounded-[2.5rem]">
                     <img
                       src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200"
                       className="h-full w-full object-cover"
                       alt="Architectural Detail"
                     />
                   </div>
-                  <p className="reveal text-justify text-base leading-relaxed text-gray-500 md:text-lg">
+                  <p className="text-justify text-base leading-relaxed text-gray-500 md:text-lg">
                     Our vision is built on architectural intent. Every decision
                     is weighed against a standard of lasting quality and
                     aesthetic purity.
                   </p>
                 </div>
-                <div className="reveal aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl md:rounded-[4rem]">
+                <div className="aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl md:rounded-[4rem]">
                   <img
                     src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200"
                     className="h-full w-full object-cover"
@@ -142,7 +142,7 @@ const About: React.FC = () => {
           </section>
 
           {/* Decorative Wide Image */}
-          <section className="reveal">
+          <section className="">
             <div className="aspect-[21/9] w-full overflow-hidden rounded-[2rem] border border-gray-100 shadow-sm md:rounded-[4rem]">
               <img
                 src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=2000"
@@ -171,7 +171,7 @@ const About: React.FC = () => {
               </div>
 
               <div className="grid gap-10 md:grid-cols-2 lg:gap-24">
-                <div className="reveal space-y-6 md:space-y-8">
+                <div className="space-y-6 md:space-y-8">
                   <div className="mb-6 aspect-video overflow-hidden rounded-[2rem] shadow-xl md:mb-10 md:rounded-[3rem]">
                     <img
                       src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=1200"
@@ -188,7 +188,7 @@ const About: React.FC = () => {
                     sanctuaries that offer a retreat from the urban bustle.
                   </p>
                 </div>
-                <div className="reveal space-y-6 md:space-y-8 md:pt-24 lg:pt-32">
+                <div className="space-y-6 md:space-y-8 md:pt-24 lg:pt-32">
                   <div className="mb-6 aspect-video overflow-hidden rounded-[2rem] shadow-xl md:mb-10 md:rounded-[3rem]">
                     <img
                       src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200"
@@ -216,7 +216,7 @@ const About: React.FC = () => {
               sectionRefs.current["governance"] = el
             }}
           >
-            <div className="reveal relative flex flex-col items-center gap-10 overflow-hidden rounded-[2.5rem] bg-refenti-charcoal p-8 text-white shadow-2xl md:rounded-[4rem] md:p-16 lg:flex-row lg:gap-16 lg:p-24">
+            <div className="relative flex flex-col items-center gap-10 overflow-hidden rounded-[2.5rem] bg-refenti-charcoal p-8 text-white shadow-2xl md:rounded-[4rem] md:p-16 lg:flex-row lg:gap-16 lg:p-24">
               <div className="pointer-events-none absolute inset-0 opacity-10">
                 <img
                   src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1600"

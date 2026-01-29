@@ -1,14 +1,14 @@
-import React from "react"
-import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom"
+import { Link, Route, Routes, useLocation } from "react-router-dom"
+import { useAuth } from "../contexts/AuthContext"
 import AdminEvents from "./AdminEvents"
 import AdminInquiries from "./AdminInquiries"
 import AdminNews from "./AdminNews"
 import AdminProjectEditor from "./AdminProjectEditor"
 import AdminProjects from "./AdminProjects"
 
-const AdminNavbar: React.FC = () => {
+function AdminNavbar() {
   const location = useLocation()
-  const navigate = useNavigate()
+  const { signOut } = useAuth()
 
   const links = [
     { name: "Projects", path: "/admin/projects" },
@@ -18,7 +18,7 @@ const AdminNavbar: React.FC = () => {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 z-[100] flex h-20 w-full items-center justify-between border-b border-white/5 bg-refenti-charcoal px-8 text-white">
+    <nav className="fixed top-0 left-0 z-100 flex h-20 w-full items-center justify-between border-b border-white/5 bg-refenti-charcoal px-8 text-white">
       <div className="flex items-center gap-12">
         <Link
           to="/"
@@ -39,16 +39,16 @@ const AdminNavbar: React.FC = () => {
         </div>
       </div>
       <button
-        onClick={() => navigate("/")}
+        onClick={() => signOut()}
         className="text-[9px] font-bold tracking-ultra text-white/40 uppercase transition-colors hover:text-refenti-gold"
       >
-        Exit to Site
+        Sign Out
       </button>
     </nav>
   )
 }
 
-const Admin: React.FC = () => {
+function Admin() {
   return (
     <div className="min-h-screen bg-refenti-offwhite text-refenti-charcoal">
       <AdminNavbar />

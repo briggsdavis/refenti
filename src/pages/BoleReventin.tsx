@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from "react"
 // Use getProjects() instead of the missing PROJECTS export
 import { getProjects } from "../constants"
 
-// Explicitly define as React.FC to include standard props like 'key' in the type check
-const FeatureSection: React.FC<{ feature: string; index: number }> = ({
+function FeatureSection({
   feature,
   index,
-}) => {
+}: {
+  feature: string
+  index: number
+}) {
   const [progress, setProgress] = useState(0)
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -57,7 +59,7 @@ const FeatureSection: React.FC<{ feature: string; index: number }> = ({
       </div>
 
       {/* Text Container */}
-      <div className="reveal w-full space-y-8 px-8 md:w-1/2 md:px-0">
+      <div className="w-full space-y-8 px-8 md:w-1/2 md:px-0">
         <span className="font-display text-8xl leading-none font-light text-refenti-gold opacity-10">
           0{index + 1}
         </span>
@@ -82,7 +84,7 @@ const FeatureSection: React.FC<{ feature: string; index: number }> = ({
   )
 }
 
-const BoleReventin: React.FC = () => {
+function BoleReventin() {
   const property = getProjects()[0] // Bole High-rise
 
   return (
@@ -98,7 +100,7 @@ const BoleReventin: React.FC = () => {
       </section>
 
       {/* Page Title & Narrative on White */}
-      <section className="reveal bg-white px-8 py-24">
+      <section className="bg-white px-8 py-24">
         <div className="mx-auto max-w-6xl space-y-16 text-center">
           <div className="space-y-4">
             <p className="font-sans text-[10px] font-bold tracking-[0.5em] text-refenti-gold uppercase">
@@ -147,7 +149,7 @@ const BoleReventin: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="reveal mt-24 bg-refenti-offwhite px-8 py-40 text-center">
+      <section className="mt-24 bg-refenti-offwhite px-8 py-40 text-center">
         <div className="mx-auto max-w-4xl space-y-12">
           <h2 className="font-display text-6xl leading-none font-light text-refenti-charcoal uppercase md:text-8xl">
             Secure Your <br />{" "}

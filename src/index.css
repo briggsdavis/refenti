@@ -11,7 +11,6 @@
   --tracking-extrawide: 0.4em;
   --tracking-ultra: 0.6em;
 
-  /* Animation definitions */
   --animate-fade-in: fade-in 1s ease-out;
   --animate-slide-in-from-top: slide-in-from-top 0.3s ease-out;
 
@@ -65,36 +64,4 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: #b7a371;
-}
-
-/* Glass nav effect */
-.glass-nav {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Reveal animation */
-.reveal {
-  opacity: 0;
-  transition:
-    opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translate(0, 0) !important;
-}
-
-/* Subtle shadow */
-.subtle-shadow {
-  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.05);
-}
-
-/* Expand animation */
-.expand-x {
-  transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
 }

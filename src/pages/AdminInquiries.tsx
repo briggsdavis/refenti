@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react"
-import { getInquiries, saveInquiries } from "../constants"
+import { deleteInquiry, getInquiries } from "../lib/api"
 import type { Inquiry } from "../types"
 
 type FilterType = "name" | "email" | "type" | "date"
 
-const AdminInquiries: React.FC = () => {
+function AdminInquiries() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([])
+  const [loading, setLoading] = useState(true)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<FilterType>("name")
   const [filterValue, setFilterValue] = useState("")
@@ -13,7 +14,17 @@ const AdminInquiries: React.FC = () => {
   const filterRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setInquiries(getInquiries())
+    const fetchInquiries = async () => {
+      const { data, error } = await getInquiries()
+      if (error) {
+        console.error("Failed to load inquiries:", error.message)
+      } else {
+        setInquiries(data)
+      }
+      setLoading(false)
+    }
+    fetchInquiries()
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
         filterRef.current &&
@@ -26,13 +37,17 @@ const AdminInquiries: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-  const handleDelete = (e: React.MouseEvent, id: string) => {
+  const handleDelete = async (e: React.MouseEvent, id: string) => {
     e.stopPropagation()
     if (confirm("Permanently delete this record?")) {
-      const u = inquiries.filter((i) => i.id !== id)
-      setInquiries(u)
-      saveInquiries(u)
-      if (expandedId === id) setExpandedId(null)
+      const { error } = await deleteInquiry(id)
+      if (error) {
+        console.error("Failed to delete inquiry:", error.message)
+        alert("Failed to delete inquiry. Please try again.")
+      } else {
+        setInquiries(inquiries.filter((i) => i.id !== id))
+        if (expandedId === id) setExpandedId(null)
+      }
     }
   }
 

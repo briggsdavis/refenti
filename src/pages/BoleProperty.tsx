@@ -2,7 +2,7 @@ import React from "react"
 // Use getProjects() instead of the missing PROJECTS export
 import { getProjects } from "../constants"
 
-const BoleProperty: React.FC = () => {
+function BoleProperty() {
   const property = getProjects()[0]
 
   return (

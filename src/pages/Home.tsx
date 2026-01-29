@@ -1,17 +1,20 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
-import { getEvents, getProjects } from "../constants"
-import type { EventItem } from "../types"
+import { getEvents, getProjects } from "../lib/api"
+import type { EventItem, Project } from "../types"
 
-const EventCard: React.FC<{ event: EventItem; index: number }> = ({
+function EventCard({
   event,
   index,
-}) => {
+}: {
+  event: EventItem
+  index: number
+}) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div
-      className="group reveal rounded-[2rem] border border-gray-100 bg-white p-6 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.05)] transition-all duration-1000"
+      className="group rounded-[2rem] border border-gray-100 bg-white p-6 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.05)] transition-all duration-1000"
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[1.5rem]">
@@ -51,7 +54,7 @@ const EventCard: React.FC<{ event: EventItem; index: number }> = ({
   )
 }
 
-const PhilosophySection: React.FC = () => {
+function PhilosophySection() {
   const [progress, setProgress] = useState(0)
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -78,17 +81,18 @@ const PhilosophySection: React.FC = () => {
       className="flex items-center justify-center bg-refenti-offwhite px-4 py-24 md:px-8 md:py-40"
     >
       <div
-        className="reveal relative w-full max-w-6xl overflow-hidden border border-gray-100 bg-white p-8 shadow-sm transition-all duration-700 ease-out md:p-20"
+        className="relative w-full max-w-6xl overflow-hidden border border-gray-100 bg-white p-8 shadow-sm transition-all duration-700 ease-out md:p-20"
         style={{
           borderTopLeftRadius:
             progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
           borderTopRightRadius:
             progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
-          borderRadius: baseRadius,
+          borderBottomLeftRadius: baseRadius,
+          borderBottomRightRadius: baseRadius,
         }}
       >
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
-          <div className="reveal space-y-6 md:space-y-12">
+          <div className="space-y-6 md:space-y-12">
             <h2 className="font-display text-3xl leading-[1.1] font-light tracking-tight text-refenti-charcoal sm:text-4xl md:text-6xl">
               The Art of <br />{" "}
               <span className="text-refenti-gold italic">Urban</span> <br />{" "}
@@ -100,7 +104,7 @@ const PhilosophySection: React.FC = () => {
               high-standard delivery.
             </p>
           </div>
-          <div className="reveal relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-50 shadow-sm md:rounded-[3rem]">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-50 shadow-sm md:rounded-[3rem]">
             <img
               src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1000"
               className="h-full w-full object-cover opacity-90"
@@ -113,19 +117,37 @@ const PhilosophySection: React.FC = () => {
   )
 }
 
-const Home: React.FC = () => {
+function Home() {
   const [scrollY, setScrollY] = useState(0)
-  const [projects, setProjects] = useState(getProjects())
-  const [featuredEvents, setFeaturedEvents] = useState(
-    getEvents().filter((e) => e.isFeatured),
-  )
+  const [projects, setProjects] = useState<Project[]>([])
+  const [featuredEvents, setFeaturedEvents] = useState<EventItem[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
 
-    setProjects(getProjects())
-    setFeaturedEvents(getEvents().filter((e) => e.isFeatured))
+    const fetchData = async () => {
+      const [projectsResult, eventsResult] = await Promise.all([
+        getProjects(),
+        getEvents(),
+      ])
+
+      if (projectsResult.error) {
+        console.error("Failed to load projects:", projectsResult.error.message)
+      } else {
+        setProjects(projectsResult.data)
+      }
+
+      if (eventsResult.error) {
+        console.error("Failed to load events:", eventsResult.error.message)
+      } else {
+        setFeaturedEvents(eventsResult.data.filter((e) => e.isFeatured))
+      }
+
+      setLoading(false)
+    }
+    fetchData()
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -145,7 +167,7 @@ const Home: React.FC = () => {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/40 to-transparent" />
 
-        <div className="reveal active relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center sm:px-6 md:space-y-14">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center sm:px-6 md:space-y-14">
           <div className="space-y-3 md:space-y-6">
             <h1 className="font-display text-5xl leading-none font-light tracking-tighter text-refenti-charcoal sm:text-6xl md:text-8xl lg:text-9xl">
               Refenti <br className="sm:hidden" /> Realty{" "}
@@ -162,7 +184,7 @@ const Home: React.FC = () => {
 
       <section className="relative z-10 -mt-8 rounded-[2.5rem] border-t border-gray-50 bg-white px-4 py-20 shadow-sm sm:px-6 md:-mt-24 md:rounded-[6rem] md:px-12 md:py-48">
         <div className="mx-auto max-w-7xl">
-          <div className="reveal mb-12 md:mb-24">
+          <div className="mb-12 md:mb-24">
             <div className="space-y-1 text-center md:space-y-2 md:text-left">
               <h2 className="font-display text-5xl leading-none font-light tracking-tighter text-black uppercase select-none sm:text-6xl md:text-9xl">
                 Portfolio
@@ -175,7 +197,7 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-24">
             {projects.length > 0 && (
-              <div className="group reveal relative md:col-span-7">
+              <div className="group relative md:col-span-7">
                 <Link to={`/projects/${projects[0].id}`} className="block">
                   <div className="aspect-video overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-lg md:rounded-[2.5rem]">
                     <img
@@ -200,7 +222,7 @@ const Home: React.FC = () => {
             )}
 
             {projects.length > 1 && (
-              <div className="group reveal md:col-span-5 md:mt-32">
+              <div className="group md:col-span-5 md:mt-32">
                 <Link to={`/projects/${projects[1].id}`} className="block">
                   <div className="aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-lg">
                     <img
@@ -224,7 +246,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="reveal bg-refenti-offwhite px-4 py-20 sm:px-6 md:py-40">
+      <section className="bg-refenti-offwhite px-4 py-20 sm:px-6 md:py-40">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 space-y-2 text-center md:mb-16 md:space-y-3">
             <h2 className="font-display text-3xl font-light text-refenti-charcoal md:text-6xl">

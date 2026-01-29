@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { getProjects } from "../constants"
+import { getProjects } from "../lib/api"
 import type { Project } from "../types"
 
-const Navbar: React.FC = () => {
+function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -18,9 +18,16 @@ const Navbar: React.FC = () => {
     }
     window.addEventListener("scroll", handleScroll)
 
-    const p = getProjects()
-    setProjects(p)
-    if (p.length > 0) setHoveredProject(p[0])
+    const fetchProjects = async () => {
+      const { data, error } = await getProjects()
+      if (error) {
+        console.error("Failed to load projects:", error.message)
+      } else {
+        setProjects(data)
+        if (data.length > 0) setHoveredProject(data[0])
+      }
+    }
+    fetchProjects()
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -51,10 +58,10 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <div className="pointer-events-none fixed top-6 left-0 z-[100] w-full px-4 md:top-8">
+    <div className="pointer-events-none fixed top-6 left-0 z-100 w-full px-4 md:top-8">
       <div className="pointer-events-auto relative mx-auto max-w-fit">
         <nav
-          className={`glass-nav subtle-shadow rounded-full border border-white/40 px-8 py-3 transition-all duration-700 ease-out md:px-12 md:py-4 ${scrolled ? "-translate-y-2 scale-90" : "scale-100"} `}
+          className={`rounded-full border border-white/40 bg-white/70 px-8 py-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] backdrop-blur-xl transition-all duration-700 ease-out md:px-12 md:py-4 ${scrolled ? "-translate-y-2 scale-90" : "scale-100"} `}
         >
           <ul className="flex items-center gap-8 md:gap-10">
             <li>
@@ -98,7 +105,7 @@ const Navbar: React.FC = () => {
                 <li key={link.path} className="hidden lg:block">
                   <Link
                     to={link.path}
-                    className={`relative py-1 text-[9px] font-bold tracking-ultra text-refenti-charcoal/80 uppercase transition-all hover:text-refenti-gold ${isActive ? "text-refenti-gold after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:bg-refenti-gold" : ""} `}
+                    className={`relative py-1 text-[9px] font-bold tracking-ultra text-refenti-charcoal/80 uppercase transition-all hover:text-refenti-gold ${isActive ? "text-refenti-gold after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-refenti-gold" : ""} `}
                   >
                     {link.name}
                   </Link>
@@ -132,9 +139,9 @@ const Navbar: React.FC = () => {
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className={`cubic-bezier(0.19, 1, 0.22, 1) absolute top-[calc(100%-0.5rem)] left-1/2 w-[850px] origin-top -translate-x-1/2 pt-4 transition-all duration-1000 ${isMenuOpen ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-4 scale-98 opacity-0"} `}
+          className={`cubic-bezier(0.19, 1, 0.22, 1) absolute top-[calc(100%-0.5rem)] left-1/2 w-212.5 origin-top -translate-x-1/2 pt-4 transition-all duration-1000 ${isMenuOpen ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-4 scale-98 opacity-0"} `}
         >
-          <div className="flex min-h-[480px] overflow-hidden rounded-[3rem] border border-gray-100/50 bg-white shadow-[0_30px_80px_-20px_rgba(0,0,0,0.08)]">
+          <div className="flex min-h-120 overflow-hidden rounded-[3rem] border border-gray-100/50 bg-white shadow-[0_30px_80px_-20px_rgba(0,0,0,0.08)]">
             <div className="w-[38%] space-y-10 border-r border-gray-100 bg-white p-12">
               <p className="text-[8px] font-bold tracking-ultra text-refenti-gold uppercase opacity-80">
                 Refenti Collection
@@ -175,7 +182,7 @@ const Navbar: React.FC = () => {
                       className="h-full w-full object-cover"
                       alt={project.name}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
                     <div className="absolute bottom-10 left-10 max-w-xs space-y-2 text-white">
                       <p className="text-[8px] font-bold tracking-ultra text-refenti-gold uppercase">
                         {project.assetClass}
@@ -193,7 +200,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`cubic-bezier(0.19, 1, 0.22, 1) fixed inset-0 top-[5rem] z-[-1] overflow-y-auto bg-white px-8 py-16 transition-all duration-700 lg:hidden ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"} `}
+          className={`cubic-bezier(0.19, 1, 0.22, 1) fixed inset-0 top-20 z-[-1] overflow-y-auto bg-white px-8 py-16 transition-all duration-700 lg:hidden ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"} `}
         >
           <div className="mx-auto max-w-md space-y-16">
             <div className="space-y-8">

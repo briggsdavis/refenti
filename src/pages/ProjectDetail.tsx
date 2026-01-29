@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Navigate, useParams } from "react-router-dom"
-import { getProjects } from "../constants"
+import { getProjects } from "../lib/api"
 import type { Project } from "../types"
 
-const FeatureSection: React.FC<{
+function FeatureSection({
+  section,
+  index,
+}: {
   section: { title: string; text: string; image: string }
   index: number
   projectName: string
-}> = ({ section, index }) => {
+}) {
   const [targetProgress, setTargetProgress] = useState(0)
   const [smoothedProgress, setSmoothedProgress] = useState(0)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -84,7 +87,7 @@ const FeatureSection: React.FC<{
         </div>
       </div>
 
-      <div className={`reveal w-full space-y-6 px-4 md:w-1/2 md:px-12`}>
+      <div className={`w-full space-y-6 px-4 md:w-1/2 md:px-12`}>
         <div className="space-y-2">
           <span className="font-display text-7xl leading-none font-light text-refenti-gold opacity-10 select-none">
             0{index + 1}
@@ -109,7 +112,7 @@ const FeatureSection: React.FC<{
   )
 }
 
-const ProjectDetail: React.FC = () => {
+function ProjectDetail() {
   const { id } = useParams()
   const [scrollY, setScrollY] = useState(0)
   const [project, setProject] = useState<Project | null>(null)
@@ -119,9 +122,16 @@ const ProjectDetail: React.FC = () => {
     window.addEventListener("scroll", handleScroll)
 
     // Fetch project data
-    const projects = getProjects()
-    const found = projects.find((p) => p.id === id)
-    if (found) setProject(found)
+    const fetchProject = async () => {
+      const { data, error } = await getProjects()
+      if (error) {
+        console.error("Failed to load projects:", error.message)
+      } else {
+        const found = data.find((p) => p.id === id)
+        if (found) setProject(found)
+      }
+    }
+    fetchProject()
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [id])
@@ -148,7 +158,7 @@ const ProjectDetail: React.FC = () => {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
 
-        <div className="reveal active relative z-10 mx-auto max-w-6xl space-y-12 px-4 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-12 px-4 text-center">
           <div className="space-y-6">
             <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[10rem]">
               {project.name}
@@ -161,15 +171,15 @@ const ProjectDetail: React.FC = () => {
       </section>
 
       {/* Action Bar */}
-      <section className="reveal active relative border-b border-gray-100 bg-refenti-offwhite">
+      <section className="relative border-b border-gray-100 bg-refenti-offwhite">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-8 py-8 md:flex-row">
-          <div className="reveal flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-center md:items-start">
             <p className="font-sans text-[10px] font-bold tracking-[0.2em] text-refenti-charcoal uppercase opacity-40">
               Project Inquiry Portal
             </p>
           </div>
 
-          <div className="reveal flex flex-col items-center gap-2 md:items-end">
+          <div className="flex flex-col items-center gap-2 md:items-end">
             {project.brochureUrl && (
               <a
                 href={project.brochureUrl}
@@ -191,9 +201,9 @@ const ProjectDetail: React.FC = () => {
       </section>
 
       {/* Asset Narrative Section */}
-      <section className="reveal bg-white px-8 py-24 md:px-12 md:py-40">
+      <section className="bg-white px-8 py-24 md:px-12 md:py-40">
         <div className="mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-2">
-          <div className="reveal space-y-8">
+          <div className="space-y-8">
             <div className="space-y-3">
               <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
                 Asset Narrative
@@ -210,7 +220,7 @@ const ProjectDetail: React.FC = () => {
             </p>
           </div>
 
-          <div className="reveal relative aspect-[16/10] overflow-hidden rounded-[2.5rem] shadow-2xl">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] shadow-2xl">
             <img
               src={project.introImage || project.image}
               className="h-full w-full object-cover"
@@ -223,7 +233,7 @@ const ProjectDetail: React.FC = () => {
 
       {/* Project Features Section */}
       {project.projectFeatures && project.projectFeatures.length > 0 && (
-        <section className="reveal border-t border-gray-100 bg-refenti-offwhite px-8 py-24 md:px-12">
+        <section className="border-t border-gray-100 bg-refenti-offwhite px-8 py-24 md:px-12">
           <div className="mx-auto max-w-7xl space-y-16">
             <div className="space-y-3 text-center md:text-left">
               <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
@@ -239,7 +249,7 @@ const ProjectDetail: React.FC = () => {
               {project.projectFeatures.map((feature, idx) => (
                 <div
                   key={idx}
-                  className="group reveal flex cursor-default items-center justify-center rounded-full border border-gray-100 bg-white px-10 py-5 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md"
+                  className="group flex cursor-default items-center justify-center rounded-full border border-gray-100 bg-white px-10 py-5 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md"
                   style={{ transitionDelay: `${idx * 100}ms` }}
                 >
                   <span className="text-[11px] font-bold tracking-widest text-refenti-charcoal uppercase transition-colors group-hover:text-refenti-gold">
@@ -276,7 +286,7 @@ const ProjectDetail: React.FC = () => {
         </div>
       </section>
 
-      <footer className="reveal border-t border-gray-100 bg-white px-8 py-24 text-center">
+      <footer className="border-t border-gray-100 bg-white px-8 py-24 text-center">
         <div className="mx-auto max-w-3xl space-y-8">
           <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase">
             Define Your <span className="text-refenti-gold italic">Legacy</span>

@@ -1,7 +1,7 @@
 import React from "react"
 import { getProjects } from "../constants"
 
-const RefentiBole: React.FC = () => {
+function RefentiBole() {
   const property = getProjects()[0] // Base image/location info
 
   const keyFeatures = [
@@ -33,7 +33,7 @@ const RefentiBole: React.FC = () => {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="reveal relative h-[70vh] w-full overflow-hidden bg-white">
+      <section className="relative h-[70vh] w-full overflow-hidden bg-white">
         <img
           src={property.image}
           className="h-full w-full object-cover opacity-90"
@@ -43,7 +43,7 @@ const RefentiBole: React.FC = () => {
       </section>
 
       {/* Narrative & Title Section */}
-      <section className="reveal bg-white px-8 py-24">
+      <section className="bg-white px-8 py-24">
         <div className="mx-auto max-w-6xl space-y-16 text-center">
           <div className="space-y-4">
             <p className="font-sans text-[10px] font-bold tracking-[0.5em] text-refenti-gold uppercase">
@@ -82,7 +82,7 @@ const RefentiBole: React.FC = () => {
       </section>
 
       {/* Key Features Grid */}
-      <section className="reveal bg-refenti-offwhite px-8 py-20">
+      <section className="bg-refenti-offwhite px-8 py-20">
         <div className="mx-auto max-w-7xl space-y-12">
           <div className="flex items-center gap-6">
             <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase md:text-5xl">
@@ -95,7 +95,7 @@ const RefentiBole: React.FC = () => {
             {keyFeatures.map((feature, idx) => (
               <div
                 key={idx}
-                className="group reveal flex items-center justify-center rounded-[2rem] border border-gray-100 bg-white px-8 py-6 text-center shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md"
+                className="group flex items-center justify-center rounded-[2rem] border border-gray-100 bg-white px-8 py-6 text-center shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md"
                 style={{ transitionDelay: `${idx * 50}ms` }}
               >
                 <span className="text-[10px] font-bold tracking-widest text-refenti-charcoal uppercase transition-colors group-hover:text-refenti-gold">
@@ -113,7 +113,7 @@ const RefentiBole: React.FC = () => {
           {detailFeatures.map((feature, idx) => (
             <div
               key={idx}
-              className={`reveal flex flex-col items-center gap-16 md:flex-row ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}`}
+              className={`flex flex-col items-center gap-16 md:flex-row ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}`}
             >
               <div className="w-full overflow-hidden rounded-[3rem] border border-gray-50 bg-white shadow-xl md:w-3/5">
                 <div className="h-full w-full">
@@ -144,7 +144,7 @@ const RefentiBole: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="reveal bg-white px-8 py-40 text-center">
+      <section className="bg-white px-8 py-40 text-center">
         <div className="mx-auto max-w-4xl space-y-16">
           <div className="space-y-4">
             <h2 className="font-display text-6xl leading-none font-light tracking-tight text-refenti-charcoal uppercase md:text-8xl">

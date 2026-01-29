@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
-import { getInquiries, saveInquiries } from "../constants"
+import { createInquiry } from "../lib/api"
 import type { Inquiry } from "../types"
 
-const Contact: React.FC = () => {
+function Contact() {
   const [scrollY, setScrollY] = useState(0)
   const [formData, setFormData] = useState({
     name: "",
@@ -36,7 +36,7 @@ const Contact: React.FC = () => {
     }
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.name || !formData.email) return
 
@@ -50,8 +50,13 @@ const Contact: React.FC = () => {
       }),
     }
 
-    const current = getInquiries()
-    saveInquiries([...current, newInquiry])
+    const { error } = await createInquiry(newInquiry)
+
+    if (error) {
+      console.error("Failed to submit inquiry:", error.message)
+      alert("Failed to submit inquiry. Please try again.")
+      return
+    }
 
     setIsSent(true)
     setFormData({ name: "", email: "", type: "Partnership", message: "" })
@@ -78,7 +83,7 @@ const Contact: React.FC = () => {
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/70 to-transparent" />
-        <div className="reveal active relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center md:space-y-12">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center md:space-y-12">
           <div className="space-y-4">
             <h1 className="font-display text-6xl leading-none font-light tracking-tight text-refenti-charcoal uppercase md:text-8xl lg:text-[9rem]">
               Contact
@@ -93,7 +98,7 @@ const Contact: React.FC = () => {
       <div className="relative z-20 px-6 py-12 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 md:grid-cols-12 md:gap-16">
-            <div className="reveal space-y-8 md:col-span-5 md:space-y-12">
+            <div className="space-y-8 md:col-span-5 md:space-y-12">
               <div className="space-y-4 md:space-y-6">
                 <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase md:text-5xl">
                   Connect <br />
@@ -115,7 +120,7 @@ const Contact: React.FC = () => {
                 ].map((item) => (
                   <div
                     key={item.label}
-                    className="reveal space-y-1 md:space-y-2"
+                    className="space-y-1 md:space-y-2"
                   >
                     <p className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
                       {item.label}
@@ -128,7 +133,7 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            <div className="reveal rounded-[2.5rem] border border-gray-50 bg-white p-8 shadow-2xl md:col-span-7 md:rounded-[3rem] md:p-16">
+            <div className="rounded-[2.5rem] border border-gray-50 bg-white p-8 shadow-2xl md:col-span-7 md:rounded-[3rem] md:p-16">
               {isSent ? (
                 <div className="flex h-full flex-col items-center justify-center space-y-6 py-20 text-center">
                   <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-refenti-gold/10">
@@ -159,7 +164,7 @@ const Contact: React.FC = () => {
                   className="space-y-8 md:space-y-12"
                 >
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8">
-                    <div className="reveal space-y-3 md:space-y-4">
+                    <div className="space-y-3 md:space-y-4">
                       <label className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
                         Full Name
                       </label>
@@ -174,7 +179,7 @@ const Contact: React.FC = () => {
                         className="w-full border-b border-gray-100 bg-transparent py-3 text-base font-light transition-colors focus:border-refenti-gold focus:outline-none md:py-4 md:text-lg"
                       />
                     </div>
-                    <div className="reveal space-y-3 md:space-y-4">
+                    <div className="space-y-3 md:space-y-4">
                       <label className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
                         Email Address
                       </label>
@@ -193,7 +198,7 @@ const Contact: React.FC = () => {
 
                   {/* Inquiry Type Section */}
                   <div
-                    className="reveal relative space-y-3 md:space-y-4"
+                    className="relative space-y-3 md:space-y-4"
                     ref={dropdownRef}
                   >
                     <label className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
@@ -242,7 +247,7 @@ const Contact: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="reveal space-y-3 md:space-y-4">
+                  <div className="space-y-3 md:space-y-4">
                     <label className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
                       Your Message
                     </label>
@@ -257,7 +262,7 @@ const Contact: React.FC = () => {
                     />
                   </div>
 
-                  <button className="reveal group w-full rounded-xl bg-refenti-charcoal py-5 font-sans text-[10px] font-bold tracking-widest text-white uppercase shadow-2xl transition-all duration-500 hover:bg-refenti-gold md:rounded-2xl md:py-6 md:text-xs">
+                  <button className="group w-full rounded-xl bg-refenti-charcoal py-5 font-sans text-[10px] font-bold tracking-widest text-white uppercase shadow-2xl transition-all duration-500 hover:bg-refenti-gold md:rounded-2xl md:py-6 md:text-xs">
                     <span className="flex items-center justify-center gap-4">
                       Submit Inquiry
                       <svg

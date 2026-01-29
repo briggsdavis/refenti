@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-const KazanchesExecutive: React.FC = () => {
+function KazanchesExecutive() {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const KazanchesExecutive: React.FC = () => {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/40 to-transparent" />
 
-        <div className="reveal active relative z-10 mx-auto max-w-6xl space-y-4 px-6 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-4 px-6 text-center">
           <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[11rem]">
             Refenti Kazanchis
           </h1>
@@ -71,7 +71,7 @@ const KazanchesExecutive: React.FC = () => {
       </section>
 
       {/* Asset Narrative Section */}
-      <section className="reveal bg-white px-8 py-32 md:px-12">
+      <section className="bg-white px-8 py-32 md:px-12">
         <div className="mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-2">
           <div className="space-y-8">
             <div className="space-y-3">
@@ -103,7 +103,7 @@ const KazanchesExecutive: React.FC = () => {
       </section>
 
       {/* Project Features Section */}
-      <section className="reveal border-t border-gray-100 bg-refenti-offwhite px-8 py-24">
+      <section className="border-t border-gray-100 bg-refenti-offwhite px-8 py-24">
         <div className="mx-auto max-w-7xl space-y-16">
           <div className="space-y-3">
             <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
@@ -147,7 +147,7 @@ const KazanchesExecutive: React.FC = () => {
           {detailSections.map((section, idx) => (
             <div
               key={idx}
-              className={`reveal flex flex-col items-center gap-16 border-b border-gray-50 py-24 last:border-0 md:flex-row md:gap-32 md:py-40 ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}`}
+              className={`flex flex-col items-center gap-16 border-b border-gray-50 py-24 last:border-0 md:flex-row md:gap-32 md:py-40 ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}`}
             >
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[4rem] shadow-2xl md:w-1/2">
                 <img
