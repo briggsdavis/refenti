@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { getEvents, getNews } from "../lib/api"
 import type { EventItem, NewsItem } from "../types"
 
@@ -106,7 +107,7 @@ function EventsNews() {
         <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center">
           <div className="space-y-6">
             <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[9rem]">
-              News
+              News & Events
             </h1>
             <p className="font-sans text-[10px] font-bold tracking-[0.7em] text-refenti-gold uppercase md:text-xs">
               Institutional Updates
@@ -145,7 +146,7 @@ function EventsNews() {
                   Strategic Engagements
                 </p>
                 <h2 className="font-display text-5xl font-light text-refenti-charcoal uppercase md:text-7xl">
-                  Technical Summits
+                  Technical Events
                 </h2>
               </div>
 
@@ -181,9 +182,9 @@ function EventsNews() {
                       <p className="line-clamp-3 text-justify text-base leading-relaxed font-light text-gray-800">
                         {event.details}
                       </p>
-                      <button className="rounded-xl bg-refenti-charcoal px-10 py-4 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold">
+                      <Link to="/contact" className="rounded-xl bg-refenti-charcoal px-10 py-4 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold">
                         Inquire for Details
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 ))}

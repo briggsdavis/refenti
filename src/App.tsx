@@ -135,7 +135,7 @@ function AppContent() {
                         to="/news"
                         className="transition-colors hover:text-refenti-gold"
                       >
-                        News
+                        News & Events
                       </Link>
                     </li>
                     <li>

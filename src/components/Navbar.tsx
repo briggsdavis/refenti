@@ -42,7 +42,7 @@ function Navbar() {
     { name: "About", path: "/about" },
     { name: "Investment", path: "/investment" },
     { name: "Portfolio", path: "/projects", isDropdown: true },
-    { name: "News", path: "/news" },
+    { name: "News & Events", path: "/news" },
     { name: "Contact", path: "/contact" },
   ]
 
@@ -59,17 +59,14 @@ function Navbar() {
 
   return (
     <div className="pointer-events-none fixed top-6 left-0 z-100 w-full px-4 md:top-8">
-      <div className="pointer-events-auto relative mx-auto max-w-fit">
+      <div className="pointer-events-auto relative mx-auto max-w-4/5 lg:max-w-fit">
         <nav
           className={`rounded-full border border-white/40 bg-white/70 px-8 py-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] backdrop-blur-xl transition-all duration-700 ease-out md:px-12 md:py-4 ${scrolled ? "-translate-y-2 scale-90" : "scale-100"} `}
         >
           <ul className="flex items-center gap-8 md:gap-10">
             <li className="flex items-center">
-              <Link
-                to="/"
-                className="font-display text-xl font-medium tracking-tight text-refenti-gold md:text-2xl"
-              >
-                REFENTI
+              <Link to="/" className="flex items-center">
+                <img src="/logo.png" alt="REFENTI" className="h-8 md:h-10" />
               </Link>
             </li>
 
@@ -113,21 +110,20 @@ function Navbar() {
               )
             })}
 
-            <li className="ml-2 flex items-center border-l border-gray-100/30 pl-6 lg:hidden">
+            <li className="ml-auto flex items-center lg:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="flex items-center gap-3 text-[9px] font-bold tracking-ultra text-refenti-charcoal/80 uppercase transition-colors hover:text-refenti-gold"
+                className="flex items-center text-refenti-charcoal/80 transition-colors hover:text-refenti-gold"
               >
-                <span>{isMobileMenuOpen ? "Close" : "Menu"}</span>
-                <div className="flex w-4 flex-col gap-1">
+                <div className="flex w-7 flex-col gap-1.5">
                   <span
-                    className={`h-px w-full bg-current transition-all duration-500 ${isMobileMenuOpen ? "translate-y-1 rotate-45" : ""}`}
+                    className={`h-px w-full bg-current transition-all duration-500 ${isMobileMenuOpen ? "translate-y-1.75 rotate-45" : ""}`}
                   />
                   <span
                     className={`h-px w-full bg-current transition-all duration-500 ${isMobileMenuOpen ? "opacity-0" : ""}`}
                   />
                   <span
-                    className={`h-px w-full bg-current transition-all duration-500 ${isMobileMenuOpen ? "-translate-y-1 -rotate-45" : ""}`}
+                    className={`h-px w-full bg-current transition-all duration-500 ${isMobileMenuOpen ? "-translate-y-1.75 -rotate-45" : ""}`}
                   />
                 </div>
               </button>

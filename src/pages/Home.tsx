@@ -1,23 +1,17 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { getEvents, getProjects } from "../lib/api"
 import type { EventItem, Project } from "../types"
 
-function EventCard({
-  event,
-  index,
-}: {
-  event: EventItem
-  index: number
-}) {
+function EventCard({ event, index }: { event: EventItem; index: number }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div
-      className="group rounded-[2rem] border border-gray-100 bg-white p-6 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.05)] transition-all duration-1000"
+      className="group rounded-4xl border border-gray-100 bg-white p-6 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.05)] transition-all duration-1000"
       style={{ transitionDelay: `${index * 150}ms` }}
     >
-      <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[1.5rem]">
+      <div className="relative mb-6 aspect-4/5 overflow-hidden rounded-3xl">
         <img
           src={event.image}
           className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -106,7 +100,7 @@ function PhilosophySection() {
           </div>
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-50 shadow-sm md:rounded-[3rem]">
             <img
-              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1000"
+              src="/art.webp"
               className="h-full w-full object-cover opacity-90"
               alt="Interior"
             />
@@ -158,7 +152,7 @@ function Home() {
         <div
           className="absolute inset-[-5%]"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000')`,
+            backgroundImage: `url('/home-hero.webp')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             transform: `translateY(${-scrollY * 0.1}px)`,
@@ -169,10 +163,12 @@ function Home() {
 
         <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center sm:px-6 md:space-y-14">
           <div className="space-y-3 md:space-y-6">
-            <h1 className="font-display text-5xl leading-none font-light tracking-tighter text-refenti-charcoal sm:text-6xl md:text-8xl lg:text-9xl">
-              Refenti <br className="sm:hidden" /> Realty{" "}
-              <br className="hidden sm:block" /> Group
-            </h1>
+            <img
+              // src="/hero-text.png"
+              src="/reftext.png"
+              alt="Refenti Realty Group"
+              className="mx-auto w-full max-w-3xl"
+            />
             <p className="font-sans text-[7px] font-bold tracking-ultra text-refenti-gold uppercase opacity-90 md:text-[10px]">
               Refining urban landscapes
             </p>
@@ -232,12 +228,15 @@ function Home() {
                     />
                   </div>
                 </Link>
-                <div className="mt-6 px-2 md:mt-8 md:px-4">
-                  <h3 className="mb-1 font-display text-2xl font-light text-refenti-charcoal md:mb-2 md:text-3xl">
+                <div className="mt-6 space-y-2 px-2 md:mt-8 md:space-y-4 md:px-4">
+                  <h3 className="font-display text-2xl leading-none font-light text-refenti-charcoal md:text-3xl">
                     {projects[1].name}
                   </h3>
                   <p className="text-[7px] font-bold tracking-ultra text-refenti-gold uppercase opacity-80 md:text-[8px]">
                     {projects[1].assetClass}
+                  </p>
+                  <p className="max-w-md text-justify text-sm leading-relaxed font-light text-gray-600">
+                    {projects[1].description}
                   </p>
                 </div>
               </div>
