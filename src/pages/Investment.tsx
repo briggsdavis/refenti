@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { Helmet } from "react-helmet-async"
 
 const SECTIONS = [
   { id: "about", label: "Who We Are" },
@@ -42,6 +43,13 @@ function Investment() {
 
   return (
     <div className="min-h-screen bg-refenti-offwhite">
+      <Helmet>
+        <title>Investment Opportunities - Refenti Group</title>
+        <meta
+          name="description"
+          content="Explore precision-driven real estate investment opportunities with Refenti Group. Development, management, and strategic vision across residential, commercial, and mixed-use projects."
+        />
+      </Helmet>
       {/* Hero Section */}
       <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-[90vh] md:pb-32">
         <img

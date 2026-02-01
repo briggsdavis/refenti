@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
+import { Helmet } from "react-helmet-async"
 import { createInquiry } from "../lib/api"
 import type { Inquiry } from "../types"
 
@@ -70,6 +71,13 @@ function Contact() {
 
   return (
     <div className="min-h-screen bg-refenti-offwhite">
+      <Helmet>
+        <title>Contact Refenti Group - Partnership & Investment Inquiries</title>
+        <meta
+          name="description"
+          content="Get in touch with Refenti Group for partnership opportunities, investment inquiries, or stakeholder engagement. Connect with our team in Ethiopia and Dubai."
+        />
+      </Helmet>
       {/* Hero Section */}
       <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:pb-32">
         <div

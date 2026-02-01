@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { getProjects } from "../lib/api"
 import type { Project } from "../types"
@@ -28,6 +29,14 @@ function Projects() {
   }, [])
 
   return (
+    <>
+      <Helmet>
+        <title>Our Projects - Refenti Group Portfolio</title>
+        <meta
+          name="description"
+          content="Explore Refenti Group's portfolio of luxury real estate projects. From residential developments to mixed-use landmarks across Ethiopia and Dubai."
+        />
+      </Helmet>
     <div className="min-h-screen bg-refenti-offwhite pb-16">
       {/* Cinematic Hero Banner */}
       <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-32 md:pb-48">

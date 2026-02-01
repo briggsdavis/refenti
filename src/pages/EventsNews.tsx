@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { getEvents, getNews } from "../lib/api"
 import type { EventItem, NewsItem } from "../types"
@@ -91,6 +92,13 @@ function EventsNews() {
 
   return (
     <div className="min-h-screen bg-refenti-offwhite">
+      <Helmet>
+        <title>Events & News - Refenti Group Updates</title>
+        <meta
+          name="description"
+          content="Stay updated with Refenti Group's latest events, milestones, and industry insights. Real estate development news and announcements from Ethiopia and Dubai."
+        />
+      </Helmet>
       <section className="relative flex h-[80vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-24">
         <div
           className="absolute inset-[-5%]"

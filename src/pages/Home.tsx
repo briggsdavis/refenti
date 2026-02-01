@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { getEvents, getProjects } from "../lib/api"
 import type { EventItem, Project } from "../types"
@@ -148,6 +149,13 @@ function Home() {
 
   return (
     <div className="overflow-hidden bg-refenti-offwhite">
+      <Helmet>
+        <title>Refenti Group - Premium Real Estate Development</title>
+        <meta
+          name="description"
+          content="Refenti Group specializes in luxury real estate development across residential, mixed-use, commercial, and hospitality sectors. Precision-driven urban destinations in Ethiopia and Dubai."
+        />
+      </Helmet>
       <section className="relative flex min-h-[80vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-screen md:pb-28">
         <div
           className="absolute inset-[-5%]"

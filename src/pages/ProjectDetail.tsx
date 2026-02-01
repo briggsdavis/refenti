@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { Helmet } from "react-helmet-async"
 import { Navigate, useParams } from "react-router-dom"
 import { getProjectById } from "../lib/api"
 import type { Project } from "../types"
@@ -156,6 +157,13 @@ function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-refenti-offwhite">
+      <Helmet>
+        <title>{project.name} - Refenti Group Project</title>
+        <meta
+          name="description"
+          content={`${project.name} - ${project.assetClass} development by Refenti Group. ${project.description}`}
+        />
+      </Helmet>
       {/* Hero Banner */}
       <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-32">
         <div
