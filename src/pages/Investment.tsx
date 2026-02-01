@@ -44,12 +44,12 @@ function Investment() {
     <div className="min-h-screen bg-refenti-offwhite">
       {/* Hero Section */}
       <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-[90vh] md:pb-32">
-        <div
-          className="absolute inset-[-5%]"
+        <img
+          src="/investment/investment-hero.webp"
+          alt="Investment Hero"
+          fetchPriority="high"
+          className="absolute top-[-5%] left-0 h-[110%] w-full object-cover"
           style={{
-            backgroundImage: `url('/investment/investment-hero.webp')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
             transform: `translateY(${-scrollY * 0.12}px)`,
             willChange: "transform",
           }}
