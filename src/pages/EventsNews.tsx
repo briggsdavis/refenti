@@ -190,7 +190,10 @@ function EventsNews() {
                       <p className="line-clamp-3 text-justify text-base leading-relaxed font-light text-gray-800">
                         {event.details}
                       </p>
-                      <Link to="/contact" className="rounded-xl bg-refenti-charcoal px-10 py-4 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold">
+                      <Link
+                        to="/contact"
+                        className="rounded-xl bg-refenti-charcoal px-10 py-4 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold"
+                      >
                         Inquire for Details
                       </Link>
                     </div>

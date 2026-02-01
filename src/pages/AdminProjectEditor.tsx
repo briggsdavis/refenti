@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import FileUpload from "../components/FileUpload"
-import {
-  createProject,
-  getProjectById,
-  updateProject,
-} from "../lib/api"
+import { createProject, getProjectById, updateProject } from "../lib/api"
 import {
   uploadProjectBrochure,
   uploadProjectDetailImage,
@@ -30,17 +26,17 @@ function AdminInput({
   small?: boolean
 }) {
   return (
-  <div className="group space-y-2">
-    <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase transition-colors group-focus-within:text-refenti-charcoal">
-      {label}
-    </label>
-    <input
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      className={`w-full border-b-2 border-gray-200 bg-transparent py-4 font-medium text-refenti-charcoal transition-all placeholder:text-gray-300 focus:border-refenti-gold focus:outline-none ${small ? "text-base" : "text-3xl md:text-4xl"}`}
-    />
-  </div>
+    <div className="group space-y-2">
+      <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase transition-colors group-focus-within:text-refenti-charcoal">
+        {label}
+      </label>
+      <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className={`w-full border-b-2 border-gray-200 bg-transparent py-4 font-medium text-refenti-charcoal transition-all placeholder:text-gray-300 focus:border-refenti-gold focus:outline-none ${small ? "text-base" : "text-3xl md:text-4xl"}`}
+      />
+    </div>
   )
 }
 
@@ -207,9 +203,7 @@ function AdminProjectEditor() {
             <FileUpload
               label="Brochure (PDF)"
               value={formData.brochureUrl || ""}
-              onChange={(url) =>
-                setFormData({ ...formData, brochureUrl: url })
-              }
+              onChange={(url) => setFormData({ ...formData, brochureUrl: url })}
               accept=".pdf"
               uploadFn={(file) => {
                 const projectId =

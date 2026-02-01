@@ -72,7 +72,9 @@ function Contact() {
   return (
     <div className="min-h-screen bg-refenti-offwhite">
       <Helmet>
-        <title>Contact Refenti Group - Partnership & Investment Inquiries</title>
+        <title>
+          Contact Refenti Group - Partnership & Investment Inquiries
+        </title>
         <meta
           name="description"
           content="Get in touch with Refenti Group for partnership opportunities, investment inquiries, or stakeholder engagement. Connect with our team in Ethiopia and Dubai."
@@ -126,10 +128,7 @@ function Contact() {
                     val: "Refenti (Bole Bulbula), Addis Ababa, Ethiopia",
                   },
                 ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="space-y-1 md:space-y-2"
-                  >
+                  <div key={item.label} className="space-y-1 md:space-y-2">
                     <p className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
                       {item.label}
                     </p>

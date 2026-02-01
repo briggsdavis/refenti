@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { deleteProject, getProjects } from "../lib/api"
 import type { Project } from "../types"
@@ -56,47 +56,47 @@ function AdminProjects() {
       {loading ? (
         <div className="py-20 text-center text-gray-400">Loading...</div>
       ) : (
-      <div className="grid gap-6">
-        {projects.map((p) => (
-          <div
-            key={p.id}
-            className="group flex items-center justify-between rounded-xl border border-gray-50 bg-white p-4 shadow-sm transition-all duration-700 hover:shadow-xl"
-          >
-            <div className="flex items-center gap-4">
-              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-3xl shadow-inner">
-                <img
-                  src={p.image}
-                  className="h-full w-full object-cover"
-                  alt={p.name}
-                />
+        <div className="grid gap-6">
+          {projects.map((p) => (
+            <div
+              key={p.id}
+              className="group flex items-center justify-between rounded-xl border border-gray-50 bg-white p-4 shadow-sm transition-all duration-700 hover:shadow-xl"
+            >
+              <div className="flex items-center gap-4">
+                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-3xl shadow-inner">
+                  <img
+                    src={p.image}
+                    className="h-full w-full object-cover"
+                    alt={p.name}
+                  />
+                </div>
+                <div>
+                  <h3 className="mb-2 font-display text-3xl leading-none text-refenti-charcoal">
+                    {p.name}
+                  </h3>
+                  {/* Fix: Property 'type' does not exist on type 'Project'. Using 'assetClass' instead. */}
+                  <p className="text-[10px] font-bold tracking-widest text-gray-300 uppercase">
+                    {p.location} • {p.assetClass}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="mb-2 font-display text-3xl leading-none text-refenti-charcoal">
-                  {p.name}
-                </h3>
-                {/* Fix: Property 'type' does not exist on type 'Project'. Using 'assetClass' instead. */}
-                <p className="text-[10px] font-bold tracking-widest text-gray-300 uppercase">
-                  {p.location} • {p.assetClass}
-                </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => navigate(`/admin/projects/edit/${p.id}`)}
+                  className="rounded-lg bg-gray-50 px-4 py-2 text-[9px] font-bold tracking-widest uppercase transition-all hover:bg-refenti-gold hover:text-white"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(p.id)}
+                  className="rounded-lg bg-red-50 px-4 py-2 text-[9px] font-bold tracking-widest text-red-400 uppercase transition-all hover:bg-red-400 hover:text-white"
+                >
+                  Delete
+                </button>
               </div>
             </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => navigate(`/admin/projects/edit/${p.id}`)}
-                className="rounded-lg bg-gray-50 px-4 py-2 text-[9px] font-bold tracking-widest uppercase transition-all hover:bg-refenti-gold hover:text-white"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(p.id)}
-                className="rounded-lg bg-red-50 px-4 py-2 text-[9px] font-bold tracking-widest text-red-400 uppercase transition-all hover:bg-red-400 hover:text-white"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
       )}
     </div>
   )

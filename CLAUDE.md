@@ -21,12 +21,14 @@ bun run preview
 ## Environment Setup
 
 Required environment variables in `.env.local`:
+
 - `VITE_SUPABASE_URL` - Supabase project URL
 - `VITE_SUPABASE_PUBLISHABLE_KEY` - Supabase public anon key
 
 ## Architecture Overview
 
 ### Tech Stack
+
 - **Frontend**: React 19 + TypeScript + Vite
 - **Backend**: Supabase (PostgreSQL + Auth)
 - **Styling**: Tailwind CSS 4 with custom theme
@@ -41,6 +43,7 @@ All database operations flow through a **snake_case ↔ camelCase mapping layer*
 - **Mapping functions**: `toDb*` and `fromDb*` for each entity type
 
 Example:
+
 ```typescript
 // TypeScript interface (camelCase)
 interface Project {
@@ -60,6 +63,7 @@ This mapping layer exists for all four entities: `Project`, `EventItem`, `NewsIt
 ### Database Tables
 
 Four main Supabase tables:
+
 1. `projects` - Real estate portfolio items with asset classes (Residential, Mixed-Use, Commercial, Hospitality)
 2. `events` - Featured events and milestones
 3. `news` - Blog/news content
@@ -68,6 +72,7 @@ Four main Supabase tables:
 ### Route Architecture
 
 **Public routes** (src/App.tsx):
+
 - `/` - Home
 - `/about` - About page
 - `/investment` - Investment opportunities
@@ -77,6 +82,7 @@ Four main Supabase tables:
 - `/contact` - Contact form
 
 **Admin routes** (protected by Supabase auth):
+
 - `/admin/login` - Auth page
 - `/admin/*` - Admin dashboard with nested routes for CRUD operations
 
@@ -85,6 +91,7 @@ The navbar is hidden on all `/admin/*` routes.
 ### Authentication Flow
 
 Auth is managed via `src/contexts/AuthContext.tsx`:
+
 1. Wraps entire app in `<AuthProvider>`
 2. Listens to Supabase auth state changes
 3. Provides `session`, `loading`, `signIn()`, `signOut()` to components
@@ -93,6 +100,7 @@ Auth is managed via `src/contexts/AuthContext.tsx`:
 ### Styling System
 
 Custom Tailwind theme defined in `src/index.css`:
+
 - **Colors**:
   - `refenti-offwhite: #f7f3f0` (background)
   - `refenti-gold: #b7a371` (accent)
@@ -105,6 +113,7 @@ Prettier auto-formats Tailwind classes using `prettier-plugin-tailwindcss`.
 ### Code Style
 
 Prettier config (prettier.config.mjs):
+
 - No semicolons (`semi: false`)
 - Auto-organizes imports (`prettier-plugin-organize-imports`)
 - Auto-sorts Tailwind classes
@@ -112,7 +121,9 @@ Prettier config (prettier.config.mjs):
 ## Key Patterns
 
 ### API Error Handling
+
 All API functions return a discriminated union type:
+
 ```typescript
 type DataResult<T> =
   | { data: T; error: null }
@@ -122,7 +133,9 @@ type DataResult<T> =
 Supabase error code `PGRST116` = "not found"
 
 ### Project Detail Sections
+
 Projects can have optional rich content via `detailSections` array:
+
 ```typescript
 interface ProjectDetailSection {
   title: string
@@ -132,4 +145,5 @@ interface ProjectDetailSection {
 ```
 
 ### Asset Classes
+
 Projects are categorized as: `"Residential" | "Mixed-Use" | "Commercial" | "Hospitality"`
