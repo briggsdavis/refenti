@@ -8,6 +8,7 @@ interface FileUploadProps {
   accept: string
   uploadFn: (file: File) => Promise<DataResult<string>>
   validator?: (file: File) => { valid: boolean; error?: string }
+  uniqueId?: string
 }
 
 function FileUpload({
@@ -17,6 +18,7 @@ function FileUpload({
   accept,
   uploadFn,
   validator,
+  uniqueId,
 }: FileUploadProps) {
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -121,10 +123,10 @@ function FileUpload({
             onChange={handleFileChange}
             disabled={uploading}
             className="hidden"
-            id={`file-${label.replace(/\s+/g, "-")}`}
+            id={`file-${label.replace(/\s+/g, "-")}${uniqueId ? `-${uniqueId}` : ""}`}
           />
           <label
-            htmlFor={`file-${label.replace(/\s+/g, "-")}`}
+            htmlFor={`file-${label.replace(/\s+/g, "-")}${uniqueId ? `-${uniqueId}` : ""}`}
             className={`block cursor-pointer rounded-2xl border-2 border-dashed border-gray-200 bg-refenti-offwhite/50 px-8 py-6 text-center transition-all hover:border-refenti-gold hover:bg-white ${uploading ? "cursor-not-allowed opacity-50" : ""}`}
           >
             {uploading ? (

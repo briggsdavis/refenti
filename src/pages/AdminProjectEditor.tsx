@@ -339,6 +339,7 @@ function AdminProjectEditor() {
                       return uploadProjectDetailImage(projectId, i, file)
                     }}
                     validator={validateImageFile}
+                    uniqueId={`section-${i}`}
                   />
                 </div>
                 <div className="space-y-3">
