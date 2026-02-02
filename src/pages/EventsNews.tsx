@@ -9,7 +9,7 @@ function NewsCard({ item, index }: { item: NewsItem; index: number }) {
 
   return (
     <div
-      className="group relative h-fit overflow-hidden rounded-[2.5rem] bg-white shadow-sm transition-all duration-1000"
+      className="group relative h-fit min-h-[500px] overflow-hidden rounded-[2.5rem] bg-white shadow-sm transition-all duration-1000"
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <div className="relative aspect-[16/10] overflow-hidden">
@@ -141,7 +141,7 @@ function EventsNews() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-2 lg:grid-cols-3">
                 {news.map((item, idx) => (
                   <NewsCard key={item.id} item={item} index={idx} />
                 ))}
@@ -162,17 +162,17 @@ function EventsNews() {
                 {events.map((event, idx) => (
                   <div
                     key={event.id}
-                    className="group flex flex-col items-center gap-10 rounded-[3rem] border border-gray-200 bg-white p-8 shadow-sm transition-all duration-700 md:flex-row md:gap-16 md:p-12"
+                    className="group flex flex-col items-center gap-6 rounded-[2rem] border border-gray-200 bg-white p-6 shadow-sm transition-all duration-700 md:flex-row md:gap-8 md:p-8"
                     style={{ transitionDelay: `${idx * 200}ms` }}
                   >
-                    <div className="aspect-square w-full flex-shrink-0 overflow-hidden rounded-[2rem] bg-gray-50 shadow-inner md:w-1/3">
+                    <div className="aspect-square w-full flex-shrink-0 overflow-hidden rounded-[1.5rem] bg-gray-50 shadow-inner md:w-32">
                       <img
                         src={event.image}
                         className="h-full w-full object-cover"
                         alt={event.title}
                       />
                     </div>
-                    <div className="flex-1 space-y-6">
+                    <div className="flex-1 space-y-4">
                       <div className="space-y-2">
                         <div className="flex items-center gap-4">
                           <span className="font-sans text-[10px] font-bold tracking-ultra text-refenti-gold uppercase">
@@ -183,16 +183,16 @@ function EventsNews() {
                             {event.location}
                           </span>
                         </div>
-                        <h3 className="font-display text-4xl leading-none font-light text-refenti-charcoal">
+                        <h3 className="font-display text-3xl leading-none font-light text-refenti-charcoal">
                           {event.title}
                         </h3>
                       </div>
-                      <p className="line-clamp-3 text-justify text-base leading-relaxed font-light text-gray-800">
+                      <p className="line-clamp-3 text-justify text-sm leading-relaxed font-light text-gray-800">
                         {event.details}
                       </p>
                       <Link
                         to="/contact"
-                        className="rounded-xl bg-refenti-charcoal px-10 py-4 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold"
+                        className="inline-block rounded-xl bg-refenti-charcoal px-8 py-3 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold"
                       >
                         Inquire for Details
                       </Link>
