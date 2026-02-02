@@ -51,7 +51,7 @@ function Investment() {
         />
       </Helmet>
       {/* Hero Section */}
-      <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-[90vh] md:pb-32">
+      <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-12 md:min-h-[90vh] md:pb-20">
         <img
           src="/investment/investment-hero.webp"
           alt="Investment Hero"
@@ -63,7 +63,7 @@ function Investment() {
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
-        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-14">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-10">
           <div className="space-y-3 md:space-y-6">
             <h1 className="font-display text-6xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[10rem]">
               Investment
@@ -75,9 +75,9 @@ function Investment() {
         </div>
       </section>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6 md:flex-row md:px-12 lg:gap-24">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 md:flex-row md:px-12 lg:gap-16">
         {/* Navigation Sidebar - Hidden on mobile/tablet for better UX */}
-        <aside className="sticky top-48 z-20 hidden h-fit w-64 lg:block xl:w-72">
+        <aside className="sticky top-48 z-20 hidden h-fit w-52 lg:block">
           <div className="space-y-8">
             <p className="border-b border-gray-100 pb-4 font-sans text-[10px] font-bold tracking-[0.4em] text-refenti-gold uppercase">
               Strategy
@@ -99,14 +99,14 @@ function Investment() {
           </div>
         </aside>
 
-        <div className="flex-1 space-y-24 pb-32 md:space-y-48 md:pb-64 lg:space-y-72">
+        <div className="flex-1 space-y-16 pb-32 md:space-y-32 md:pb-64 lg:space-y-72">
           {/* Section: Who We Are */}
           <section
             id="about"
             ref={(el) => {
               sectionRefs.current["about"] = el
             }}
-            className="space-y-12 pt-12 md:space-y-16 md:pt-40"
+            className="space-y-10 pt-12 md:space-y-10 md:pt-28"
           >
             <div className="space-y-4 md:space-y-6">
               <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
@@ -116,7 +116,7 @@ function Investment() {
                 The <span className="text-refenti-gold italic">Group</span>
               </h2>
             </div>
-            <div className="grid gap-10 text-lg leading-relaxed font-light text-gray-700 md:grid-cols-2 md:gap-16 md:text-xl">
+            <div className="grid gap-6 text-lg leading-relaxed font-light text-gray-700 md:grid-cols-2 md:gap-10 md:text-xl">
               <div className="space-y-6 md:space-y-8">
                 <p className="text-justify">
                   Refenti Realty Group identifies and realizes the potential of
@@ -155,8 +155,8 @@ function Investment() {
             }}
             className=""
           >
-            <div className="relative overflow-hidden rounded-[2.5rem] bg-refenti-charcoal p-8 text-white shadow-2xl md:rounded-[4rem] md:p-16 lg:p-24">
-              <div className="relative z-10 space-y-12 md:space-y-16">
+            <div className="relative overflow-hidden rounded-[2.5rem] bg-refenti-charcoal p-6 text-white shadow-2xl md:rounded-[4rem] md:p-12 lg:p-16">
+              <div className="relative z-10 space-y-10 md:space-y-10">
                 <div className="space-y-4 md:space-y-6">
                   <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
                     Strategic Horizon
@@ -167,7 +167,7 @@ function Investment() {
                   </h2>
                 </div>
                 <div className="grid items-center gap-10">
-                  <p className="text-justify text-xl leading-tight font-light text-gray-300 md:text-3xl lg:text-4xl">
+                  <p className="text-justify text-xs leading-tight font-light text-gray-300 md:text-lg lg:text-xl">
                     We create developments that stand as benchmarks for quality,
                     offering immediate impact and enduring value.
                   </p>
@@ -179,7 +179,7 @@ function Investment() {
                     />
                   </div>
                 </div>
-                <div className="grid gap-10 border-t border-white/10 pt-10 sm:grid-cols-2 md:pt-16 lg:grid-cols-3 lg:gap-16">
+                <div className="grid gap-4 border-t border-white/10 pt-10 md:pt-16 lg:gap-6">
                   {[
                     {
                       title: "Direct Capital",
@@ -194,7 +194,7 @@ function Investment() {
                       desc: "Every project is developed with a focus on high-demand urban classes.",
                     },
                   ].map((s, i) => (
-                    <div key={i} className="space-y-4 md:space-y-6">
+                    <div key={i} className="space-y-2 md:space-y-3">
                       <p className="font-sans text-[9px] font-bold tracking-widest text-refenti-gold uppercase md:text-[10px]">
                         {s.title}
                       </p>
@@ -214,7 +214,7 @@ function Investment() {
             ref={(el) => {
               sectionRefs.current["activities"] = el
             }}
-            className="space-y-12 md:space-y-24"
+            className="space-y-10 md:space-y-16"
           >
             <div className="space-y-4 text-center md:space-y-6">
               <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
@@ -224,7 +224,7 @@ function Investment() {
                 Our <span className="text-refenti-gold italic">Craft</span>
               </h2>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
               {[
                 {
                   title: "Development",
@@ -253,11 +253,11 @@ function Investment() {
                       alt={act.title}
                     />
                   </div>
-                  <div className="space-y-4 p-8 md:space-y-6 md:p-10">
+                  <div className="space-y-4 p-4 md:space-y-6 md:p-6">
                     <h3 className="font-display text-2xl leading-none font-light text-refenti-charcoal md:text-3xl">
                       {act.title}
                     </h3>
-                    <p className="text-justify text-sm leading-relaxed font-light text-gray-500 md:text-base">
+                    <p className="text-sm leading-relaxed font-light text-gray-500 md:text-base">
                       {act.desc}
                     </p>
                   </div>
@@ -272,9 +272,9 @@ function Investment() {
             ref={(el) => {
               sectionRefs.current["model"] = el
             }}
-            className="space-y-16 md:space-y-32"
+            className="space-y-10 md:space-y-20"
           >
-            <div className="space-y-8 md:space-y-12">
+            <div className="space-y-6 md:space-y-8">
               <div className="space-y-4 md:space-y-6">
                 <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
                   Execution
@@ -283,7 +283,7 @@ function Investment() {
                   The <span className="text-refenti-gold italic">Approach</span>
                 </h2>
               </div>
-              <div className="grid items-start gap-12 md:grid-cols-2 md:gap-24">
+              <div className="grid items-start gap-8 md:grid-cols-2 md:gap-16">
                 <div className="space-y-6 text-lg leading-relaxed font-light text-gray-700 md:space-y-8 md:text-xl">
                   <p className="text-justify">
                     We operate with control over the vision and strategy of
@@ -317,8 +317,8 @@ function Investment() {
             }}
             className="space-y-16 pb-24 md:space-y-32"
           >
-            <div className="grid gap-12 md:grid-cols-2 md:gap-24">
-              <div className="space-y-8 md:space-y-12">
+            <div className="grid gap-8 md:grid-cols-2 md:gap-16">
+              <div className="space-y-6 md:space-y-8">
                 <div className="space-y-4 md:space-y-6">
                   <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
                     Footprint
@@ -352,7 +352,7 @@ function Investment() {
                   </div>
                 </div>
               </div>
-              <div className="space-y-12 md:space-y-16">
+              <div className="space-y-10 md:space-y-10">
                 <div className="space-y-6 md:space-y-8">
                   <div className="group">
                     <p className="font-display text-3xl text-refenti-charcoal transition-colors duration-500 group-hover:text-refenti-gold md:text-4xl">

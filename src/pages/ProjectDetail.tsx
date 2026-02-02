@@ -59,7 +59,7 @@ function FeatureSection({
   return (
     <div
       ref={sectionRef}
-      className={`mx-auto flex max-w-7xl flex-col items-center gap-12 px-8 py-16 md:flex-row md:gap-24 md:px-12 ${!isLeft ? "md:flex-row-reverse" : ""}`}
+      className={`mx-auto flex max-w-7xl flex-col items-center gap-8 px-8 py-12 md:flex-row md:gap-16 md:px-12 ${!isLeft ? "md:flex-row-reverse" : ""}`}
     >
       <div
         className={`flex h-[50vh] w-full md:h-[60vh] md:w-1/2 ${isLeft ? "justify-end" : "justify-start"}`}
@@ -165,7 +165,7 @@ function ProjectDetail() {
         />
       </Helmet>
       {/* Hero Banner */}
-      <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-32">
+      <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-20">
         <div
           className="absolute inset-[-5%]"
           style={{
@@ -178,7 +178,7 @@ function ProjectDetail() {
         />
         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-6xl space-y-12 px-4 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center">
           <div className="space-y-6">
             <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[10rem]">
               {project.name}
@@ -221,8 +221,8 @@ function ProjectDetail() {
       </section>
 
       {/* Asset Narrative Section */}
-      <section className="bg-white px-8 py-24 md:px-12 md:py-40">
-        <div className="mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-2">
+      <section className="bg-white px-8 py-16 md:px-12 md:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2">
           <div className="space-y-8">
             <div className="space-y-3">
               <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
@@ -253,8 +253,8 @@ function ProjectDetail() {
 
       {/* Project Features Section */}
       {project.projectFeatures && project.projectFeatures.length > 0 && (
-        <section className="border-t border-gray-100 bg-refenti-offwhite px-8 py-24 md:px-12">
-          <div className="mx-auto max-w-7xl space-y-16">
+        <section className="border-t border-gray-100 bg-refenti-offwhite px-8 py-16 md:px-12">
+          <div className="mx-auto max-w-7xl space-y-10">
             <div className="space-y-3 text-center md:text-left">
               <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
                 Scope of Amenities
@@ -283,8 +283,8 @@ function ProjectDetail() {
       )}
 
       {/* Main Attributes Section */}
-      <section className="bg-white py-24 md:py-32">
-        <div className="mx-auto mb-16 max-w-7xl px-8 md:px-12">
+      <section className="bg-white py-16 md:py-20">
+        <div className="mx-auto mb-10 max-w-7xl px-8 md:px-12">
           <div className="space-y-3 text-center md:text-left">
             <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
               Technical Depth
@@ -305,18 +305,6 @@ function ProjectDetail() {
           ))}
         </div>
       </section>
-
-      <footer className="border-t border-gray-100 bg-white px-8 py-24 text-center">
-        <div className="mx-auto max-w-3xl space-y-8">
-          <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase">
-            Define Your <span className="text-refenti-gold italic">Legacy</span>
-          </h2>
-          <p className="text-justify text-base leading-relaxed font-light tracking-wide text-gray-600">
-            Discover a level of exclusivity reserved for the most discerning
-            global citizens.
-          </p>
-        </div>
-      </footer>
     </div>
   )
 }

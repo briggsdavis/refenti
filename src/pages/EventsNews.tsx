@@ -99,7 +99,7 @@ function EventsNews() {
           content="Stay updated with Refenti Group's latest events, milestones, and industry insights. Real estate development news and announcements from Ethiopia and Dubai."
         />
       </Helmet>
-      <section className="relative flex h-[80vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-24">
+      <section className="relative flex h-[80vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16">
         <div
           className="absolute inset-[-5%]"
           style={{
@@ -112,7 +112,7 @@ function EventsNews() {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center">
           <div className="space-y-6">
             <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[9rem]">
               News & Events
@@ -124,12 +124,12 @@ function EventsNews() {
         </div>
       </section>
 
-      <div className="px-6 py-24 md:px-12 md:py-40">
+      <div className="px-6 py-16 md:px-12 md:py-28">
         {loading ? (
           <div className="py-20 text-center text-gray-400">Loading...</div>
         ) : (
-          <div className="mx-auto max-w-7xl space-y-32 md:space-y-48">
-            <section className="space-y-16">
+          <div className="mx-auto max-w-7xl space-y-20 md:space-y-32">
+            <section className="space-y-10">
               <div className="flex flex-col items-start justify-between border-b border-gray-300 pb-8 md:flex-row md:items-end">
                 <div className="space-y-2">
                   <p className="font-sans text-[8px] font-bold tracking-ultra text-refenti-gold uppercase">
@@ -148,7 +148,7 @@ function EventsNews() {
               </div>
             </section>
 
-            <section className="space-y-20">
+            <section className="space-y-12">
               <div className="space-y-4 text-center">
                 <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
                   Strategic Engagements

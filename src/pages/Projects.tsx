@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { getProjects } from "../lib/api"
 import type { Project } from "../types"
+import LazyImage from "../components/LazyImage"
 
 function Projects() {
   const [scrollY, setScrollY] = useState(0)
@@ -39,7 +40,7 @@ function Projects() {
       </Helmet>
       <div className="min-h-screen bg-refenti-offwhite pb-16">
         {/* Cinematic Hero Banner */}
-        <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-32 md:pb-48">
+        <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-20 md:pb-32">
           <div
             className="absolute inset-[-10%]"
             style={{
@@ -53,7 +54,7 @@ function Projects() {
           {/* Deep gradient overlay for text legibility and transition to off-white */}
           <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-refenti-offwhite via-refenti-offwhite/60 to-black/20" />
 
-          <div className="relative z-10 mx-auto max-w-7xl space-y-12 px-4 text-center">
+          <div className="relative z-10 mx-auto max-w-7xl space-y-8 px-4 text-center">
             <div className="space-y-6 md:space-y-10">
               <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[12rem]">
                 Portfolio
@@ -66,14 +67,14 @@ function Projects() {
         </section>
 
         {/* Project Grid */}
-        <div className="relative z-10 -mt-16 px-6 pt-24 md:-mt-24 md:px-12 md:pt-40">
+        <div className="relative z-10 -mt-10 px-6 pt-16 md:-mt-16 md:px-12 md:pt-28">
           <div className="mx-auto max-w-7xl">
             {loading ? (
               <div className="py-20 text-center text-gray-400">
                 Loading projects...
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:gap-32">
+              <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:gap-20">
                 {projects.map((project, idx) => (
                   <Link
                     key={project.id}
@@ -83,10 +84,10 @@ function Projects() {
                   >
                     {/* Project Image Container */}
                     <div className="aspect-16/10 overflow-hidden rounded-[3.5rem] shadow-2xl transition-all duration-1000 group-hover:-translate-y-2 group-hover:shadow-refenti-gold/20">
-                      <img
+                      <LazyImage
                         src={project.image}
-                        className="h-full w-full object-cover grayscale-[0.2] transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0"
                         alt={project.name}
+                        className="h-full w-full object-cover grayscale-[0.2] transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0"
                       />
                     </div>
 

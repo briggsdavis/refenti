@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { getEvents, getProjects } from "../lib/api"
 import type { EventItem, Project } from "../types"
+import LazyImage from "../components/LazyImage"
 
 function EventCard({ event, index }: { event: EventItem; index: number }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,10 +14,10 @@ function EventCard({ event, index }: { event: EventItem; index: number }) {
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <div className="relative mb-6 aspect-4/5 overflow-hidden rounded-3xl">
-        <img
+        <LazyImage
           src={event.image}
-          className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
           alt={event.title}
+          className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
         />
       </div>
       <div className="px-2 pb-2">
@@ -73,10 +74,10 @@ function PhilosophySection() {
   return (
     <section
       ref={sectionRef}
-      className="flex items-center justify-center bg-refenti-offwhite px-4 py-24 md:px-8 md:py-40"
+      className="flex items-center justify-center bg-refenti-offwhite px-4 py-16 md:px-8 md:py-28"
     >
       <div
-        className="relative w-full max-w-6xl overflow-hidden border border-gray-100 bg-white p-8 shadow-sm transition-all duration-700 ease-out md:p-20"
+        className="relative w-full max-w-6xl overflow-hidden border border-gray-100 bg-white p-6 shadow-sm transition-all duration-700 ease-out md:p-14"
         style={{
           borderTopLeftRadius:
             progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
@@ -86,8 +87,8 @@ function PhilosophySection() {
           borderBottomRightRadius: baseRadius,
         }}
       >
-        <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
-          <div className="space-y-6 md:space-y-12">
+        <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10">
+          <div className="space-y-6 md:space-y-8">
             <h2 className="font-display text-3xl leading-[1.1] font-light tracking-tight text-refenti-charcoal sm:text-4xl md:text-6xl">
               The Art of <br />{" "}
               <span className="text-refenti-gold italic">Urban</span> <br />{" "}
@@ -156,7 +157,7 @@ function Home() {
           content="Refenti Group specializes in luxury real estate development across residential, mixed-use, commercial, and hospitality sectors. Precision-driven urban destinations in Ethiopia and Dubai."
         />
       </Helmet>
-      <section className="relative flex min-h-[80vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-screen md:pb-28">
+      <section className="relative flex min-h-[80vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-12 md:min-h-screen md:pb-20">
         <div
           className="absolute inset-[-5%]"
           style={{
@@ -169,7 +170,7 @@ function Home() {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/40 to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center sm:px-6 md:space-y-14">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center sm:px-6 md:space-y-10">
           <div className="space-y-3 md:space-y-6">
             <img
               // src="/hero-text.png"
@@ -186,9 +187,9 @@ function Home() {
 
       <PhilosophySection />
 
-      <section className="relative z-10 -mt-8 rounded-[2.5rem] border-t border-gray-50 bg-white px-4 py-20 shadow-sm sm:px-6 md:-mt-24 md:rounded-[6rem] md:px-12 md:py-48">
+      <section className="relative z-10 -mt-6 rounded-[2.5rem] border-t border-gray-50 bg-white px-4 py-14 shadow-sm sm:px-6 md:-mt-16 md:rounded-[6rem] md:px-12 md:py-32">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 md:mb-24">
+          <div className="mb-8 md:mb-16">
             <div className="space-y-1 text-center md:space-y-2 md:text-left">
               <h2 className="font-display text-5xl leading-none font-light tracking-tighter text-black uppercase select-none sm:text-6xl md:text-9xl">
                 Portfolio
@@ -199,15 +200,15 @@ function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-24">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-16">
             {projects.length > 0 && (
               <div className="group relative md:col-span-7">
                 <Link to={`/projects/${projects[0].id}`} className="block">
                   <div className="aspect-video overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-lg md:rounded-[2.5rem]">
-                    <img
+                    <LazyImage
                       src={projects[0].image}
-                      className="h-full w-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
                       alt={projects[0].name}
+                      className="h-full w-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
                     />
                   </div>
                 </Link>
@@ -229,10 +230,10 @@ function Home() {
               <div className="group md:col-span-5 md:mt-32">
                 <Link to={`/projects/${projects[1].id}`} className="block">
                   <div className="aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-lg">
-                    <img
+                    <LazyImage
                       src={projects[1].image}
-                      className="h-full w-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
                       alt={projects[1].name}
+                      className="h-full w-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
                     />
                   </div>
                 </Link>
@@ -253,9 +254,9 @@ function Home() {
         </div>
       </section>
 
-      <section className="bg-refenti-offwhite px-4 py-20 sm:px-6 md:py-40">
+      <section className="bg-refenti-offwhite px-4 py-14 sm:px-6 md:py-28">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 space-y-2 text-center md:mb-16 md:space-y-3">
+          <div className="mb-8 space-y-2 text-center md:mb-10 md:space-y-3">
             <h2 className="font-display text-3xl font-light text-refenti-charcoal md:text-6xl">
               Featured Updates
             </h2>

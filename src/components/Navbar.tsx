@@ -19,12 +19,25 @@ function Navbar() {
     window.addEventListener("scroll", handleScroll)
 
     const fetchProjects = async () => {
+      const cached = sessionStorage.getItem("refenti-projects")
+      if (cached) {
+        try {
+          const data = JSON.parse(cached)
+          setProjects(data)
+          if (data.length > 0) setHoveredProject(data[0])
+          return
+        } catch (e) {
+          console.error("Failed to parse cached projects")
+        }
+      }
+
       const { data, error } = await getProjects()
       if (error) {
         console.error("Failed to load projects:", error.message)
       } else {
         setProjects(data)
         if (data.length > 0) setHoveredProject(data[0])
+        sessionStorage.setItem("refenti-projects", JSON.stringify(data))
       }
     }
     fetchProjects()
@@ -61,7 +74,7 @@ function Navbar() {
     <div className="pointer-events-none fixed top-6 left-0 z-100 w-full px-4 md:top-8">
       <div className="pointer-events-auto relative mx-auto max-w-4/5 lg:max-w-fit">
         <nav
-          className={`rounded-full border border-white/40 bg-white/70 px-8 py-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] backdrop-blur-xl transition-all duration-700 ease-out md:px-12 md:py-4 ${scrolled ? "-translate-y-2 scale-90" : "scale-100"} `}
+          className={`rounded-full border border-white/40 bg-white/70 px-8 py-3 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] backdrop-blur-xl transition-all duration-700 ease-out md:px-12 md:py-4 ${scrolled ? "-translate-y-2 opacity-95" : "opacity-100"} `}
         >
           <ul className="flex items-center gap-8 md:gap-10">
             <li className="flex items-center">
@@ -82,6 +95,20 @@ function Navbar() {
                   >
                     <Link
                       to={link.path}
+                      onClick={(e) => {
+                        if (e.detail === 0) {
+                          e.preventDefault()
+                          setIsMenuOpen(!isMenuOpen)
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Escape" && isMenuOpen) {
+                          setIsMenuOpen(false)
+                        }
+                      }}
+                      aria-expanded={isMenuOpen}
+                      aria-haspopup="true"
+                      aria-controls="portfolio-dropdown"
                       className={`relative inline-flex items-center gap-2 text-[9px] font-bold tracking-ultra text-refenti-charcoal/80 uppercase transition-all hover:text-refenti-gold ${isActive || isMenuOpen ? "text-refenti-gold after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:bg-refenti-gold" : ""} `}
                     >
                       {link.name}
@@ -113,6 +140,9 @@ function Navbar() {
             <li className="ml-auto flex items-center lg:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
                 className="flex items-center text-refenti-charcoal/80 transition-colors hover:text-refenti-gold"
               >
                 <div className="flex w-7 flex-col gap-1.5">
@@ -133,6 +163,9 @@ function Navbar() {
 
         {/* Dropdown Desktop */}
         <div
+          id="portfolio-dropdown"
+          role="menu"
+          aria-label="Portfolio projects"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className={`cubic-bezier(0.19, 1, 0.22, 1) absolute top-[calc(100%-0.5rem)] left-1/2 w-212.5 origin-top -translate-x-1/2 pt-4 transition-all duration-1000 ${isMenuOpen ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-4 scale-98 opacity-0"} `}
@@ -147,6 +180,7 @@ function Navbar() {
                   <Link
                     key={project.id}
                     to={`/projects/${project.id}`}
+                    role="menuitem"
                     onMouseEnter={() => setHoveredProject(project)}
                     onClick={() => setIsMenuOpen(false)}
                     className={`group flex items-center justify-between transition-all duration-500 ${hoveredProject?.id === project.id ? "translate-x-2" : ""} `}
@@ -196,6 +230,9 @@ function Navbar() {
 
         {/* Mobile Menu */}
         <div
+          id="mobile-menu"
+          role="navigation"
+          aria-label="Mobile navigation"
           className={`cubic-bezier(0.19, 1, 0.22, 1) fixed inset-0 top-20 z-[-1] overflow-y-auto bg-white px-8 py-16 transition-all duration-700 lg:hidden ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"} `}
         >
           <div className="mx-auto max-w-md space-y-16">

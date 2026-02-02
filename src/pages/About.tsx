@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react"
 import { Helmet } from "react-helmet-async"
 
 const SECTIONS = [
-  { id: "about-refenti", label: "Our Philosophy" },
-  { id: "stand-for", label: "The Foundation" },
-  { id: "governance", label: "Future Vision" },
+  { id: "about-refenti", label: "Who We Are" },
+  { id: "stand-for", label: "Our Philosophy" },
+  { id: "governance", label: "Governance & SVH" },
 ]
 
 function About() {
@@ -44,10 +44,12 @@ function About() {
   return (
     <div className="min-h-screen bg-refenti-offwhite">
       <Helmet>
-        <title>About Refenti Group - Our Philosophy & Vision</title>
+        <title>
+          About Refenti Realty Group - Institutional Real Estate Platform
+        </title>
         <meta
           name="description"
-          content="Learn about Refenti Group's commitment to precision-driven real estate development. Our philosophy, foundation, and vision for creating architectural landmarks that define urban living."
+          content="Refenti Realty Group is an institutional real estate platform operating under Solstice Ventures Holding, focused on development, investment, and management of urban real estate assets."
         />
       </Helmet>
       {/* Hero Section */}
@@ -63,13 +65,13 @@ function About() {
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/70 to-transparent" />
-        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-14">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-4 px-4 text-center md:space-y-8">
           <div className="space-y-3 md:space-y-6">
             <h1 className="font-display text-6xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[10rem]">
               About
             </h1>
             <p className="font-sans text-[9px] font-bold tracking-[0.4em] text-refenti-gold uppercase md:text-xs md:tracking-[0.6em]">
-              Crafting a Legacy
+              Institutional Real Estate Platform
             </p>
           </div>
         </div>
@@ -77,7 +79,7 @@ function About() {
 
       <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6 md:flex-row md:px-12 lg:gap-24">
         {/* Sticky Sidebar Navigation - Hidden on mobile/tablet for better UX */}
-        <aside className="sticky top-48 z-20 hidden h-fit w-64 lg:block xl:w-72">
+        <aside className="sticky top-48 z-20 hidden h-fit w-52 lg:block">
           <div className="space-y-8">
             <p className="border-b border-gray-100 pb-4 font-sans text-[10px] font-bold tracking-[0.4em] text-refenti-gold uppercase">
               Perspective
@@ -99,7 +101,7 @@ function About() {
           </div>
         </aside>
 
-        <div className="flex-1 space-y-24 pb-32 md:space-y-48 md:pb-64 lg:space-y-72">
+        <div className="flex-1 space-y-16 pb-20 md:space-y-32 md:pb-40 lg:space-y-48">
           {/* Section: Our Philosophy */}
           <section
             id="about-refenti"
@@ -108,55 +110,42 @@ function About() {
             }}
             className="pt-12 md:pt-40"
           >
-            <div className="space-y-12 md:space-y-16">
+            <div className="space-y-8 md:space-y-10">
               <div className="space-y-4">
                 <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase sm:text-6xl md:text-8xl">
-                  Building <br /> for the{" "}
-                  <span className="text-refenti-gold italic">Future</span>
+                  Who We <span className="text-refenti-gold italic">Are</span>
                 </h2>
                 <div className="h-px w-24 bg-refenti-gold/40 md:w-32" />
               </div>
 
-              <div className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
-                <div className="space-y-6 text-lg leading-relaxed font-light text-gray-700 md:space-y-10 md:text-2xl">
+              <div className="grid items-start gap-8 md:grid-cols-2 md:gap-16">
+                <div className="flex h-full flex-col justify-between space-y-4 text-base leading-relaxed font-light text-gray-700 md:space-y-6 md:text-lg">
                   <p className="text-justify">
-                    Refenti Realty Group transforms how we perceive urban space.
-                    Part of Solstice Ventures Holding, we create environments
-                    that feel deliberate, permanent, and deeply connected to the
-                    city's identity.
+                    Refenti Realty Group is an institutional real estate
+                    platform focused on the development, investment, and
+                    management of urban real estate assets. The platform
+                    operates with a long-term horizon, combining capital
+                    discipline with direct involvement in development and asset
+                    delivery.
                   </p>
+
                   <div className="relative aspect-video overflow-hidden rounded-[2rem] shadow-lg md:rounded-[2.5rem]">
                     <img
                       src="/about/about-decor-1.webp"
                       className="h-full w-full object-cover"
-                      alt="Architectural Detail"
+                      alt="Urban Development"
                     />
                   </div>
-                  <p className="text-justify text-base leading-relaxed text-gray-500 md:text-lg">
-                    Our vision is built on architectural intent. Every decision
-                    is weighed against a standard of lasting quality and
-                    aesthetic purity.
-                  </p>
                 </div>
+
                 <div className="aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl md:rounded-[4rem]">
                   <img
-                    src="/about/about-decor-2.webp"
+                    src="/about/about-decor-3.webp"
                     className="h-full w-full object-cover"
-                    alt="Interior Luxury"
+                    alt="Real Estate Asset"
                   />
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* Decorative Wide Image */}
-          <section className="">
-            <div className="aspect-[21/9] w-full overflow-hidden rounded-[2rem] border border-gray-100 shadow-sm md:rounded-[4rem]">
-              <img
-                src="/about/about-decor-3.webp"
-                className="h-full w-full object-cover opacity-90 grayscale-[0.2]"
-                alt="Building Atmosphere"
-              />
             </div>
           </section>
 
@@ -167,51 +156,41 @@ function About() {
               sectionRefs.current["stand-for"] = el
             }}
           >
-            <div className="space-y-12 md:space-y-24">
+            <div className="space-y-8 md:space-y-16">
               <div className="max-w-3xl space-y-4 md:space-y-6">
                 <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
-                  What Guides Us
+                  Our Approach
                 </p>
                 <h2 className="font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase sm:text-5xl md:text-7xl">
                   Our{" "}
-                  <span className="text-refenti-gold italic">Foundation</span>
+                  <span className="text-refenti-gold italic">Philosophy</span>
                 </h2>
               </div>
 
-              <div className="grid gap-10 md:grid-cols-2 lg:gap-24">
-                <div className="space-y-6 md:space-y-8">
-                  <div className="mb-6 aspect-video overflow-hidden rounded-[2rem] shadow-xl md:mb-10 md:rounded-[3rem]">
+              <div className="space-y-10 md:space-y-16">
+                <p className="max-w-3xl text-justify text-lg leading-relaxed font-light text-gray-700 md:text-xl">
+                  We believe real estate assets should be conceived with
+                  durability, governed with rigor, and executed with technical
+                  depth. Refenti is built to create assets that perform over
+                  time, supported by disciplined decision-making and consistent
+                  execution standards.
+                </p>
+
+                <div className="grid gap-10 md:grid-cols-2 lg:gap-24">
+                  <div className="aspect-video overflow-hidden rounded-[2rem] shadow-xl md:rounded-[3rem]">
                     <img
                       src="/about/about-decor-4.webp"
                       className="h-full w-full object-cover"
-                      alt="Office Space"
+                      alt="Development Process"
                     />
                   </div>
-                  <h3 className="font-display text-3xl font-light text-refenti-charcoal uppercase italic md:text-4xl">
-                    A Sense of Place
-                  </h3>
-                  <p className="text-justify text-base leading-relaxed font-light text-gray-700 md:text-lg">
-                    Every building should have a soul. By focusing on
-                    low-density designs and high-privacy layouts, we create
-                    sanctuaries that offer a retreat from the urban bustle.
-                  </p>
-                </div>
-                <div className="space-y-6 md:space-y-8 md:pt-24 lg:pt-32">
-                  <div className="mb-6 aspect-video overflow-hidden rounded-[2rem] shadow-xl md:mb-10 md:rounded-[3rem]">
+                  <div className="aspect-video overflow-hidden rounded-[2rem] shadow-xl md:rounded-[3rem]">
                     <img
                       src="/about/about-decor-5.webp"
                       className="h-full w-full object-cover"
-                      alt="Residential Excellence"
+                      alt="Asset Development"
                     />
                   </div>
-                  <h3 className="font-display text-3xl font-light text-refenti-charcoal uppercase italic md:text-4xl">
-                    Proven Quality
-                  </h3>
-                  <p className="text-justify text-base leading-relaxed font-light text-gray-700 md:text-lg">
-                    Excellence is a choice. We prioritize the integrity of the
-                    asset, ensuring that what we build today remains a landmark
-                    for generations.
-                  </p>
                 </div>
               </div>
             </div>
@@ -224,7 +203,7 @@ function About() {
               sectionRefs.current["governance"] = el
             }}
           >
-            <div className="relative flex flex-col items-center gap-10 overflow-hidden rounded-[2.5rem] bg-refenti-charcoal p-8 text-white shadow-2xl md:rounded-[4rem] md:p-16 lg:flex-row lg:gap-16 lg:p-24">
+            <div className="relative flex flex-col items-center gap-10 overflow-hidden rounded-[2.5rem] bg-refenti-charcoal p-6 text-white shadow-2xl md:rounded-[4rem] md:p-10 lg:flex-row lg:gap-16 lg:p-16">
               <div className="pointer-events-none absolute inset-0 opacity-10">
                 <img
                   src="/about/about-decor-6.webp"
@@ -232,34 +211,67 @@ function About() {
                   alt=""
                 />
               </div>
-              <div className="relative z-10 space-y-6 md:space-y-10 lg:w-3/5">
+              <div className="relative z-10 space-y-6 md:space-y-8 lg:w-3/5">
                 <div className="space-y-3 md:space-y-4">
                   <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
-                    A Clear Horizon
+                    Institutional Alignment
                   </p>
-                  <h3 className="font-display text-4xl leading-tight font-light uppercase sm:text-5xl md:text-7xl">
-                    The Path{" "}
-                    <span className="text-refenti-gold italic">Forward</span>
+                  <h3 className="font-display text-4xl leading-tight font-light uppercase sm:text-5xl md:text-6xl">
+                    Governance &{" "}
+                    <span className="text-refenti-gold italic">
+                      SVH Alignment
+                    </span>
                   </h3>
                 </div>
-                <p className="text-justify text-lg leading-relaxed font-light text-gray-300 md:text-2xl">
-                  We look at real estate through a long-term lens. By
-                  maintaining control over every phase of our projects, we
-                  ensure that our developments are not just sustainable, but
-                  truly exceptional.
+                <p className="text-justify text-sm leading-relaxed font-light text-gray-300 md:text-base">
+                  Refenti Realty Group operates under the governance framework
+                  of Solstice Ventures Holding (SVH). This alignment provides
+                  group-level oversight across investment discipline, risk
+                  management, and institutional standards.
                 </p>
-                <div className="pt-4 md:pt-8">
-                  <div className="mb-4 h-px w-16 bg-refenti-gold md:mb-6 md:w-24" />
-                  <p className="text-[9px] font-bold tracking-widest text-refenti-gold uppercase md:text-[10px]">
-                    Aligned with Modern Living
+                <div className="space-y-4 border-l-2 border-refenti-gold/30 pl-6 md:space-y-5">
+                  <p className="text-sm leading-relaxed font-light text-gray-300 md:text-base">
+                    Through SVH, Refenti benefits from:
                   </p>
+                  <ul className="space-y-3 text-sm leading-relaxed font-light text-gray-300 md:text-base">
+                    <li>
+                      • Clear separation of capital allocation and execution
+                    </li>
+                    <li>• Strong governance and compliance structures</li>
+                    <li>
+                      • Long-term platform continuity beyond individual projects
+                    </li>
+                  </ul>
+                </div>
+                <div className="pt-4 md:pt-6">
+                  <a
+                    href="https://solstice-ventures-beta.webflow.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[9px] font-bold tracking-widest text-refenti-gold uppercase transition-colors hover:text-white md:text-[10px]"
+                  >
+                    Learn More About SVH
+                    <svg
+                      className="h-3 w-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </a>
                 </div>
               </div>
               <div className="relative z-10 aspect-square w-full overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl md:rounded-[3rem] lg:w-2/5">
                 <img
                   src="/about/about-decor-3.webp"
                   className="h-full w-full object-cover"
-                  alt="Future Development"
+                  alt="Institutional Governance"
                 />
               </div>
             </div>
