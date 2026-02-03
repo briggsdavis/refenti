@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 interface LazyImageProps {
   src: string
   alt: string
   className?: string
   threshold?: number
+  transition?: string
 }
 
 function LazyImage({
@@ -12,6 +13,7 @@ function LazyImage({
   alt,
   className = "",
   threshold = 0.1,
+  transition = "transition-opacity duration-500",
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isInView, setIsInView] = useState(false)
@@ -25,7 +27,7 @@ function LazyImage({
           observer.disconnect()
         }
       },
-      { threshold }
+      { threshold },
     )
 
     if (imgRef.current) observer.observe(imgRef.current)
@@ -37,7 +39,7 @@ function LazyImage({
       ref={imgRef}
       src={isInView ? src : undefined}
       alt={alt}
-      className={`${className} ${isLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-500`}
+      className={`${className} ${isLoaded ? "opacity-100" : "opacity-0"} ${transition}`}
       onLoad={() => setIsLoaded(true)}
       loading="lazy"
     />

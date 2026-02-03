@@ -130,7 +130,7 @@ function Contact() {
         />
       </Helmet>
       {/* Hero Section */}
-      <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-12 md:pb-20">
+      <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-[90vh] md:pb-32">
         <div
           className="absolute inset-[-5%]"
           style={{
@@ -144,11 +144,11 @@ function Contact() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/70 to-transparent" />
         <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-8">
           <FadeIn direction="none" duration={1000}>
-            <div className="space-y-4">
-              <h1 className="font-display text-6xl leading-none font-light tracking-tight text-refenti-charcoal uppercase md:text-8xl lg:text-[9rem]">
+            <div className="space-y-3 md:space-y-6">
+              <h1 className="font-display text-6xl leading-none font-light text-refenti-charcoal uppercase md:text-9xl">
                 Contact
               </h1>
-              <p className="font-sans text-[10px] font-bold tracking-[0.5em] text-refenti-gold uppercase">
+              <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                 Direct Engagement
               </p>
             </div>
@@ -166,7 +166,7 @@ function Contact() {
                     Connect <br />
                     <span className="text-refenti-gold italic">With Us</span>
                   </h2>
-                  <p className="font-display text-[10px] font-bold tracking-widest text-refenti-gold uppercase md:text-xs">
+                  <p className="font-display text-xs font-bold text-refenti-gold uppercase">
                     Inquiry Portal
                   </p>
                 </div>
@@ -183,7 +183,7 @@ function Contact() {
                 ].map((item, idx) => (
                   <FadeIn key={item.label} delay={100 + idx * 100}>
                     <div className="space-y-1 md:space-y-2">
-                      <p className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+                      <p className="text-xs font-bold text-gray-400 uppercase">
                         {item.label}
                       </p>
                       <p className="text-xl font-light break-words md:text-2xl">
@@ -203,7 +203,7 @@ function Contact() {
               >
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-6">
                     <div className="space-y-3 md:space-y-4">
-                      <label className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+                      <label className="text-xs font-bold text-gray-400 uppercase">
                         Full Name
                       </label>
                       <input
@@ -226,7 +226,7 @@ function Contact() {
                       )}
                     </div>
                     <div className="space-y-3 md:space-y-4">
-                      <label className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+                      <label className="text-xs font-bold text-gray-400 uppercase">
                         Email Address
                       </label>
                       <input
@@ -255,7 +255,7 @@ function Contact() {
                     className="relative space-y-3 md:space-y-4"
                     ref={dropdownRef}
                   >
-                    <label className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+                    <label className="text-xs font-bold text-gray-400 uppercase">
                       Inquiry Type
                     </label>
                     <div className="relative">
@@ -301,7 +301,7 @@ function Contact() {
                               role="option"
                               aria-selected={formData.type === type}
                               onClick={() => selectType(type)}
-                              className={`w-full px-8 py-5 text-left text-[11px] font-bold tracking-widest uppercase transition-all ${formData.type === type ? "bg-refenti-offwhite text-refenti-gold" : "text-gray-500 hover:bg-gray-50 hover:text-refenti-charcoal"} `}
+                              className={`w-full px-8 py-5 text-left text-xs font-bold uppercase transition-all ${formData.type === type ? "bg-refenti-offwhite text-refenti-gold" : "text-gray-500 hover:bg-gray-50 hover:text-refenti-charcoal"} `}
                             >
                               {type}
                             </button>
@@ -312,7 +312,7 @@ function Contact() {
                   </div>
 
                   <div className="space-y-3 md:space-y-4">
-                    <label className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+                    <label className="text-xs font-bold text-gray-400 uppercase">
                       Your Message
                     </label>
                     <textarea
@@ -346,7 +346,7 @@ function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group w-full rounded-xl bg-refenti-charcoal py-5 font-sans text-[10px] font-bold tracking-widest text-white uppercase shadow-2xl transition-all duration-500 hover:bg-refenti-gold disabled:cursor-not-allowed disabled:bg-gray-400 md:rounded-2xl md:py-6 md:text-xs"
+                    className="group w-full rounded-xl bg-refenti-charcoal py-5 font-sans text-xs font-bold text-white uppercase shadow-2xl transition-all duration-500 hover:bg-refenti-gold disabled:cursor-not-allowed disabled:bg-gray-400 md:rounded-2xl md:py-6"
                   >
                     <span className="flex items-center justify-center gap-4">
                       {isSubmitting ? "Submitting..." : "Submit Inquiry"}
@@ -387,7 +387,7 @@ function Contact() {
                       />
                     </svg>
                   </div>
-                  <h3 className="font-display text-4xl tracking-tighter text-refenti-charcoal uppercase">
+                  <h3 className="font-display text-4xl text-refenti-charcoal uppercase">
                     Received.
                   </h3>
                   <p className="font-light text-gray-400">

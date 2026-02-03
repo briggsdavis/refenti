@@ -109,7 +109,7 @@ function Navbar() {
                       aria-expanded={isMenuOpen}
                       aria-haspopup="true"
                       aria-controls="portfolio-dropdown"
-                      className={`relative inline-flex items-center gap-2 text-[9px] font-bold tracking-ultra text-refenti-charcoal/80 uppercase transition-all hover:text-refenti-gold ${isActive || isMenuOpen ? "text-refenti-gold after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:bg-refenti-gold" : ""} `}
+                      className={`relative inline-flex items-center gap-2 text-xs font-bold text-refenti-charcoal/80 uppercase transition-all hover:text-refenti-gold ${isActive || isMenuOpen ? "text-refenti-gold after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:bg-refenti-gold" : ""} `}
                     >
                       {link.name}
                       <svg
@@ -129,7 +129,7 @@ function Navbar() {
                 <li key={link.path} className="hidden lg:flex lg:items-center">
                   <Link
                     to={link.path}
-                    className={`relative text-[9px] font-bold tracking-ultra text-refenti-charcoal/80 uppercase transition-all hover:text-refenti-gold ${isActive ? "text-refenti-gold after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:bg-refenti-gold" : ""} `}
+                    className={`relative text-xs font-bold text-refenti-charcoal/80 uppercase transition-all hover:text-refenti-gold ${isActive ? "text-refenti-gold after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:bg-refenti-gold" : ""} `}
                   >
                     {link.name}
                   </Link>
@@ -172,7 +172,7 @@ function Navbar() {
         >
           <div className="flex min-h-120 overflow-hidden rounded-[3rem] border border-gray-100/50 bg-white shadow-[0_30px_80px_-20px_rgba(0,0,0,0.08)]">
             <div className="w-[38%] space-y-10 border-r border-gray-100 bg-white p-12">
-              <p className="text-[8px] font-bold tracking-ultra text-refenti-gold uppercase opacity-80">
+              <p className="text-xs font-bold text-refenti-gold uppercase opacity-80">
                 Refenti Collection
               </p>
               <div className="space-y-8">
@@ -191,7 +191,7 @@ function Navbar() {
                       >
                         {project.name}
                       </h4>
-                      <p className="text-[8px] font-bold tracking-extrawide text-gray-500 uppercase">
+                      <p className="text-xs font-bold text-gray-500 uppercase">
                         {project.location}
                       </p>
                     </div>
@@ -214,7 +214,7 @@ function Navbar() {
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
                     <div className="absolute bottom-10 left-10 max-w-xs space-y-2 text-white">
-                      <p className="text-[8px] font-bold tracking-ultra text-refenti-gold uppercase">
+                      <p className="text-xs font-bold text-refenti-gold uppercase">
                         {project.assetClass}
                       </p>
                       <h3 className="font-display text-3xl leading-none font-light">
@@ -237,7 +237,7 @@ function Navbar() {
         >
           <div className="mx-auto max-w-md space-y-16">
             <div className="space-y-8">
-              <p className="border-b border-gray-100 pb-4 text-[8px] font-bold tracking-ultra text-refenti-gold uppercase opacity-70">
+              <p className="border-b border-gray-100 pb-4 text-xs font-bold text-refenti-gold uppercase opacity-70">
                 Refenti Navigation
               </p>
               <ul className="space-y-6">
@@ -245,7 +245,7 @@ function Navbar() {
                   <li key={link.path} className="overflow-hidden">
                     <Link
                       to={link.path}
-                      className="block font-display text-4xl tracking-tight text-refenti-charcoal/90 uppercase transition-all hover:text-refenti-gold"
+                      className="block font-display text-4xl text-refenti-charcoal/90 uppercase transition-all hover:text-refenti-gold"
                     >
                       {link.name}
                     </Link>
@@ -256,7 +256,7 @@ function Navbar() {
 
             {/* Mobile-specific Project Collection Links */}
             <div className="space-y-8 border-t border-gray-100 pt-8">
-              <p className="text-[8px] font-bold tracking-ultra text-refenti-gold uppercase opacity-70">
+              <p className="text-xs font-bold text-refenti-gold uppercase opacity-70">
                 The Collection
               </p>
               <ul className="space-y-6">
@@ -264,11 +264,11 @@ function Navbar() {
                   <li key={project.id} className="overflow-hidden">
                     <Link
                       to={`/projects/${project.id}`}
-                      className="block font-display text-3xl tracking-tight text-refenti-charcoal/70 uppercase transition-all hover:text-refenti-gold"
+                      className="block font-display text-3xl text-refenti-charcoal/70 uppercase transition-all hover:text-refenti-gold"
                     >
                       {project.name}
                     </Link>
-                    <p className="mt-1 text-[8px] font-bold tracking-extrawide text-gray-400 uppercase">
+                    <p className="mt-1 text-xs font-bold text-gray-400 uppercase">
                       {project.location}
                     </p>
                   </li>

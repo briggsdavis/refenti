@@ -17,28 +17,28 @@ function NewsCard({ item, index }: { item: NewsItem; index: number }) {
         <img
           src={item.image}
           alt={item.title}
-          className="h-full w-full object-cover grayscale-[0.3] transition-transform duration-1000 group-hover:grayscale-0"
+          className="h-full w-full object-cover grayscale-[0.3] transition-transform duration-500 group-hover:grayscale-0"
         />
         <div className="absolute top-6 left-6">
-          <span className="rounded-full bg-refenti-gold px-4 py-1.5 text-[8px] font-bold tracking-ultra text-white uppercase">
+          <span className="rounded-full bg-refenti-gold px-4 py-1.5 text-xs font-bold text-white uppercase">
             {item.category}
           </span>
         </div>
       </div>
       <div className="space-y-4 p-8">
-        <p className="text-[8px] font-bold tracking-ultra text-gray-800 uppercase">
+        <p className="text-xs font-bold text-gray-800 uppercase">
           {item.date}
         </p>
         <h3 className="font-display text-3xl leading-none font-light text-refenti-charcoal">
           {item.title}
         </h3>
-        <p className="text-justify text-sm leading-relaxed font-light text-gray-700">
+        <p className="text-sm leading-relaxed font-light text-gray-700">
           {item.excerpt}
         </p>
 
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-2 border-b border-transparent pb-1 text-[8px] font-bold tracking-ultra text-refenti-gold uppercase transition-all hover:border-refenti-gold"
+          className="flex items-center gap-2 border-b border-transparent pb-1 text-xs font-bold text-refenti-gold uppercase transition-all hover:border-refenti-gold"
         >
           {isExpanded ? "Close Brief" : "View Brief"}
         </button>
@@ -46,7 +46,7 @@ function NewsCard({ item, index }: { item: NewsItem; index: number }) {
         <div
           className={`overflow-hidden transition-all duration-1000 ease-in-out ${isExpanded ? "mt-6 max-h-[500px] border-t border-gray-100 pt-6 opacity-100" : "max-h-0 opacity-0"}`}
         >
-          <p className="text-justify text-[15px] leading-relaxed font-light text-gray-700 italic">
+          <p className="text-sm leading-relaxed font-light text-gray-700 italic">
             {item.content || item.excerpt}
           </p>
         </div>
@@ -100,7 +100,7 @@ function EventsNews() {
           content="Stay updated with Refenti Group's latest events, milestones, and industry insights. Real estate development news and announcements from Ethiopia and Dubai."
         />
       </Helmet>
-      <section className="relative flex h-[80vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16">
+      <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-[90vh] md:pb-32">
         <div
           className="absolute inset-[-5%]"
           style={{
@@ -113,13 +113,13 @@ function EventsNews() {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-8">
           <FadeIn direction="none" duration={1000}>
-            <div className="space-y-6">
-              <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[9rem]">
+            <div className="space-y-3 md:space-y-6">
+              <h1 className="font-display text-6xl leading-none font-light text-refenti-charcoal uppercase md:text-9xl">
                 News & Events
               </h1>
-              <p className="font-sans text-[10px] font-bold tracking-[0.7em] text-refenti-gold uppercase md:text-xs">
+              <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                 Institutional Updates
               </p>
             </div>
@@ -138,11 +138,11 @@ function EventsNews() {
               <FadeIn>
                 <div className="flex flex-col items-start justify-between border-b border-gray-300 pb-8 md:flex-row md:items-end">
                   <div className="space-y-2">
-                    <p className="font-sans text-[8px] font-bold tracking-ultra text-refenti-gold uppercase">
+                    <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                       Sector Insights
                     </p>
                     <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase md:text-6xl">
-                      Asset <br className="hidden md:block" /> Milestones
+                      News
                     </h2>
                   </div>
                 </div>
@@ -160,7 +160,7 @@ function EventsNews() {
             <section className="space-y-12">
               <FadeIn>
                 <div className="space-y-4 text-center">
-                  <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
+                  <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                     Strategic Engagements
                   </p>
                   <h2 className="font-display text-5xl font-light text-refenti-charcoal uppercase md:text-7xl">
@@ -183,11 +183,11 @@ function EventsNews() {
                       <div className="flex-1 space-y-4">
                         <div className="space-y-2">
                           <div className="flex items-center gap-4">
-                            <span className="font-sans text-[10px] font-bold tracking-ultra text-refenti-gold uppercase">
+                            <span className="font-sans text-xs font-bold text-refenti-gold uppercase">
                               {event.date}
                             </span>
                             <span className="h-px w-8 bg-gray-300" />
-                            <span className="font-sans text-[10px] font-bold tracking-ultra text-gray-800 uppercase">
+                            <span className="font-sans text-xs font-bold text-gray-800 uppercase">
                               {event.location}
                             </span>
                           </div>
@@ -195,12 +195,12 @@ function EventsNews() {
                             {event.title}
                           </h3>
                         </div>
-                        <p className="line-clamp-3 text-justify text-sm leading-relaxed font-light text-gray-800">
+                        <p className="line-clamp-3 text-sm leading-relaxed font-light text-gray-800">
                           {event.details}
                         </p>
                         <Link
                           to="/contact"
-                          className="inline-block rounded-xl bg-refenti-charcoal px-8 py-3 text-[10px] font-bold tracking-ultra text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold"
+                          className="inline-block rounded-xl bg-refenti-charcoal px-8 py-3 text-xs font-bold text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold"
                         >
                           Inquire for Details
                         </Link>

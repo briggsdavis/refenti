@@ -1,45 +1,72 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
-
-const SECTIONS = [
-  { id: "about", label: "Who We Are" },
-  { id: "mandate", label: "Our Outlook" },
-  { id: "activities", label: "Core Expertise" },
-  { id: "model", label: "The Approach" },
-  { id: "reach", label: "Presence" },
-]
+import FadeIn from "../components/FadeIn"
+import LazyImage from "../components/LazyImage"
 
 function Investment() {
   const [scrollY, setScrollY] = useState(0)
-  const [activeSection, setActiveSection] = useState(SECTIONS[0].id)
-  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-      let current = SECTIONS[0].id
-      for (const section of SECTIONS) {
-        const element = sectionRefs.current[section.id]
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          if (rect.top <= 300) current = section.id
-        }
-      }
-      setActiveSection(current)
-    }
+    const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const scrollToSection = (id: string) => {
-    const element = sectionRefs.current[id]
-    if (element) {
-      window.scrollTo({
-        top: element.getBoundingClientRect().top + window.pageYOffset - 120,
-        behavior: "smooth",
-      })
-    }
-  }
+  const assetClasses = [
+    {
+      title: "Residential",
+      image: "/investment/investment-decor-1.webp",
+      alt: "Residential development",
+    },
+    {
+      title: "Mixed-Use",
+      image: "/investment/investment-decor-2.webp",
+      alt: "Mixed-use development",
+    },
+    {
+      title: "Commercial & Serviced",
+      image: "/investment/investment-decor-3.webp",
+      alt: "Commercial development",
+    },
+  ]
+
+  const developmentSteps = [
+    {
+      number: "01",
+      title: "Opportunity Origination and Site Selection",
+      description:
+        "Identification of development sites and investment opportunities through market analysis and strategic positioning.",
+      image: "/investment/vision.webp",
+    },
+    {
+      number: "02",
+      title: "Design, Structuring, and Feasibility",
+      description:
+        "Architectural development, financial structuring, and comprehensive feasibility assessment.",
+      image: "/investment/clear-outlook.webp",
+    },
+    {
+      number: "03",
+      title: "Development and Construction Delivery",
+      description:
+        "Project execution with institutional-grade construction management and quality oversight.",
+      image: "/investment/development.webp",
+    },
+    {
+      number: "04",
+      title: "Asset Stabilization and Optimization",
+      description:
+        "Lease-up, operational optimization, and positioning for long-term performance.",
+      image: "/investment/management.webp",
+    },
+    {
+      number: "05",
+      title: "Long-term Management or Strategic Exit",
+      description:
+        "Active asset management and strategic capital allocation decisions aligned with market conditions.",
+      image: "/investment/regional-presence.webp",
+    },
+  ]
 
   return (
     <div className="min-h-screen bg-refenti-offwhite">
@@ -50,8 +77,9 @@ function Investment() {
           content="Explore precision-driven real estate investment opportunities with Refenti Group. Development, management, and strategic vision across residential, commercial, and mixed-use projects."
         />
       </Helmet>
+
       {/* Hero Section */}
-      <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-12 md:min-h-[90vh] md:pb-20">
+      <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-[90vh] md:pb-32">
         <img
           src="/investment/investment-hero.webp"
           alt="Investment Hero"
@@ -63,326 +91,222 @@ function Investment() {
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
-        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-10">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-8">
           <div className="space-y-3 md:space-y-6">
-            <h1 className="font-display text-6xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[10rem]">
+            <h1 className="font-display text-6xl leading-none font-light text-refenti-charcoal uppercase md:text-9xl">
               Investment
             </h1>
-            <p className="font-sans text-[9px] font-bold tracking-[0.4em] text-refenti-gold uppercase md:text-xs md:tracking-[0.6em]">
+            <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
               Precision in Real Estate
             </p>
           </div>
         </div>
       </section>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 md:flex-row md:px-12 lg:gap-16">
-        {/* Navigation Sidebar - Hidden on mobile/tablet for better UX */}
-        <aside className="sticky top-48 z-20 hidden h-fit w-52 lg:block">
-          <div className="space-y-8">
-            <p className="border-b border-gray-100 pb-4 font-sans text-[10px] font-bold tracking-[0.4em] text-refenti-gold uppercase">
-              Strategy
+      {/* Investment Mandate */}
+      <section className="px-4 py-20 md:px-12 md:py-28">
+        <div className="mx-auto max-w-5xl space-y-12">
+          <FadeIn direction="up" duration={800}>
+            <p className="text-xs font-bold tracking-wider text-refenti-gold uppercase">
+              INVESTMENT MANDATE
             </p>
-            <nav className="flex flex-col gap-6">
-              {SECTIONS.map((section) => (
-                <button
-                  key={section.id}
-                  onClick={() => scrollToSection(section.id)}
-                  className={`group flex items-center gap-6 text-left text-[11px] font-bold tracking-widest uppercase transition-all duration-700 ${activeSection === section.id ? "text-refenti-gold" : "text-gray-400 hover:text-refenti-charcoal"} `}
-                >
-                  <span
-                    className={`h-px bg-current transition-all duration-700 ${activeSection === section.id ? "w-12" : "w-6 group-hover:w-12"}`}
-                  />
-                  {section.label}
-                </button>
-              ))}
-            </nav>
-          </div>
-        </aside>
-
-        <div className="flex-1 space-y-16 pb-32 md:space-y-32 md:pb-64 lg:space-y-72">
-          {/* Section: Who We Are */}
-          <section
-            id="about"
-            ref={(el) => {
-              sectionRefs.current["about"] = el
-            }}
-            className="space-y-10 pt-12 md:space-y-10 md:pt-28"
-          >
-            <div className="space-y-4 md:space-y-6">
-              <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
-                A Foundation of Trust
+          </FadeIn>
+          <FadeIn direction="up" duration={800} delay={100}>
+            <h2 className="font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase md:text-6xl">
+              Investment & Development{" "}
+              <span className="text-refenti-gold italic">Mandate</span>
+            </h2>
+          </FadeIn>
+          <FadeIn direction="up" duration={800} delay={200}>
+            <div className="space-y-6 leading-relaxed font-light text-refenti-charcoal md:text-lg">
+              <p>
+                Refenti focuses on three core areas within urban real estate:
               </p>
-              <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase sm:text-6xl md:text-8xl">
-                The <span className="text-refenti-gold italic">Group</span>
-              </h2>
+              <ul className="space-y-4">
+                <li>
+                  • Urban residential developments positioned for long-term
+                  demand
+                </li>
+                <li>
+                  • Mixed-use and integrated assets that combine residential,
+                  commercial, and community functions
+                </li>
+                <li>
+                  • Select commercial and serviced real estate assets aligned
+                  with operational capabilities
+                </li>
+              </ul>
             </div>
-            <div className="grid gap-6 text-lg leading-relaxed font-light text-gray-700 md:grid-cols-2 md:gap-10 md:text-xl">
-              <div className="space-y-6 md:space-y-8">
-                <p className="text-justify">
-                  Refenti Realty Group identifies and realizes the potential of
-                  urban landscapes. We build with a long-term mindset that
-                  values execution above all.
-                </p>
-                <div className="aspect-square overflow-hidden rounded-[2rem] shadow-2xl md:rounded-[3rem]">
-                  <img
-                    src="/investment/investment-decor-1.webp"
-                    className="h-full w-full object-cover"
-                    alt="High-Rise Vision"
-                  />
-                </div>
-              </div>
-              <div className="space-y-6 md:space-y-8 md:pt-24">
-                <div className="mb-6 aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl md:mb-8 md:rounded-[3rem]">
-                  <img
-                    src="/investment/investment-decor-2.webp"
-                    className="h-full w-full object-cover"
-                    alt="Urban Landscape"
-                  />
-                </div>
-                <p className="text-justify">
-                  We focus on high-quality assets in markets primed for growth,
-                  ensuring every project is an engine for long-term performance.
-                </p>
-              </div>
-            </div>
-          </section>
+          </FadeIn>
+        </div>
+      </section>
 
-          {/* Section: Our Outlook */}
-          <section
-            id="mandate"
-            ref={(el) => {
-              sectionRefs.current["mandate"] = el
-            }}
-            className=""
-          >
-            <div className="relative overflow-hidden rounded-[2.5rem] bg-refenti-charcoal p-6 text-white shadow-2xl md:rounded-[4rem] md:p-12 lg:p-16">
-              <div className="relative z-10 space-y-10 md:space-y-10">
-                <div className="space-y-4 md:space-y-6">
-                  <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
-                    Strategic Horizon
-                  </p>
-                  <h2 className="font-display text-4xl leading-none font-light uppercase sm:text-5xl md:text-7xl">
-                    A Clear{" "}
-                    <span className="text-refenti-gold italic">Outlook</span>
-                  </h2>
-                </div>
-                <div className="grid items-center gap-10">
-                  <p className="text-justify text-xs leading-tight font-light text-gray-300 md:text-lg lg:text-xl">
-                    We create developments that stand as benchmarks for quality,
-                    offering immediate impact and enduring value.
-                  </p>
-                  <div className="aspect-video overflow-hidden rounded-[1.5rem] border border-white/10 shadow-xl md:rounded-[2.5rem]">
-                    <img
-                      src="/investment/clear-outlook.webp"
-                      className="h-full w-full object-cover opacity-80"
-                      alt="Building Structure"
+      {/* Development Focus */}
+      <section className="px-4 py-16 md:px-12 md:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+            <FadeIn direction="up" duration={800}>
+              <div className="group overflow-hidden rounded-[2rem]">
+                <LazyImage
+                  src="/investment/development.webp"
+                  alt="Construction site development"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+            </FadeIn>
+            <FadeIn direction="up" duration={800} delay={100}>
+              <div className="space-y-8">
+                <h2 className="font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase md:text-6xl">
+                  Development{" "}
+                  <span className="text-refenti-gold italic">Focus</span>
+                </h2>
+                <ul className="space-y-4 leading-relaxed font-light text-refenti-charcoal md:text-lg">
+                  <li>
+                    • Ground-up development and strategic repositioning of
+                    existing assets
+                  </li>
+                  <li>
+                    • Design-led approach with emphasis on architectural quality
+                    and urban integration
+                  </li>
+                  <li>
+                    • Institutional construction management and delivery
+                    standards
+                  </li>
+                </ul>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Asset Classes */}
+      <section className="px-4 py-20 md:px-12 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <FadeIn direction="up" duration={800}>
+            <h2 className="mb-12 font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase md:text-6xl">
+              Asset <span className="text-refenti-gold italic">Classes</span>
+            </h2>
+          </FadeIn>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {assetClasses.map((asset, idx) => (
+              <FadeIn key={idx} direction="up" duration={800} delay={idx * 100}>
+                <div className="group overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <LazyImage
+                      src={asset.image}
+                      alt={asset.alt}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
+                  <div className="p-6">
+                    <h3 className="font-display text-2xl font-light text-refenti-charcoal uppercase">
+                      {asset.title}
+                    </h3>
+                  </div>
                 </div>
-                <div className="grid gap-4 border-t border-white/10 pt-10 md:pt-16 lg:gap-6">
-                  {[
-                    {
-                      title: "Direct Capital",
-                      desc: "Collaborating with partners who share our commitment to long-term quality.",
-                    },
-                    {
-                      title: "Design Partners",
-                      desc: "Working with the best architectural and technical minds in the industry.",
-                    },
-                    {
-                      title: "Verified Assets",
-                      desc: "Every project is developed with a focus on high-demand urban classes.",
-                    },
-                  ].map((s, i) => (
-                    <div key={i} className="space-y-2 md:space-y-3">
-                      <p className="font-sans text-[9px] font-bold tracking-widest text-refenti-gold uppercase md:text-[10px]">
-                        {s.title}
-                      </p>
-                      <p className="text-justify text-sm leading-relaxed font-light text-white/60">
-                        {s.desc}
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Development Model */}
+      <section className="px-4 py-20 md:px-12 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <FadeIn direction="up" duration={800}>
+            <h2 className="mb-16 font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase md:text-6xl">
+              Development{" "}
+              <span className="text-refenti-gold italic">Model</span>
+            </h2>
+          </FadeIn>
+          <div className="space-y-12">
+            {developmentSteps.map((step, idx) => (
+              <FadeIn
+                key={idx}
+                direction="right"
+                duration={800}
+                delay={idx * 100}
+              >
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+                  <div className="md:col-span-7">
+                    <div className="space-y-4">
+                      <div className="text-3xl font-light text-refenti-gold">
+                        {step.number}
+                      </div>
+                      <h3 className="font-display text-2xl font-light text-refenti-charcoal uppercase md:text-3xl">
+                        {step.title}
+                      </h3>
+                      <p className="leading-relaxed font-light text-refenti-charcoal md:text-lg">
+                        {step.description}
                       </p>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section: Core Expertise */}
-          <section
-            id="activities"
-            ref={(el) => {
-              sectionRefs.current["activities"] = el
-            }}
-            className="space-y-10 md:space-y-16"
-          >
-            <div className="space-y-4 text-center md:space-y-6">
-              <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
-                Expertise
-              </p>
-              <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase sm:text-6xl md:text-8xl">
-                Our <span className="text-refenti-gold italic">Craft</span>
-              </h2>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
-              {[
-                {
-                  title: "Development",
-                  image: "/investment/development.webp",
-                  desc: "Developing landmarks that integrate perfectly with their urban surroundings.",
-                },
-                {
-                  title: "Management",
-                  image: "/investment/management.webp",
-                  desc: "Ensuring that every project we deliver remains a top-tier asset for years to come.",
-                },
-                {
-                  title: "Vision",
-                  image: "/investment/vision.webp",
-                  desc: "Identifying the next great urban node and building its infrastructure.",
-                },
-              ].map((act, i) => (
-                <div
-                  key={i}
-                  className="group overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-all duration-1000 hover:shadow-2xl md:rounded-[3rem]"
-                >
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img
-                      src={act.image}
-                      className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                      alt={act.title}
-                    />
                   </div>
-                  <div className="space-y-4 p-4 md:space-y-6 md:p-6">
-                    <h3 className="font-display text-2xl leading-none font-light text-refenti-charcoal md:text-3xl">
-                      {act.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed font-light text-gray-500 md:text-base">
-                      {act.desc}
-                    </p>
+                  <div className="md:col-span-5">
+                    <div className="group overflow-hidden rounded-[2rem]">
+                      <LazyImage
+                        src={step.image}
+                        alt={step.title}
+                        className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Section: The Approach */}
-          <section
-            id="model"
-            ref={(el) => {
-              sectionRefs.current["model"] = el
-            }}
-            className="space-y-10 md:space-y-20"
-          >
-            <div className="space-y-6 md:space-y-8">
-              <div className="space-y-4 md:space-y-6">
-                <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
-                  Execution
-                </p>
-                <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase sm:text-6xl md:text-8xl">
-                  The <span className="text-refenti-gold italic">Approach</span>
-                </h2>
-              </div>
-              <div className="grid items-start gap-8 md:grid-cols-2 md:gap-16">
-                <div className="space-y-6 text-lg leading-relaxed font-light text-gray-700 md:space-y-8 md:text-xl">
-                  <p className="text-justify">
-                    We operate with control over the vision and strategy of
-                    every project. By leading the coordination in-house, we
-                    ensure quality is never lost in translation.
-                  </p>
-                  <div className="h-px w-16 bg-refenti-gold/40 md:w-24" />
-                  <p className="font-display text-xl font-medium text-refenti-charcoal italic md:text-2xl">
-                    "Precision is non-negotiable. We build for performance."
-                  </p>
-                </div>
-                <div className="relative">
-                  <div className="relative z-10 aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl md:rounded-[4rem]">
-                    <img
-                      src="/investment/investment-decor-3.webp"
-                      className="h-full w-full object-cover"
-                      alt="Focused Design"
-                    />
-                  </div>
-                  <div className="absolute -right-10 -bottom-10 -z-10 hidden h-full w-full rounded-[4rem] border-2 border-refenti-gold/20 md:block" />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section: Presence */}
-          <section
-            id="reach"
-            ref={(el) => {
-              sectionRefs.current["reach"] = el
-            }}
-            className="space-y-16 pb-24 md:space-y-32"
-          >
-            <div className="grid gap-8 md:grid-cols-2 md:gap-16">
-              <div className="space-y-6 md:space-y-8">
-                <div className="space-y-4 md:space-y-6">
-                  <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[10px]">
-                    Footprint
-                  </p>
-                  <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal uppercase sm:text-6xl md:text-8xl">
-                    Global{" "}
-                    <span className="text-refenti-gold italic">Reach</span>
-                  </h2>
-                </div>
-                <div className="grid grid-cols-2 gap-8 md:gap-12">
-                  <div className="space-y-6 md:space-y-8">
-                    <p className="border-b border-gray-100 pb-2 text-[10px] font-bold tracking-widest text-gray-400 uppercase md:text-[11px]">
-                      Portfolio
-                    </p>
-                    <ul className="space-y-3 text-base font-light text-gray-700 md:space-y-4 md:text-lg">
-                      <li>Boutique Living</li>
-                      <li>Mixed-Use Hubs</li>
-                      <li>Workspaces</li>
-                      <li>Hotel Suites</li>
-                    </ul>
-                  </div>
-                  <div className="space-y-6 md:space-y-8">
-                    <p className="border-b border-refenti-gold/20 pb-2 text-[10px] font-bold tracking-widest text-refenti-gold uppercase md:text-[11px]">
-                      Focus
-                    </p>
-                    <ul className="space-y-3 text-base font-bold text-refenti-charcoal md:space-y-4 md:text-lg">
-                      <li>Urban Nodes</li>
-                      <li>Modern Living</li>
-                      <li>Landmark Assets</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-10 md:space-y-10">
-                <div className="space-y-6 md:space-y-8">
-                  <div className="group">
-                    <p className="font-display text-3xl text-refenti-charcoal transition-colors duration-500 group-hover:text-refenti-gold md:text-4xl">
-                      Ethiopia
-                    </p>
-                    <p className="mt-2 text-[10px] font-bold tracking-widest text-gray-400 uppercase md:text-xs">
-                      Core Hub
-                    </p>
-                  </div>
-                  <div className="group">
-                    <p className="font-display text-3xl text-refenti-charcoal transition-colors duration-500 group-hover:text-refenti-gold md:text-4xl">
-                      Dubai, UAE
-                    </p>
-                    <p className="mt-2 text-[10px] font-bold tracking-widest text-gray-400 uppercase md:text-xs">
-                      Expansion & Connection
-                    </p>
-                  </div>
-                </div>
-                <div className="aspect-[2/3] overflow-hidden rounded-[2rem] shadow-xl md:rounded-[3rem]">
-                  <img
-                    src="/investment/regional-presence.webp"
-                    className="h-full w-full object-cover"
-                    alt="Regional Presence"
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
+              </FadeIn>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Regional Presence */}
+      <section className="relative overflow-hidden py-16 md:py-24">
+        <div className="relative h-[60vh] md:h-[70vh]">
+          {/* <img
+            src="/investment/regional-presence.webp"
+            alt="Regional urban development"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{
+              transform: `translateY(${-scrollY * 0.05}px)`,
+              willChange: "transform",
+            }}
+          /> */}
+          <div className="absolute inset-0 bg-refenti-charcoal/30" />
+          <div className="relative z-10 flex h-full items-center justify-center px-4">
+            <FadeIn direction="none" duration={1000}>
+              <div className="max-w-3xl text-center">
+                <h2 className="mb-6 font-display text-4xl leading-tight font-light text-white uppercase md:text-6xl">
+                  Regional{" "}
+                  <span className="text-refenti-gold italic">Presence</span>
+                </h2>
+                <p className="leading-relaxed font-light text-white md:text-xl">
+                  Refenti maintains a selective approach to geographic
+                  expansion, focusing on markets with strong fundamentals and
+                  alignment with institutional investment criteria.
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="px-8 pb-12 md:px-12">
+        <div className="mx-auto max-w-6xl text-center">
+          <p className="font-light text-refenti-charcoal">
+            Refenti Realty Group is a real estate investment and development
+            platform operating under{" "}
+            <a
+              href="https://solsticeventures.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-refenti-gold italic transition-opacity hover:opacity-70"
+            >
+              Solstice Ventures Holding
+            </a>
+            .
+          </p>
+        </div>
+      </section>
     </div>
   )
 }

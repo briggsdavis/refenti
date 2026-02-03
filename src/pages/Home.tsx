@@ -18,23 +18,23 @@ function EventCard({ event, index }: { event: EventItem; index: number }) {
         <LazyImage
           src={event.image}
           alt={event.title}
-          className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
       <div className="px-2 pb-2">
-        <p className="mb-2 text-[8px] font-bold tracking-ultra text-refenti-gold uppercase">
+        <p className="mb-2 text-xs font-bold text-refenti-gold uppercase">
           {event.date}
         </p>
         <h3 className="mb-1 font-display text-xl font-light text-refenti-charcoal">
           {event.title}
         </h3>
-        <p className="mb-4 text-[8px] font-bold tracking-extrawide text-gray-500 uppercase">
+        <p className="mb-4 text-xs font-bold text-gray-500 uppercase">
           {event.location}
         </p>
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 text-[8px] font-bold tracking-ultra text-refenti-gold uppercase opacity-80 transition-opacity hover:opacity-100"
+          className="flex items-center gap-2 text-xs font-bold text-refenti-gold uppercase opacity-80 transition-opacity hover:opacity-100"
         >
           {isOpen ? "Close" : "View Details"}
         </button>
@@ -42,7 +42,7 @@ function EventCard({ event, index }: { event: EventItem; index: number }) {
         <div
           className={`overflow-hidden transition-all duration-700 ease-in-out ${isOpen ? "mt-4 max-h-40 border-t border-gray-100 pt-4 opacity-100" : "max-h-0 opacity-0"}`}
         >
-          <p className="text-justify text-[13px] leading-relaxed font-light text-gray-600">
+          <p className="text-sm leading-relaxed font-light text-gray-600">
             {event.details}
           </p>
         </div>
@@ -91,14 +91,14 @@ function PhilosophySection() {
         <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10">
           <div className="space-y-6 md:space-y-8">
             <FadeIn delay={100}>
-              <h2 className="font-display text-3xl leading-[1.1] font-light tracking-tight text-refenti-charcoal sm:text-4xl md:text-6xl">
+              <h2 className="font-display text-3xl leading-[1.1] font-light text-refenti-charcoal sm:text-4xl md:text-6xl">
                 The Art of <br />{" "}
                 <span className="text-refenti-gold italic">Urban</span> <br />{" "}
                 Development.
               </h2>
             </FadeIn>
             <FadeIn delay={200}>
-              <p className="max-w-sm text-justify text-sm leading-relaxed font-light text-gray-600 md:text-base">
+              <p className="max-w-sm text-sm leading-relaxed font-light text-gray-600 md:text-base">
                 Operating under Solstice Ventures Holding, Refenti manages
                 structural ecosystems through architectural precision and
                 high-standard delivery.
@@ -186,7 +186,7 @@ function Home() {
                 alt="Refenti Realty Group"
                 className="mx-auto w-full max-w-3xl"
               />
-              <p className="font-sans text-[7px] font-bold tracking-ultra text-refenti-gold uppercase opacity-90 md:text-[10px]">
+              <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-90 md:text-sm">
                 Refining urban landscapes
               </p>
             </div>
@@ -201,10 +201,10 @@ function Home() {
           <div className="mb-8 md:mb-16">
             <FadeIn>
               <div className="space-y-1 text-center md:space-y-2 md:text-left">
-                <h2 className="font-display text-5xl leading-none font-light tracking-tighter text-black uppercase select-none sm:text-6xl md:text-9xl">
+                <h2 className="font-display text-5xl leading-none font-light text-black uppercase select-none sm:text-6xl md:text-9xl">
                   Portfolio
                 </h2>
-                <p className="font-sans text-[7px] font-bold tracking-ultra text-refenti-gold uppercase md:text-[8px]">
+                <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                   The Collection
                 </p>
               </div>
@@ -220,7 +220,7 @@ function Home() {
                       <LazyImage
                         src={projects[0].image}
                         alt={projects[0].name}
-                        className="h-full w-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
+                        className="h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   </Link>
@@ -230,10 +230,10 @@ function Home() {
                     <h3 className="font-display text-2xl leading-none font-light text-refenti-charcoal md:text-4xl">
                       {projects[0].name}
                     </h3>
-                    <p className="text-[7px] font-bold tracking-ultra text-refenti-gold uppercase opacity-80 md:text-[8px]">
+                    <p className="text-xs font-bold text-refenti-gold uppercase opacity-80">
                       {projects[0].assetClass}
                     </p>
-                    <p className="max-w-md text-justify text-sm leading-relaxed font-light text-gray-600">
+                    <p className="max-w-md text-sm leading-relaxed font-light text-gray-600">
                       {projects[0].description}
                     </p>
                   </div>
@@ -249,7 +249,7 @@ function Home() {
                       <LazyImage
                         src={projects[1].image}
                         alt={projects[1].name}
-                        className="h-full w-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
+                        className="h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   </Link>
@@ -259,10 +259,10 @@ function Home() {
                     <h3 className="font-display text-2xl leading-none font-light text-refenti-charcoal md:text-3xl">
                       {projects[1].name}
                     </h3>
-                    <p className="text-[7px] font-bold tracking-ultra text-refenti-gold uppercase opacity-80 md:text-[8px]">
+                    <p className="text-xs font-bold text-refenti-gold uppercase opacity-80">
                       {projects[1].assetClass}
                     </p>
-                    <p className="max-w-md text-justify text-sm leading-relaxed font-light text-gray-600">
+                    <p className="max-w-md text-sm leading-relaxed font-light text-gray-600">
                       {projects[1].description}
                     </p>
                   </div>
@@ -276,13 +276,34 @@ function Home() {
       <section className="bg-refenti-offwhite px-4 py-14 sm:px-6 md:py-28">
         <div className="mx-auto max-w-7xl">
           <FadeIn>
-            <div className="mb-8 space-y-2 text-center md:mb-10 md:space-y-3">
-              <h2 className="font-display text-3xl font-light text-refenti-charcoal md:text-6xl">
-                Featured Updates
-              </h2>
-              <p className="font-sans text-[8px] font-bold tracking-ultra text-refenti-gold uppercase opacity-80 md:text-[9px]">
-                Current Milestones
-              </p>
+            <div className="mb-8 space-y-4 text-center md:mb-10 md:space-y-6">
+              <div className="space-y-2 md:space-y-3">
+                <h2 className="font-display text-3xl font-light text-refenti-charcoal md:text-6xl">
+                  Featured Updates
+                </h2>
+                <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-80">
+                  Current Milestones
+                </p>
+              </div>
+              <Link
+                to="/news"
+                className="inline-flex items-center gap-2 rounded-full border border-refenti-gold/30 bg-white px-6 py-3 text-xs font-bold text-refenti-gold uppercase shadow-sm transition-all duration-300 hover:border-refenti-gold hover:bg-refenti-gold hover:text-white hover:shadow-md"
+              >
+                View All News & Events
+                <svg
+                  className="h-3 w-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </Link>
             </div>
           </FadeIn>
 

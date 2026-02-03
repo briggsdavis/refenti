@@ -95,19 +95,19 @@ function FeatureSection({
             <span className="font-display text-7xl leading-none font-light text-refenti-gold opacity-10 select-none">
               0{index + 1}
             </span>
-            <h3 className="font-display text-4xl leading-[1.1] font-light tracking-tight text-refenti-charcoal md:text-5xl">
+            <h3 className="font-display text-4xl leading-[1.1] font-light text-refenti-charcoal md:text-5xl">
               {section.title}
             </h3>
           </div>
         </FadeIn>
         <FadeIn delay={200}>
           <div className="max-w-lg space-y-4">
-            <p className="text-justify text-sm leading-relaxed font-light text-gray-700">
+            <p className="text-sm leading-relaxed font-light text-gray-700">
               {section.text}
             </p>
             <div className="flex items-center gap-6">
               <div className="h-px w-12 bg-refenti-gold" />
-              <p className="font-sans text-[10px] font-bold tracking-[0.3em] text-refenti-gold uppercase">
+              <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                 Standard of Excellence
               </p>
             </div>
@@ -170,7 +170,7 @@ function ProjectDetail() {
         />
       </Helmet>
       {/* Hero Banner */}
-      <section className="relative flex h-screen w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-20">
+      <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden bg-refenti-offwhite pb-16 md:min-h-[90vh] md:pb-32">
         <div
           className="absolute inset-[-5%]"
           style={{
@@ -183,13 +183,13 @@ function ProjectDetail() {
         />
         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-refenti-offwhite via-refenti-offwhite/80 to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-6xl space-y-8 px-4 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-8">
           <FadeIn direction="none" duration={1000}>
-            <div className="space-y-6">
-              <h1 className="font-display text-7xl leading-none font-light tracking-tighter text-refenti-charcoal uppercase md:text-[10rem]">
+            <div className="space-y-3 md:space-y-6">
+              <h1 className="font-display text-6xl leading-none font-light text-refenti-charcoal uppercase md:text-9xl">
                 {project.name}
               </h1>
-              <p className="font-sans text-[10px] font-bold tracking-[0.7em] text-refenti-gold uppercase md:text-xs">
+              <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                 The Refenti Collection
               </p>
             </div>
@@ -202,7 +202,7 @@ function ProjectDetail() {
         <FadeIn>
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-8 py-8 md:flex-row">
             <div className="flex flex-col items-center md:items-start">
-              <p className="font-sans text-[10px] font-bold tracking-[0.2em] text-refenti-charcoal uppercase opacity-40">
+              <p className="font-sans text-xs font-bold text-refenti-charcoal uppercase opacity-40">
                 Project Inquiry Portal
               </p>
             </div>
@@ -213,14 +213,14 @@ function ProjectDetail() {
                   href={project.brochureUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-refenti-charcoal px-12 py-4 text-center font-sans text-[10px] font-bold tracking-widest text-white uppercase shadow-xl transition-all hover:bg-refenti-gold active:scale-95"
+                  className="rounded-full bg-refenti-charcoal px-12 py-4 text-center font-sans text-xs font-bold text-white uppercase shadow-xl transition-all hover:bg-refenti-gold active:scale-95"
                 >
                   Download Brochure
                 </a>
               )}
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-refenti-gold" />
-                <p className="text-[9px] font-bold tracking-[0.15em] text-refenti-gold uppercase">
+                <p className="text-xs font-bold text-refenti-gold uppercase">
                   Under Construction
                 </p>
               </div>
@@ -235,7 +235,7 @@ function ProjectDetail() {
           <div className="space-y-8">
             <FadeIn>
               <div className="space-y-3">
-                <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
+                <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                   Asset Narrative
                 </p>
                 <h2 className="font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase md:text-6xl">
@@ -247,7 +247,7 @@ function ProjectDetail() {
               </div>
             </FadeIn>
             <FadeIn delay={100}>
-              <p className="max-w-xl text-justify text-sm leading-relaxed font-light text-gray-700">
+              <p className="max-w-xl text-sm leading-relaxed font-light text-gray-700">
                 {project.introText}
               </p>
             </FadeIn>
@@ -272,7 +272,7 @@ function ProjectDetail() {
           <div className="mx-auto max-w-7xl space-y-10">
             <FadeIn>
               <div className="space-y-3 text-center md:text-left">
-                <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
+                <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                   Scope of Amenities
                 </p>
                 <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase md:text-5xl">
@@ -286,7 +286,7 @@ function ProjectDetail() {
               {project.projectFeatures.map((feature, idx) => (
                 <FadeIn key={idx} delay={idx * 75}>
                   <div className="group flex cursor-default items-center justify-center rounded-full border border-gray-100 bg-white px-10 py-5 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md">
-                    <span className="text-[11px] font-bold tracking-widest text-refenti-charcoal uppercase transition-colors group-hover:text-refenti-gold">
+                    <span className="text-xs font-bold text-refenti-charcoal uppercase transition-colors group-hover:text-refenti-gold">
                       {feature}
                     </span>
                   </div>
@@ -302,7 +302,7 @@ function ProjectDetail() {
         <div className="mx-auto mb-10 max-w-7xl px-8 md:px-12">
           <FadeIn>
             <div className="space-y-3 text-center md:text-left">
-              <p className="font-sans text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
+              <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                 Technical Depth
               </p>
               <h2 className="font-display text-4xl font-light text-refenti-charcoal uppercase md:text-6xl">
