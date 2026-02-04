@@ -192,7 +192,7 @@ function Home() {
             <p
               className="gradient-reveal-fast font-sans text-xs font-bold text-refenti-gold uppercase opacity-0 md:text-sm"
               style={{
-                animationDelay: "1.5s",
+                animationDelay: "2.3s",
                 animationFillMode: "forwards",
               }}
             >
