@@ -2,148 +2,78 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Development Commands
+## Commands
 
-```bash
-# Install dependencies (use bun, not npm)
-bun install
+**Development:**
 
-# Start dev server (Vite on localhost:5173)
-bun run dev
+- `bun dev` - Start Vite dev server (http://localhost:5173)
+- `bun build` - Build production bundle
+- `bun preview` - Preview production build locally
 
-# Build for production
-bun run build
+## Architecture
 
-# Preview production build
-bun run preview
-```
+**Tech Stack:**
 
-## Environment Setup
+- React 19 + TypeScript + React Router v7
+- Vite for build tooling
+- Tailwind CSS 4 (via @tailwindcss/vite plugin)
+- Supabase for backend (PostgreSQL + Auth + Storage)
 
-Required environment variables in `.env.local`:
+**Project Structure:**
 
-- `VITE_SUPABASE_URL` - Supabase project URL
-- `VITE_SUPABASE_PUBLISHABLE_KEY` - Supabase public anon key
+- `src/pages/` - Route components (Home, About, Investment, Projects, Contact, EventsNews, Admin\*)
+- `src/components/` - Reusable components (Navbar, ProtectedRoute, FadeIn, LazyImage, FileUpload)
+- `src/contexts/` - React contexts (AuthContext provides session management)
+- `src/lib/` - Core utilities:
+  - `supabase.ts` - Supabase client singleton
+  - `api.ts` - CRUD operations for projects, events, news, inquiries (uses snake_case for DB, camelCase for app)
+  - `storage.ts` - File upload/delete for Supabase Storage
+- `src/types.ts` - TypeScript interfaces
+- `supabase/migrations/` - Database schema migrations
 
-## Architecture Overview
+**Authentication:**
 
-### Tech Stack
+- Admin routes (`/admin/*`) require authentication via ProtectedRoute wrapper
+- AuthContext provides `session`, `signIn`, `signOut`
+- Auth session managed via Supabase Auth
 
-- **Frontend**: React 19 + TypeScript + Vite
-- **Backend**: Supabase (PostgreSQL + Auth)
-- **Styling**: Tailwind CSS 4 with custom theme
-- **Routing**: React Router DOM 7
+**Data Flow:**
 
-### Data Layer Architecture
+- All database operations go through `src/lib/api.ts` which returns `DataResult<T>` type
+- API functions map between DB snake_case and app camelCase conventions
+- Projects, events, news support full CRUD; inquiries support create/read/delete only
 
-All database operations flow through a **snake_case ↔ camelCase mapping layer** in `src/lib/api.ts`:
+**Database Tables:**
 
-- **Database**: Uses snake_case (e.g., `asset_class`, `brochure_url`)
-- **TypeScript**: Uses camelCase (e.g., `assetClass`, `brochureUrl`)
-- **Mapping functions**: `toDb*` and `fromDb*` for each entity type
+- `projects` - Real estate projects (asset_class CHECK constraint, JSONB for features/sections)
+- `events` - Company events
+- `news` - News articles
+- `inquiries` - Contact form submissions
+- RLS enabled: public read for content tables, authenticated write; inquiries allow public insert
 
-Example:
+**Storage:**
 
-```typescript
-// TypeScript interface (camelCase)
-interface Project {
-  assetClass: string
-  brochureUrl?: string
-}
+- Supabase Storage buckets: `project-images`, `event-images`, `news-images`
+- Storage policies in `supabase/migrations/20260131210027_storage_policies.sql`
+- Deletion functions in `storage.ts` clean up related images when deleting records
 
-// Database row type (snake_case)
-type ProjectRow = {
-  asset_class: string
-  brochure_url: string | null
-}
-```
+**Styling:**
 
-This mapping layer exists for all four entities: `Project`, `EventItem`, `NewsItem`, `Inquiry`.
+- Custom Tailwind theme colors: `refenti-gold`, `refenti-charcoal`, `refenti-offwhite`
+- Prettier configured with organize-imports and tailwindcss plugins
+- No semicolons (prettier config)
 
-### Database Tables
+**Environment Variables Required:**
 
-Four main Supabase tables:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
 
-1. `projects` - Real estate portfolio items with asset classes (Residential, Mixed-Use, Commercial, Hospitality)
-2. `events` - Featured events and milestones
-3. `news` - Blog/news content
-4. `inquiries` - Contact form submissions
+## Local Supabase Development
 
-### Route Architecture
+Supabase local development runs on:
 
-**Public routes** (src/App.tsx):
+- API: http://127.0.0.1:54321
+- DB: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+- Studio: http://127.0.0.1:54323
 
-- `/` - Home
-- `/about` - About page
-- `/investment` - Investment opportunities
-- `/projects` - Portfolio grid view
-- `/projects/:id` - Dynamic project detail pages
-- `/news` - Events and news
-- `/contact` - Contact form
-
-**Admin routes** (protected by Supabase auth):
-
-- `/admin/login` - Auth page
-- `/admin/*` - Admin dashboard with nested routes for CRUD operations
-
-The navbar is hidden on all `/admin/*` routes.
-
-### Authentication Flow
-
-Auth is managed via `src/contexts/AuthContext.tsx`:
-
-1. Wraps entire app in `<AuthProvider>`
-2. Listens to Supabase auth state changes
-3. Provides `session`, `loading`, `signIn()`, `signOut()` to components
-4. `<ProtectedRoute>` component checks session before rendering admin routes
-
-### Styling System
-
-Custom Tailwind theme defined in `src/index.css`:
-
-- **Colors**:
-  - `refenti-offwhite: #f7f3f0` (background)
-  - `refenti-gold: #b7a371` (accent)
-  - `refenti-charcoal: #414141` (text)
-- **Font**: Nunito Sans variable (weight: 300)
-- **Custom utility**: `tracking-ultra: 0.6em` for ultra-wide letter spacing
-
-Prettier auto-formats Tailwind classes using `prettier-plugin-tailwindcss`.
-
-### Code Style
-
-Prettier config (prettier.config.mjs):
-
-- No semicolons (`semi: false`)
-- Auto-organizes imports (`prettier-plugin-organize-imports`)
-- Auto-sorts Tailwind classes
-
-## Key Patterns
-
-### API Error Handling
-
-All API functions return a discriminated union type:
-
-```typescript
-type DataResult<T> =
-  | { data: T; error: null }
-  | { data: null; error: { message: string; details?: unknown } }
-```
-
-Supabase error code `PGRST116` = "not found"
-
-### Project Detail Sections
-
-Projects can have optional rich content via `detailSections` array:
-
-```typescript
-interface ProjectDetailSection {
-  title: string
-  text: string
-  image: string
-}
-```
-
-### Asset Classes
-
-Projects are categorized as: `"Residential" | "Mixed-Use" | "Commercial" | "Hospitality"`
+To create a migration: `supabase migration new <name>`

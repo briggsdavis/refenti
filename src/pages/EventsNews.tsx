@@ -26,9 +26,7 @@ function NewsCard({ item, index }: { item: NewsItem; index: number }) {
         </div>
       </div>
       <div className="space-y-4 p-8">
-        <p className="text-xs font-bold text-gray-800 uppercase">
-          {item.date}
-        </p>
+        <p className="text-xs font-bold text-gray-800 uppercase">{item.date}</p>
         <h3 className="font-display text-3xl leading-none font-light text-refenti-charcoal">
           {item.title}
         </h3>
@@ -172,41 +170,115 @@ function EventsNews() {
                 </div>
               </FadeIn>
 
-              <div className="mx-auto max-w-5xl space-y-8">
+              <div className="relative mx-auto max-w-5xl space-y-8">
+                {/* Timeline connector */}
+                <div className="absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b from-transparent via-refenti-gold to-transparent md:left-8" />
+
                 {events.map((event, idx) => (
                   <FadeIn key={event.id} delay={idx * 150}>
-                    <div className="group flex flex-col items-center gap-6 rounded-[2rem] border border-gray-200 bg-white p-6 shadow-sm transition-all duration-700 md:flex-row md:gap-8 md:p-8">
-                      <div className="aspect-square w-full flex-shrink-0 overflow-hidden rounded-[1.5rem] bg-gray-50 shadow-inner md:w-32">
-                        <img
-                          src={event.image}
-                          className="h-full w-full object-cover"
-                          alt={event.title}
-                        />
+                    <div className="relative">
+                      {/* Timeline dot */}
+                      <div className="absolute top-6 left-0 z-10 flex items-center md:left-8">
+                        <div className="h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-refenti-gold bg-refenti-offwhite transition-all duration-500 group-hover:scale-150" />
                       </div>
-                      <div className="flex-1 space-y-4">
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-4">
-                            <span className="font-sans text-xs font-bold text-refenti-gold uppercase">
-                              {event.date}
-                            </span>
-                            <span className="h-px w-8 bg-gray-300" />
-                            <span className="font-sans text-xs font-bold text-gray-800 uppercase">
-                              {event.location}
-                            </span>
+
+                      <div className="group relative ml-6 md:ml-20">
+                        {/* Main card container with dramatic layout */}
+                        <div className="relative overflow-hidden bg-white">
+                          <div className="grid gap-0 md:grid-cols-[1.2fr,1fr]">
+                            {/* Image section with diagonal cut */}
+                            <div className="relative aspect-[5/3] overflow-hidden md:aspect-[2/1]">
+                              <div
+                                className="absolute inset-0 bg-refenti-charcoal/5"
+                                style={{
+                                  clipPath:
+                                    "polygon(0 0, 100% 0, 95% 100%, 0 100%)",
+                                }}
+                              />
+                              <img
+                                src={event.image}
+                                alt={event.title}
+                                className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+                                style={{
+                                  clipPath:
+                                    "polygon(0 0, 100% 0, 95% 100%, 0 100%)",
+                                }}
+                              />
+                              {/* Gradient overlay */}
+                              <div
+                                className="absolute inset-0 bg-gradient-to-br from-refenti-charcoal/20 via-transparent to-refenti-gold/10 opacity-60 transition-opacity duration-700 group-hover:opacity-30"
+                                style={{
+                                  clipPath:
+                                    "polygon(0 0, 100% 0, 95% 100%, 0 100%)",
+                                }}
+                              />
+                            </div>
+
+                            {/* Content section */}
+                            <div className="relative flex flex-col justify-between bg-white p-6 md:p-8">
+                              {/* Date label - positioned absolutely for drama */}
+                              <div className="absolute -top-0 right-0 left-0 flex items-center gap-3 border-b border-refenti-gold/20 bg-gradient-to-r from-refenti-gold/5 to-transparent px-6 py-3 md:-left-6 md:px-8">
+                                <span className="font-sans text-[10px] font-bold tracking-widest text-refenti-gold uppercase">
+                                  {event.date}
+                                </span>
+                                <div className="h-[1px] flex-1 bg-gradient-to-r from-refenti-gold/30 to-transparent" />
+                                <span className="font-sans text-[10px] font-bold tracking-widest text-refenti-charcoal/60 uppercase">
+                                  {event.location}
+                                </span>
+                              </div>
+
+                              <div className="mt-12 space-y-4">
+                                <h3 className="font-display text-2xl leading-[0.95] font-light text-refenti-charcoal md:text-3xl">
+                                  {event.title}
+                                </h3>
+
+                                <p className="text-sm leading-relaxed font-light text-gray-700">
+                                  {event.details}
+                                </p>
+                              </div>
+
+                              {/* CTA with sophisticated hover */}
+                              <div className="mt-6 flex items-center gap-3">
+                                <Link
+                                  to="/contact"
+                                  className="group/btn relative overflow-hidden bg-refenti-charcoal px-6 py-3 text-[10px] font-bold tracking-widest text-white uppercase transition-all duration-500 hover:bg-refenti-gold hover:tracking-[0.2em]"
+                                >
+                                  <span className="relative z-10">
+                                    Request Information
+                                  </span>
+                                  <div className="absolute inset-0 translate-y-full bg-gradient-to-t from-refenti-gold to-refenti-gold/80 transition-transform duration-500 group-hover/btn:translate-y-0" />
+                                </Link>
+
+                                {/* Decorative arrow */}
+                                <div className="flex h-10 w-10 items-center justify-center border border-refenti-gold/20 transition-all duration-500 group-hover:border-refenti-gold group-hover:bg-refenti-gold/5">
+                                  <svg
+                                    className="h-4 w-4 text-refenti-gold transition-transform duration-500 group-hover:translate-x-1"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={1.5}
+                                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                    />
+                                  </svg>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <h3 className="font-display text-3xl leading-none font-light text-refenti-charcoal">
-                            {event.title}
-                          </h3>
+
+                          {/* Bottom accent line */}
+                          <div className="h-1 w-full bg-gradient-to-r from-refenti-gold via-refenti-charcoal to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
                         </div>
-                        <p className="line-clamp-3 text-sm leading-relaxed font-light text-gray-800">
-                          {event.details}
-                        </p>
-                        <Link
-                          to="/contact"
-                          className="inline-block rounded-xl bg-refenti-charcoal px-8 py-3 text-xs font-bold text-white uppercase shadow-xl transition-all duration-500 hover:bg-refenti-gold"
-                        >
-                          Inquire for Details
-                        </Link>
+
+                        {/* Floating event number badge */}
+                        <div className="absolute -top-3 -right-3 flex h-12 w-12 items-center justify-center border-2 border-refenti-gold bg-refenti-offwhite transition-all duration-500 group-hover:scale-110 group-hover:border-refenti-charcoal md:-top-4 md:-right-4 md:h-14 md:w-14">
+                          <span className="font-display text-xl font-light text-refenti-charcoal md:text-2xl">
+                            {String(idx + 1).padStart(2, "0")}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </FadeIn>
