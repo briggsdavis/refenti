@@ -123,15 +123,22 @@ function PhilosophySection() {
 }
 
 function ParallaxSection() {
-  const [scrollY, setScrollY] = useState(0)
+  const [offsetY, setOffsetY] = useState(0)
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return
       const rect = sectionRef.current.getBoundingClientRect()
-      const scrollPosition = window.scrollY + rect.top - window.innerHeight
-      setScrollY(scrollPosition)
+      const sectionTop = rect.top
+      const sectionHeight = rect.height
+      const windowHeight = window.innerHeight
+
+      // Calculate parallax offset when section is in viewport
+      if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
+        const scrollProgress = (windowHeight - sectionTop) / (windowHeight + sectionHeight)
+        setOffsetY(scrollProgress * 200 - 100)
+      }
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -142,15 +149,15 @@ function ParallaxSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[50vh] w-full overflow-hidden md:h-[60vh]"
+      className="relative h-[80vh] w-full overflow-hidden md:h-[100vh]"
     >
       <div
-        className="absolute inset-0 h-[120%] w-full"
+        className="absolute inset-0 h-[150%] w-full"
         style={{
           backgroundImage: `url('/paralax.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          transform: `translateY(${-scrollY * 0.3}px)`,
+          transform: `translateY(${offsetY}px)`,
           willChange: "transform",
         }}
       />
