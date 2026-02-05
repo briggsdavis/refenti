@@ -137,8 +137,8 @@ function ParallaxSection() {
       // Calculate parallax offset when section is in viewport
       if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
         const scrollProgress = (windowHeight - sectionTop) / (windowHeight + sectionHeight)
-        // Increased range from 200 to 600 for much more visible effect
-        setOffsetY(scrollProgress * 600 - 300)
+        // Reversed calculation: starts at +300 (showing bottom) and moves to -300 (showing top)
+        setOffsetY(300 - scrollProgress * 600)
       }
     }
 
