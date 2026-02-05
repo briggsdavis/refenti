@@ -51,69 +51,52 @@ function EventCard({ event, index }: { event: EventItem; index: number }) {
   )
 }
 
-function PhilosophySection() {
-  const [progress, setProgress] = useState(0)
-  const sectionRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-      let p = (windowHeight - rect.top) / (windowHeight * 0.8)
-      setProgress(Math.min(Math.max(p, 0), 1))
-    }
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768
-  const archRadiusY = isMobile ? 150 - progress * 100 : 250 - progress * 200
-  const baseRadius = isMobile ? "2.5rem" : "4rem"
-
+function IntroductionSection() {
   return (
-    <section
-      ref={sectionRef}
-      className="flex items-center justify-center bg-refenti-offwhite px-4 py-16 md:px-8 md:py-28"
-    >
-      <div
-        className="relative w-full max-w-6xl overflow-hidden border border-gray-100 bg-white p-6 shadow-sm transition-all duration-700 ease-out md:p-14"
-        style={{
-          borderTopLeftRadius:
-            progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
-          borderTopRightRadius:
-            progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
-          borderBottomLeftRadius: baseRadius,
-          borderBottomRightRadius: baseRadius,
-        }}
-      >
-        <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10">
-          <div className="space-y-6 md:space-y-8">
+    <section className="flex items-center justify-center bg-refenti-offwhite px-4 py-16 md:px-8 md:py-24">
+      <div className="mx-auto w-full max-w-4xl text-center">
+        <FadeIn delay={100}>
+          <p className="mx-auto max-w-3xl font-display text-xl leading-relaxed font-light text-refenti-charcoal md:text-2xl lg:text-3xl">
+            Refenti Realty Group is a real estate investment and development
+            platform focused on the creation of institutional-quality assets in
+            select growth markets.
+          </p>
+        </FadeIn>
+      </div>
+    </section>
+  )
+}
+
+function DetailedSection() {
+  return (
+    <section className="bg-refenti-offwhite px-4 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="overflow-hidden rounded-[2.5rem] border border-gray-100 bg-white p-8 shadow-sm md:rounded-[4rem] md:p-16">
+          <div className="mx-auto max-w-4xl space-y-8">
             <FadeIn delay={100}>
-              <h2 className="font-display text-3xl leading-[1.1] font-light text-refenti-charcoal sm:text-4xl md:text-6xl">
-                The Art of <br />{" "}
-                <span className="text-refenti-gold italic">Urban</span> <br />{" "}
-                Development.
-              </h2>
+              <p className="text-base leading-relaxed font-light text-gray-700 md:text-lg">
+                The platform operates with a long-term orientation, disciplined
+                capital deployment, and a structured development approach
+                designed to support governance, execution certainty, and
+                long-term asset performance.
+              </p>
             </FadeIn>
             <FadeIn delay={200}>
-              <p className="max-w-sm text-sm leading-relaxed font-light text-gray-600 md:text-base">
-                Operating under Solstice Ventures Holding, Refenti manages
-                structural ecosystems through architectural precision and
-                high-standard delivery.
+              <p className="text-base leading-relaxed font-light text-gray-700 md:text-lg">
+                Refenti operates under{" "}
+                <a
+                  href="https://solstice-ventures-beta.webflow.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-refenti-gold transition-colors hover:underline"
+                >
+                  Solstice Ventures Holding (SVH)
+                </a>{" "}
+                and serves as a public, non-operational institutional reference
+                point.
               </p>
             </FadeIn>
           </div>
-          <FadeIn delay={300} direction="right">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-50 shadow-sm md:rounded-[3rem]">
-              <img
-                src="/art.webp"
-                className="h-full w-full object-cover opacity-90"
-                alt="Interior"
-              />
-            </div>
-          </FadeIn>
         </div>
       </div>
     </section>
@@ -193,21 +176,42 @@ function Home() {
         </div>
       </section>
 
-      <PhilosophySection />
+      <IntroductionSection />
+
+      <DetailedSection />
 
       <section className="relative z-10 -mt-6 rounded-[2.5rem] border-t border-gray-50 bg-white px-4 py-14 shadow-sm sm:px-6 md:-mt-16 md:rounded-[6rem] md:px-12 md:py-32">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-8 md:mb-16">
+          <div className="mb-12 md:mb-20">
             <FadeIn>
               <div className="space-y-1 text-center md:space-y-2 md:text-left">
                 <h2 className="font-display text-5xl leading-none font-light text-black uppercase select-none sm:text-6xl md:text-9xl">
                   Portfolio
                 </h2>
-                <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
-                  The Collection
-                </p>
               </div>
             </FadeIn>
+
+            <div className="mt-8 grid items-center gap-8 md:mt-12 md:grid-cols-2 md:gap-12">
+              <FadeIn delay={100}>
+                <p className="text-base leading-relaxed font-light text-gray-700 md:text-lg">
+                  Refenti's portfolio represents the application of a consistent
+                  investment and development logic across a selective set of real
+                  estate assets. Each project reflects how the platform originates,
+                  structures, and stewards assets with a primary focus on long-term
+                  capital appreciation, supported by disciplined execution and
+                  operational resilience.
+                </p>
+              </FadeIn>
+              <FadeIn delay={200} direction="right">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-gray-50 shadow-sm md:rounded-[2.5rem]">
+                  <img
+                    src="/art.webp"
+                    className="h-full w-full object-cover opacity-90"
+                    alt="Portfolio"
+                  />
+                </div>
+              </FadeIn>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-16">
