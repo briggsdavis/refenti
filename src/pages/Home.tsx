@@ -122,6 +122,42 @@ function PhilosophySection() {
   )
 }
 
+function ParallaxSection() {
+  const [scrollY, setScrollY] = useState(0)
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return
+      const rect = sectionRef.current.getBoundingClientRect()
+      const scrollPosition = window.scrollY + rect.top - window.innerHeight
+      setScrollY(scrollPosition)
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative h-[50vh] w-full overflow-hidden md:h-[60vh]"
+    >
+      <div
+        className="absolute inset-0 h-[120%] w-full"
+        style={{
+          backgroundImage: `url('/paralax.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transform: `translateY(${-scrollY * 0.3}px)`,
+          willChange: "transform",
+        }}
+      />
+    </section>
+  )
+}
+
 function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [projects, setProjects] = useState<Project[]>([])
@@ -219,6 +255,8 @@ function Home() {
           </FadeIn>
         </div>
       </section>
+
+      <ParallaxSection />
 
       <section className="bg-refenti-offwhite px-6 pb-20 md:px-12 md:pb-32">
         <div className="mx-auto max-w-7xl">
