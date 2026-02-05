@@ -20,22 +20,22 @@ function Investment() {
     },
     {
       title: "Mixed-Use",
-      image: "/investment/investment-decor-2.webp",
+      image: "/investment/mixed-use.webp",
       alt: "Mixed-use development",
     },
     {
       title: "Commercial & Serviced",
-      image: "/investment/investment-decor-3.webp",
+      image: "/investment/commercial.webp",
       alt: "Commercial development",
     },
     {
       title: "Serviced Apartments",
-      image: "/investment/investment-decor-4.webp",
+      image: "/investment/serviced-apartments.webp",
       alt: "Serviced apartments",
     },
     {
       title: "Hospitality",
-      image: "/investment/investment-decor-5.webp",
+      image: "/investment/hospitality.webp",
       alt: "Hospitality assets",
     },
   ]
@@ -269,16 +269,17 @@ function Investment() {
                 income potential:
               </p>
             </FadeIn>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
               {assetClasses.map((asset, idx) => (
                 <FadeIn
                   key={idx}
                   direction="up"
                   duration={800}
                   delay={idx * 100}
+                  className="h-full"
                 >
-                  <div className="group overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
-                    <div className="aspect-[4/3] overflow-hidden">
+                  <div className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                    <div className="aspect-[16/27] overflow-hidden">
                       <LazyImage
                         src={asset.image}
                         alt={asset.alt}
