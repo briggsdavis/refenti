@@ -51,52 +51,77 @@ function About() {
         </div>
       </section>
 
-      {/* Company Overview */}
+      {/* Section 1: Mission, Vision, Values */}
       <section className="px-4 py-20 md:px-12 md:py-28">
-        <div className="mx-auto max-w-6xl space-y-12">
-          <FadeIn direction="up" duration={800}>
-            <h2 className="font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase md:text-6xl">
-              Who We <span className="text-refenti-gold italic">Are</span>
-            </h2>
-          </FadeIn>
-          <FadeIn direction="up" duration={800} delay={100}>
-            <p className="leading-relaxed font-light text-refenti-charcoal md:text-lg">
-              Refenti Realty Group is a real estate investment and development
-              platform operating under the governance framework of Solstice
-              Ventures Holding. We are focused on the development, investment,
-              and management of urban real estate assets across residential,
-              mixed-use, and select commercial and serviced real estate sectors.
-            </p>
-          </FadeIn>
-          <FadeIn direction="up" duration={800} delay={200}>
-            <h3 className="font-display text-3xl leading-tight font-light text-refenti-charcoal uppercase md:text-5xl">
-              What We{" "}
-              <span className="text-refenti-gold italic">Stand For</span>
-            </h3>
-          </FadeIn>
-          <FadeIn direction="up" duration={800} delay={300}>
-            <ul className="space-y-4 leading-relaxed font-light text-refenti-charcoal md:text-lg">
-              <li>• Institutional-grade delivery and operational standards</li>
-              <li>
-                • Design and quality-led approach to real estate development
-              </li>
-              <li>• Mixed-use and integrated assets that serve communities</li>
-              <li>• Active operations and asset management</li>
-              <li>• Long-term value creation and strategic positioning</li>
-            </ul>
-          </FadeIn>
+        <div className="mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 gap-16 md:gap-20">
+            {/* Mission */}
+            <FadeIn direction="up" duration={800}>
+              <div className="space-y-6">
+                <h2 className="font-display text-2xl leading-tight font-light text-refenti-gold uppercase tracking-wide md:text-3xl">
+                  Mission
+                </h2>
+                <p className="leading-relaxed font-light text-refenti-charcoal italic md:text-lg">
+                  "To develop and steward real estate assets with a primary
+                  focus on long-term capital appreciation, applying
+                  institutional standards of governance, quality, and discipline
+                  in structurally undersupplied markets."
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* Vision */}
+            <FadeIn direction="up" duration={800} delay={100}>
+              <div className="space-y-6">
+                <h2 className="font-display text-2xl leading-tight font-light text-refenti-gold uppercase tracking-wide md:text-3xl">
+                  Vision
+                </h2>
+                <p className="leading-relaxed font-light text-refenti-charcoal italic md:text-lg">
+                  "To operate as a disciplined, scalable real estate investment
+                  and development platform aligned with long-term capital and
+                  institutional stakeholders."
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* Values */}
+            <FadeIn direction="up" duration={800} delay={200}>
+              <div className="space-y-8">
+                <h2 className="font-display text-2xl leading-tight font-light text-refenti-gold uppercase tracking-wide md:text-3xl">
+                  Values
+                </h2>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  {[
+                    "Governance discipline",
+                    "Execution certainty",
+                    "Structured risk management",
+                    "Long-term orientation",
+                  ].map((value, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-shadow hover:shadow-md"
+                    >
+                      <p className="font-light text-refenti-charcoal md:text-lg">
+                        {value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
-      {/* Our Approach */}
+      {/* Section 2: Origin & Platform Philosophy */}
       <section className="px-4 py-16 md:px-12 md:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
             <FadeIn direction="up" duration={800}>
               <div className="group overflow-hidden rounded-[2rem]">
                 <LazyImage
                   src="/about/about-decor-1.webp"
-                  alt="Mixed-use building architecture"
+                  alt="Real estate development"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
@@ -104,28 +129,32 @@ function About() {
             <FadeIn direction="up" duration={800} delay={100}>
               <div className="space-y-8">
                 <h2 className="font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase md:text-6xl">
-                  Our <span className="text-refenti-gold italic">Approach</span>
+                  Origin &{" "}
+                  <span className="text-refenti-gold italic">Philosophy</span>
                 </h2>
-                <ul className="space-y-4 leading-relaxed font-light text-refenti-charcoal md:text-lg">
-                  <li>
-                    • Institutional-grade delivery and operational standards
-                  </li>
-                  <li>
-                    • Design and quality-led approach to real estate development
-                  </li>
-                  <li>
-                    • Mixed-use and integrated assets that serve communities
-                  </li>
-                  <li>• Active operations and asset management</li>
-                  <li>• Long-term value creation and strategic positioning</li>
-                </ul>
+                <div className="space-y-6 leading-relaxed font-light text-refenti-charcoal md:text-lg">
+                  <p>
+                    Refenti Realty Group was established as a platform-led real
+                    estate investment and development entity, intentionally
+                    structured to support long-term capital appreciation.
+                  </p>
+                  <p>
+                    The platform prioritizes governance discipline,
+                    repeatability, and institutional alignment over
+                    opportunistic or project-led development. Projects are
+                    originated and developed within a consistent framework
+                    designed to support scalability, execution certainty, and
+                    long-term stewardship across diverse assets and market
+                    cycles.
+                  </p>
+                </div>
               </div>
             </FadeIn>
           </div>
         </div>
       </section>
 
-      {/* Governance & SVH Alignment */}
+      {/* Section 3: Governance & Alignment with SVH */}
       <section className="px-4 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
           <FadeIn direction="none" duration={1000}>
@@ -134,70 +163,25 @@ function About() {
                 GOVERNANCE
               </p>
               <h2 className="font-display text-3xl leading-tight font-light text-refenti-charcoal uppercase md:text-5xl">
-                Refenti Realty Group operates under the governance framework of{" "}
+                Governance & Alignment with{" "}
                 <span className="text-refenti-gold italic">
                   Solstice Ventures Holding
                 </span>
               </h2>
               <div className="space-y-6 leading-relaxed font-light text-refenti-charcoal md:text-lg">
                 <p>
-                  This governance structure provides access to institutional
-                  capital allocation frameworks, governance structures that
-                  support long-term asset positioning, and platform continuity
-                  across market cycles.
+                  Refenti Realty Group operates under Solstice Ventures Holding
+                  (SVH).
                 </p>
                 <p>
-                  Operating under SVH enables Refenti to maintain alignment with
-                  institutional standards while pursuing measured growth in
-                  select markets.
+                  The platform aligns with group-level governance standards,
+                  oversight mechanisms, and institutional controls established
+                  by SVH. This alignment supports accountability, consistency,
+                  and disciplined capital deployment across the platform.
                 </p>
               </div>
             </div>
           </FadeIn>
-        </div>
-      </section>
-
-      {/* Philosophy */}
-      <section className="px-4 py-16 md:px-12 md:py-20">
-        <div className="mx-auto max-w-3xl">
-          <FadeIn direction="up" duration={800}>
-            <div className="space-y-8 text-center">
-              <h2 className="font-display text-4xl leading-tight font-light text-refenti-charcoal uppercase md:text-6xl">
-                Our <span className="text-refenti-gold italic">Philosophy</span>
-              </h2>
-              <p className="leading-relaxed font-light text-refenti-charcoal italic md:text-xl">
-                "We believe real estate assets should be conceived with
-                durability, designed with care, and operated with institutional
-                discipline. Value is created through deliberate positioning,
-                quality execution, and long-term stewardship."
-              </p>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Visual Portfolio Showcase */}
-      <section className="px-4 py-16 md:px-12 md:py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              { src: "/about/about-decor-2.webp", alt: "Architectural detail" },
-              { src: "/about/about-decor-3.webp", alt: "Building exterior" },
-              { src: "/about/about-decor-4.webp", alt: "Modern interior" },
-              { src: "/about/about-decor-5.webp", alt: "Urban development" },
-            ].map((image, idx) => (
-              <FadeIn key={idx} direction="up" duration={800} delay={idx * 150}>
-                <div className="group overflow-hidden rounded-[2rem]">
-                  <LazyImage
-                    src={image.src}
-                    alt={image.alt}
-                    className="aspect-[4/3] w-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0"
-                    transition="transition-all duration-500"
-                  />
-                </div>
-              </FadeIn>
-            ))}
-          </div>
         </div>
       </section>
 
