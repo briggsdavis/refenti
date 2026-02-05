@@ -279,7 +279,7 @@ function Investment() {
                   className="h-full"
                 >
                   <div className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
-                    <div className="aspect-[8/9] overflow-hidden">
+                    <div className="aspect-[16/27] overflow-hidden">
                       <LazyImage
                         src={asset.image}
                         alt={asset.alt}
