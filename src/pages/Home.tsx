@@ -137,7 +137,8 @@ function ParallaxSection() {
       // Calculate parallax offset when section is in viewport
       if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
         const scrollProgress = (windowHeight - sectionTop) / (windowHeight + sectionHeight)
-        setOffsetY(scrollProgress * 200 - 100)
+        // Increased range from 200 to 600 for much more visible effect
+        setOffsetY(scrollProgress * 600 - 300)
       }
     }
 
@@ -152,7 +153,7 @@ function ParallaxSection() {
       className="relative h-[80vh] w-full overflow-hidden md:h-[100vh]"
     >
       <div
-        className="absolute inset-0 h-[150%] w-full"
+        className="absolute inset-0 h-[200%] w-full"
         style={{
           backgroundImage: `url('/paralax.jpg')`,
           backgroundSize: "cover",
