@@ -276,9 +276,10 @@ function Investment() {
                   direction="up"
                   duration={800}
                   delay={idx * 100}
+                  className="h-full"
                 >
-                  <div className="group overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
-                    <div className="aspect-[4/3] overflow-hidden">
+                  <div className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                    <div className="aspect-[8/9] overflow-hidden">
                       <LazyImage
                         src={asset.image}
                         alt={asset.alt}
