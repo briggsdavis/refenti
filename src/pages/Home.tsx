@@ -137,8 +137,10 @@ function ParallaxSection() {
       // Calculate parallax offset when section is in viewport
       if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
         const scrollProgress = (windowHeight - sectionTop) / (windowHeight + sectionHeight)
-        // Reversed calculation: starts at +300 (showing bottom) and moves to -300 (showing top)
-        setOffsetY(300 - scrollProgress * 600)
+        // Image is 200% tall, so extra space is 100% of section height
+        // Move from +50% to -50% of section height to show full image range
+        const maxOffset = sectionHeight * 0.5
+        setOffsetY(maxOffset - scrollProgress * (maxOffset * 2))
       }
     }
 
