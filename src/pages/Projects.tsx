@@ -24,10 +24,11 @@ function Projects() {
       if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
         const scrollProgress =
           (windowHeight - sectionTop) / (windowHeight + sectionHeight)
-        // Image is 150% tall, so extra space is 50% of section height
-        // Move from +25% to -25% of section height for smooth parallax
-        const maxOffset = sectionHeight * 0.25
-        setParallaxOffset(maxOffset - scrollProgress * maxOffset * 2)
+        // Subtle parallax: move only 10% of section height
+        // Start at -20% (cutting off top) and move to -40% for subtle effect
+        const maxOffset = sectionHeight * 0.1
+        const baseOffset = -sectionHeight * 0.2 // Cut off top 20%
+        setParallaxOffset(baseOffset + maxOffset - scrollProgress * maxOffset * 2)
       }
     }
 
@@ -69,7 +70,7 @@ function Projects() {
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2400')`,
               backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundPosition: "center 40%",
               transform: `translateY(${parallaxOffset}px)`,
               willChange: "transform",
             }}
