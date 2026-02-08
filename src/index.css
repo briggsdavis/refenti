@@ -109,6 +109,25 @@ body {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   font-family: "Nunito Sans", sans-serif;
+  position: relative;
+}
+
+/* Site-wide background pattern */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+  height: 100%;
+  background-image: url("/pattern.png");
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Custom scrollbar */
