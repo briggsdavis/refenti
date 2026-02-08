@@ -60,6 +60,8 @@ function AppContent() {
           backgroundSize: "20% auto",
           opacity: 0.12,
           zIndex: 0,
+          animation: "none",
+          transition: "none",
         }}
       />
       <div className="relative min-h-screen font-sans text-refenti-charcoal selection:bg-refenti-gold selection:text-white">
