@@ -295,7 +295,7 @@ function Home() {
                       {projects.map((project) => (
                         <button
                           key={project.id}
-                          onMouseEnter={() => setHoveredProject(project)}
+                          onClick={() => setHoveredProject(project)}
                           className={`w-full rounded-lg px-4 py-3 text-left transition-all duration-300 ${
                             hoveredProject?.id === project.id
                               ? "bg-refenti-gold/10 text-refenti-gold"
@@ -316,12 +316,16 @@ function Home() {
                   {/* Right: Project Preview */}
                   <div className="border-t border-gray-100 md:border-t-0">
                     {hoveredProject ? (
-                      <div className="h-full">
+                      <div
+                        key={hoveredProject.id}
+                        className="h-full animate-fade-in"
+                        style={{ animationDuration: "500ms" }}
+                      >
                         <div className="relative aspect-[16/10] overflow-hidden">
                           <img
                             src={hoveredProject.image}
                             alt={hoveredProject.name}
-                            className="h-full w-full object-cover transition-transform duration-500"
+                            className="h-full w-full object-cover"
                           />
                         </div>
                         <div className="p-6 md:p-8">
@@ -335,6 +339,11 @@ function Home() {
                                 <li
                                   key={idx}
                                   className="flex items-start gap-3 text-sm text-gray-700"
+                                  style={{
+                                    animation: "fade-in 500ms ease-out",
+                                    animationDelay: `${idx * 50}ms`,
+                                    animationFillMode: "both",
+                                  }}
                                 >
                                   <div className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-refenti-gold" />
                                   <span className="font-light">{feature}</span>
@@ -346,7 +355,7 @@ function Home() {
                     ) : (
                       <div className="flex h-full min-h-[300px] items-center justify-center p-12 text-center">
                         <p className="text-sm font-light text-gray-400">
-                          Hover over a project to view details
+                          Click on a project to view details
                         </p>
                       </div>
                     )}
