@@ -60,7 +60,7 @@ function About() {
           {/* Vision - Left aligned, rounded right */}
           <FadeIn direction="up" duration={800}>
             <div className="flex justify-start">
-              <div className="w-full max-w-xl rounded-l-none rounded-r-full bg-amber-100 px-8 py-8 text-center shadow-2xl md:px-12 md:py-10">
+              <div className="w-full max-w-xl rounded-l-none rounded-r-full bg-white px-8 py-8 text-center shadow-2xl md:px-12 md:py-10">
                 <div className="mx-auto flex flex-col items-center space-y-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-refenti-gold opacity-40 shadow-lg md:h-12 md:w-12">
                     <svg
@@ -99,7 +99,7 @@ function About() {
           {/* Mission - Right aligned, rounded left */}
           <FadeIn direction="up" duration={800} delay={100}>
             <div className="flex justify-end">
-              <div className="w-full max-w-xl rounded-l-full rounded-r-none bg-amber-100 px-8 py-8 text-center shadow-2xl md:px-12 md:py-10">
+              <div className="w-full max-w-xl rounded-l-full rounded-r-none bg-white px-8 py-8 text-center shadow-2xl md:px-12 md:py-10">
                 <div className="mx-auto flex flex-col items-center space-y-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-refenti-gold opacity-40 shadow-lg md:h-12 md:w-12">
                     <svg
