@@ -11,6 +11,7 @@ import type { EventItem } from "../types"
 function AdminEvents() {
   const [events, setEvents] = useState<EventItem[]>([])
   const [loading, setLoading] = useState(true)
+  const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [formData, setFormData] = useState<Partial<EventItem>>({
     title: "",
@@ -43,7 +44,7 @@ function AdminEvents() {
       const { data, error } = await updateEvent(editingId, formData)
       if (error) {
         console.error("Failed to update event:", error.message)
-        alert("Failed to update event. Please try again.")
+        alert("Failed to update event.")
       } else {
         setEvents(events.map((ev) => (ev.id === editingId ? data : ev)))
         resetForm()
@@ -56,7 +57,7 @@ function AdminEvents() {
       const { data, error } = await createEvent(newEvent)
       if (error) {
         console.error("Failed to create event:", error.message)
-        alert("Failed to create event. Please try again.")
+        alert("Failed to create event.")
       } else {
         setEvents([...events, data])
         resetForm()
@@ -67,15 +68,17 @@ function AdminEvents() {
   const handleEdit = (ev: EventItem) => {
     setEditingId(ev.id)
     setFormData(ev)
+    setShowForm(true)
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   const handleDelete = async (id: string) => {
-    if (confirm("Delete engagement?")) {
+    if (confirm("Delete this event?")) {
       await deleteEventImage(id)
       const { error } = await deleteEvent(id)
       if (error) {
         console.error("Failed to delete event:", error.message)
-        alert("Failed to delete event. Please try again.")
+        alert("Failed to delete event.")
       } else {
         setEvents(events.filter((e) => e.id !== id))
       }
@@ -98,6 +101,7 @@ function AdminEvents() {
 
   const resetForm = () => {
     setEditingId(null)
+    setShowForm(false)
     setFormData({
       title: "",
       date: "",
@@ -110,179 +114,193 @@ function AdminEvents() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-7xl space-y-16 p-8 pb-40 md:p-16">
-        <div className="py-20 text-center text-gray-400">Loading...</div>
+      <div className="mx-auto max-w-5xl p-6">
+        <div className="py-12 text-center text-sm text-gray-400">
+          Loading...
+        </div>
       </div>
     )
   }
 
+  const formFields = [
+    { label: "Title", key: "title", placeholder: "e.g. Private Investor Gala" },
+    { label: "Date", key: "date", placeholder: "Dec 15, 2024" },
+    { label: "Location", key: "location", placeholder: "Refenti Showroom, Bole" },
+  ]
+
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6 pb-12 md:p-8">
-      <header className="flex items-end justify-between border-b border-gray-100 pb-4">
-        <div className="space-y-2">
-          <p className="font-sans text-[10px] font-bold tracking-ultra text-refenti-gold uppercase">
-            Engagement Management
-          </p>
-          <h1 className="font-display text-5xl leading-none font-light text-refenti-charcoal uppercase md:text-6xl">
-            Global <span className="text-refenti-gold">Events</span>
+    <div className="mx-auto max-w-5xl p-6">
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <h1 className="text-lg font-semibold text-refenti-charcoal">
+            Events
           </h1>
+          <span className="rounded-full bg-refenti-gold/10 px-2.5 py-0.5 text-xs font-medium text-refenti-gold">
+            {events.length}
+          </span>
         </div>
         <button
-          onClick={resetForm}
-          className="rounded-xl bg-refenti-charcoal px-6 py-2.5 text-[10px] font-bold text-white uppercase shadow-lg transition-all hover:bg-refenti-gold"
+          onClick={() => {
+            resetForm()
+            setShowForm(true)
+          }}
+          className="rounded-lg bg-refenti-charcoal px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-refenti-gold"
         >
-          New Event
+          New event
         </button>
-      </header>
+      </div>
 
-      {/* Editor Form */}
-      <div className="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-xl">
-        <h2 className="border-b border-gray-50 pb-3 font-display text-2xl text-refenti-charcoal uppercase">
-          {editingId ? "Modify Event" : "Create Event"}
-        </h2>
-        <form onSubmit={handleSave} className="space-y-4">
-          {[
-            {
-              label: "Event Identity",
-              key: "title",
-              placeholder: "e.g. Private Investor Gala",
-            },
-            {
-              label: "Calendar Date",
-              key: "date",
-              placeholder: "Dec 15, 2024",
-            },
-            {
-              label: "Venue Location",
-              key: "location",
-              placeholder: "Refenti Showroom, Bole",
-            },
-          ].map((field) => (
-            <div key={field.key} className="group space-y-2">
-              <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase transition-colors group-focus-within:text-refenti-charcoal">
-                {field.label}
-              </label>
-              <input
-                placeholder={field.placeholder}
-                value={formData[field.key as keyof EventItem] as string}
-                onChange={(e) =>
-                  setFormData({ ...formData, [field.key]: e.target.value })
-                }
-                className="w-full border-b-2 border-gray-100 bg-transparent py-3 text-xl font-medium text-refenti-charcoal transition-all placeholder:text-gray-200 focus:border-refenti-gold focus:outline-none"
-              />
-            </div>
-          ))}
-
-          <FileUpload
-            label="Event Image"
-            value={formData.image || ""}
-            onChange={(url) => setFormData({ ...formData, image: url })}
-            accept="image/*"
-            uploadFn={(file) => {
-              const eventId = editingId || Date.now().toString()
-              return uploadEventImage(eventId, file)
-            }}
-            validator={validateImageFile}
-          />
-
-          <div className="space-y-2">
-            <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase">
-              Event Brief
-            </label>
-            <textarea
-              placeholder="Detailed description of the event..."
-              value={formData.details}
-              onChange={(e) =>
-                setFormData({ ...formData, details: e.target.value })
-              }
-              rows={3}
-              className="w-full rounded-xl border-2 border-transparent bg-refenti-offwhite/50 p-3 text-sm leading-relaxed font-medium text-refenti-charcoal transition-all placeholder:text-gray-200 focus:border-refenti-gold focus:outline-none"
-            />
+      {/* Collapsible Form */}
+      {showForm && (
+        <div className="mb-6 rounded-lg border border-gray-200 bg-white p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-refenti-charcoal">
+              {editingId ? "Edit event" : "New event"}
+            </h2>
+            <button
+              type="button"
+              onClick={resetForm}
+              className="text-sm text-gray-400 transition-colors hover:text-refenti-charcoal"
+            >
+              Cancel
+            </button>
           </div>
+          <form onSubmit={handleSave} className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {formFields.map((field) => (
+                <div key={field.key} className="space-y-1.5">
+                  <label className="text-sm font-medium text-gray-600">
+                    {field.label}
+                  </label>
+                  <input
+                    placeholder={field.placeholder}
+                    value={formData[field.key as keyof EventItem] as string}
+                    onChange={(e) =>
+                      setFormData({ ...formData, [field.key]: e.target.value })
+                    }
+                    className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-refenti-charcoal placeholder:text-gray-400 focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
+                  />
+                </div>
+              ))}
+            </div>
 
-          <div className="flex items-center justify-between pt-2">
-            <label className="group flex cursor-pointer items-center gap-4 text-[10px] font-bold tracking-ultra text-refenti-charcoal uppercase">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <FileUpload
+                label="Image"
+                value={formData.image || ""}
+                onChange={(url) => setFormData({ ...formData, image: url })}
+                accept="image/*"
+                uploadFn={(file) => {
+                  const eventId = editingId || Date.now().toString()
+                  return uploadEventImage(eventId, file)
+                }}
+                validator={validateImageFile}
+              />
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-gray-600">
+                  Details
+                </label>
+                <textarea
+                  placeholder="Detailed description of the event..."
+                  value={formData.details}
+                  onChange={(e) =>
+                    setFormData({ ...formData, details: e.target.value })
+                  }
+                  rows={4}
+                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm leading-relaxed text-refenti-charcoal placeholder:text-gray-400 focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
+                />
+              </div>
+            </div>
+
+            <label className="flex items-center gap-2 text-sm text-refenti-charcoal">
               <input
                 type="checkbox"
                 checked={formData.isFeatured}
                 onChange={(e) =>
                   setFormData({ ...formData, isFeatured: e.target.checked })
                 }
-                className="h-5 w-5 rounded border-2 border-gray-200 text-refenti-gold transition-all focus:ring-refenti-gold"
+                className="h-4 w-4 rounded border-gray-300 text-refenti-gold focus:ring-refenti-gold"
               />
-              Featured on Home Page
+              Featured on home page
             </label>
-          </div>
 
-          <button
-            type="submit"
-            className="w-full rounded-xl bg-refenti-charcoal py-3 text-[10px] font-bold tracking-ultra text-white uppercase shadow-2xl transition-all hover:bg-refenti-gold active:scale-[0.98]"
-          >
-            {editingId ? "Confirm Updates" : "Publish Engagement"}
-          </button>
-        </form>
-      </div>
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                className="rounded-lg bg-refenti-charcoal px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-refenti-gold"
+              >
+                {editingId ? "Save changes" : "Create event"}
+              </button>
+              <button
+                type="button"
+                onClick={resetForm}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-500 transition-colors hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
-      {/* List view */}
-      <div className="grid gap-3">
-        {events.length === 0 ? (
-          <div className="rounded-xl border-2 border-dashed border-gray-100 bg-white p-12 text-center">
-            <p className="font-display text-2xl text-gray-300">
-              Engagements list empty.
-            </p>
-          </div>
-        ) : (
-          events.map((ev) => (
+      {/* List */}
+      {events.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-gray-200 py-12 text-center text-sm text-gray-400">
+          No events yet
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+          {events.map((ev, idx) => (
             <div
               key={ev.id}
-              className="group flex items-center justify-between rounded-xl border border-gray-50 bg-white p-4 transition-all duration-700 hover:shadow-2xl"
+              className={`flex items-center gap-4 px-4 py-3 transition-colors hover:bg-gray-50 ${
+                idx !== events.length - 1 ? "border-b border-gray-100" : ""
+              }`}
             >
-              <div className="flex items-center gap-4">
-                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-3xl border border-gray-100 shadow-xl">
-                  <img
-                    src={ev.image}
-                    className="h-full w-full object-cover"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <p className="mb-2 text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
-                    {ev.date}
-                  </p>
-                  <h3 className="mb-2 font-display text-3xl leading-none text-refenti-charcoal">
-                    {ev.title}
-                  </h3>
-                  <p className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
-                    {ev.location}
-                  </p>
-                </div>
+              <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg">
+                <img
+                  src={ev.image}
+                  className="h-full w-full object-cover"
+                  alt=""
+                />
               </div>
-              <div className="flex items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold text-refenti-charcoal">
+                  {ev.title}
+                </p>
+                <p className="truncate text-xs text-gray-400">
+                  {ev.date} &middot; {ev.location}
+                </p>
+              </div>
+              {ev.isFeatured && (
+                <span className="rounded-full bg-refenti-gold/10 px-2.5 py-0.5 text-xs font-medium text-refenti-gold">
+                  Featured
+                </span>
+              )}
+              <div className="flex items-center gap-1">
                 <button
                   onClick={() => toggleFeatured(ev.id)}
-                  className={`rounded-full border-2 px-4 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all ${ev.isFeatured ? "scale-105 border-refenti-gold bg-refenti-gold text-white shadow-lg" : "border-gray-100 text-gray-300 hover:border-refenti-gold/40 hover:text-refenti-gold"}`}
+                  className="rounded-md px-3 py-1.5 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-refenti-charcoal"
                 >
-                  {ev.isFeatured ? "Featured" : "Regular"}
+                  {ev.isFeatured ? "Unfeature" : "Feature"}
                 </button>
-                <div className="flex flex-col gap-1">
-                  <button
-                    onClick={() => handleEdit(ev)}
-                    className="text-[9px] font-bold tracking-widest text-refenti-gold uppercase hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(ev.id)}
-                    className="text-[9px] font-bold tracking-widest text-red-400 uppercase transition-colors hover:text-red-600"
-                  >
-                    Remove
-                  </button>
-                </div>
+                <button
+                  onClick={() => handleEdit(ev)}
+                  className="rounded-md px-3 py-1.5 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-refenti-charcoal"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(ev.id)}
+                  className="rounded-md px-3 py-1.5 text-sm text-red-400 transition-colors hover:bg-red-50 hover:text-red-600"
+                >
+                  Delete
+                </button>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

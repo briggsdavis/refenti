@@ -11,6 +11,7 @@ import type { NewsItem } from "../types"
 function AdminNews() {
   const [news, setNews] = useState<NewsItem[]>([])
   const [loading, setLoading] = useState(true)
+  const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [formData, setFormData] = useState<Partial<NewsItem>>({
     title: "",
@@ -42,7 +43,7 @@ function AdminNews() {
       const { data, error } = await updateNews(editingId, formData)
       if (error) {
         console.error("Failed to update news:", error.message)
-        alert("Failed to update news. Please try again.")
+        alert("Failed to update article.")
       } else {
         setNews(news.map((n) => (n.id === editingId ? data : n)))
         resetForm()
@@ -55,7 +56,7 @@ function AdminNews() {
       const { data, error } = await createNews(newNews)
       if (error) {
         console.error("Failed to create news:", error.message)
-        alert("Failed to create news. Please try again.")
+        alert("Failed to create article.")
       } else {
         setNews([...news, data])
         resetForm()
@@ -66,15 +67,17 @@ function AdminNews() {
   const handleEdit = (n: NewsItem) => {
     setEditingId(n.id)
     setFormData(n)
+    setShowForm(true)
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   const handleDelete = async (id: string) => {
-    if (confirm("Delete news story?")) {
+    if (confirm("Delete this article?")) {
       await deleteNewsImage(id)
       const { error } = await deleteNews(id)
       if (error) {
         console.error("Failed to delete news:", error.message)
-        alert("Failed to delete news. Please try again.")
+        alert("Failed to delete article.")
       } else {
         setNews(news.filter((n) => n.id !== id))
       }
@@ -83,165 +86,179 @@ function AdminNews() {
 
   const resetForm = () => {
     setEditingId(null)
+    setShowForm(false)
     setFormData({ title: "", category: "", date: "", excerpt: "", image: "" })
   }
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-7xl space-y-16 p-8 pb-40 md:p-16">
-        <div className="py-20 text-center text-gray-400">Loading...</div>
+      <div className="mx-auto max-w-5xl p-6">
+        <div className="py-12 text-center text-sm text-gray-400">
+          Loading...
+        </div>
       </div>
     )
   }
 
+  const formFields = [
+    {
+      label: "Title",
+      key: "title",
+      placeholder: "The Future of Addis Architecture",
+    },
+    { label: "Category", key: "category", placeholder: "Architecture, Investment" },
+    { label: "Date", key: "date", placeholder: "Nov 12, 2024" },
+  ]
+
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6 pb-12 md:p-8">
-      <header className="flex items-end justify-between border-b border-gray-100 pb-4">
-        <div className="space-y-2">
-          <p className="font-sans text-[10px] font-bold tracking-ultra text-refenti-gold uppercase">
-            Journal Management
-          </p>
-          <h1 className="font-display text-5xl leading-none font-light text-refenti-charcoal uppercase md:text-6xl">
-            Editorial <span className="text-refenti-gold">Feed</span>
-          </h1>
+    <div className="mx-auto max-w-5xl p-6">
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <h1 className="text-lg font-semibold text-refenti-charcoal">News</h1>
+          <span className="rounded-full bg-refenti-gold/10 px-2.5 py-0.5 text-xs font-medium text-refenti-gold">
+            {news.length}
+          </span>
         </div>
         <button
-          onClick={resetForm}
-          className="rounded-xl bg-refenti-charcoal px-6 py-2.5 text-[10px] font-bold text-white uppercase shadow-lg transition-all hover:bg-refenti-gold"
+          onClick={() => {
+            resetForm()
+            setShowForm(true)
+          }}
+          className="rounded-lg bg-refenti-charcoal px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-refenti-gold"
         >
-          New Story
+          New article
         </button>
-      </header>
-
-      {/* Editor Form */}
-      <div className="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-xl">
-        <h2 className="border-b border-gray-50 pb-3 font-display text-2xl text-refenti-charcoal uppercase">
-          {editingId ? "Modify Story" : "New Story"}
-        </h2>
-        <form onSubmit={handleSave} className="space-y-4">
-          {[
-            {
-              label: "Article Headline",
-              key: "title",
-              placeholder: "The Future of Addis Architecture",
-            },
-            {
-              label: "Journal Category",
-              key: "category",
-              placeholder: "Architecture, Investment",
-            },
-            {
-              label: "Publishing Date",
-              key: "date",
-              placeholder: "Nov 12, 2024",
-            },
-          ].map((field) => (
-            <div key={field.key} className="group space-y-2">
-              <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase transition-colors group-focus-within:text-refenti-charcoal">
-                {field.label}
-              </label>
-              <input
-                placeholder={field.placeholder}
-                value={formData[field.key as keyof NewsItem] as string}
-                onChange={(e) =>
-                  setFormData({ ...formData, [field.key]: e.target.value })
-                }
-                className="w-full border-b-2 border-gray-100 bg-transparent py-3 text-xl font-medium text-refenti-charcoal transition-all placeholder:text-gray-200 focus:border-refenti-gold focus:outline-none"
-              />
-            </div>
-          ))}
-
-          <FileUpload
-            label="Hero Cover Image"
-            value={formData.image || ""}
-            onChange={(url) => setFormData({ ...formData, image: url })}
-            accept="image/*"
-            uploadFn={(file) => {
-              const newsId = editingId || "n" + Date.now()
-              return uploadNewsImage(newsId, file)
-            }}
-            validator={validateImageFile}
-          />
-
-          <div className="space-y-2">
-            <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase">
-              Article Excerpt
-            </label>
-            <textarea
-              placeholder="Short, high-impact summary for the feed..."
-              value={formData.excerpt}
-              onChange={(e) =>
-                setFormData({ ...formData, excerpt: e.target.value })
-              }
-              rows={3}
-              className="w-full rounded-xl border-2 border-transparent bg-refenti-offwhite/50 p-3 text-sm leading-relaxed font-medium text-refenti-charcoal transition-all placeholder:text-gray-200 focus:border-refenti-gold focus:outline-none"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-xl bg-refenti-charcoal py-3 text-[10px] font-bold tracking-ultra text-white uppercase shadow-2xl transition-all hover:bg-refenti-gold active:scale-[0.98]"
-          >
-            {editingId ? "Confirm Editorial" : "Publish Story"}
-          </button>
-        </form>
       </div>
 
-      {/* List View */}
-      <div className="grid gap-3">
-        {news.length === 0 ? (
-          <div className="rounded-xl border-2 border-dashed border-gray-100 bg-white p-12 text-center">
-            <p className="font-display text-2xl text-gray-300">
-              Editorial feed empty.
-            </p>
-          </div>
-        ) : (
-          news.map((n) => (
-            <div
-              key={n.id}
-              className="group flex items-center justify-between rounded-xl border border-gray-50 bg-white p-4 transition-all duration-700 hover:shadow-2xl"
+      {/* Collapsible Form */}
+      {showForm && (
+        <div className="mb-6 rounded-lg border border-gray-200 bg-white p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-refenti-charcoal">
+              {editingId ? "Edit article" : "New article"}
+            </h2>
+            <button
+              type="button"
+              onClick={resetForm}
+              className="text-sm text-gray-400 transition-colors hover:text-refenti-charcoal"
             >
-              <div className="flex items-center gap-4">
-                <div className="h-28 w-28 flex-shrink-0 overflow-hidden rounded-[2rem] border border-gray-100 shadow-xl">
-                  <img
-                    src={n.image}
-                    className="h-full w-full object-cover"
-                    alt=""
+              Cancel
+            </button>
+          </div>
+          <form onSubmit={handleSave} className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {formFields.map((field) => (
+                <div key={field.key} className="space-y-1.5">
+                  <label className="text-sm font-medium text-gray-600">
+                    {field.label}
+                  </label>
+                  <input
+                    placeholder={field.placeholder}
+                    value={formData[field.key as keyof NewsItem] as string}
+                    onChange={(e) =>
+                      setFormData({ ...formData, [field.key]: e.target.value })
+                    }
+                    className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-refenti-charcoal placeholder:text-gray-400 focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
                   />
                 </div>
-                <div className="max-w-md space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="text-[9px] font-bold tracking-ultra text-refenti-gold uppercase">
-                      {n.category}
-                    </span>
-                    <span className="h-[1px] w-4 bg-gray-100" />
-                    <span className="text-[9px] font-bold tracking-ultra text-gray-300 uppercase">
-                      {n.date}
-                    </span>
-                  </div>
-                  <h3 className="font-display text-3xl leading-tight text-refenti-charcoal">
-                    {n.title}
-                  </h3>
-                </div>
+              ))}
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <FileUpload
+                label="Image"
+                value={formData.image || ""}
+                onChange={(url) => setFormData({ ...formData, image: url })}
+                accept="image/*"
+                uploadFn={(file) => {
+                  const newsId = editingId || "n" + Date.now()
+                  return uploadNewsImage(newsId, file)
+                }}
+                validator={validateImageFile}
+              />
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-gray-600">
+                  Excerpt
+                </label>
+                <textarea
+                  placeholder="Short summary for the feed..."
+                  value={formData.excerpt}
+                  onChange={(e) =>
+                    setFormData({ ...formData, excerpt: e.target.value })
+                  }
+                  rows={4}
+                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm leading-relaxed text-refenti-charcoal placeholder:text-gray-400 focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
+                />
               </div>
-              <div className="flex flex-col gap-1">
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                className="rounded-lg bg-refenti-charcoal px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-refenti-gold"
+              >
+                {editingId ? "Save changes" : "Create article"}
+              </button>
+              <button
+                type="button"
+                onClick={resetForm}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-500 transition-colors hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* List */}
+      {news.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-gray-200 py-12 text-center text-sm text-gray-400">
+          No articles yet
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+          {news.map((n, idx) => (
+            <div
+              key={n.id}
+              className={`flex items-center gap-4 px-4 py-3 transition-colors hover:bg-gray-50 ${
+                idx !== news.length - 1 ? "border-b border-gray-100" : ""
+              }`}
+            >
+              <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg">
+                <img
+                  src={n.image}
+                  className="h-full w-full object-cover"
+                  alt=""
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold text-refenti-charcoal">
+                  {n.title}
+                </p>
+                <p className="truncate text-xs text-gray-400">{n.date}</p>
+              </div>
+              <span className="hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600 sm:inline-block">
+                {n.category}
+              </span>
+              <div className="flex items-center gap-1">
                 <button
                   onClick={() => handleEdit(n)}
-                  className="rounded-lg border border-transparent bg-refenti-offwhite/50 px-4 py-2 text-[10px] font-bold tracking-widest text-refenti-gold uppercase transition-all hover:border-gray-100 hover:bg-white hover:underline"
+                  className="rounded-md px-3 py-1.5 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-refenti-charcoal"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(n.id)}
-                  className="px-4 py-2 text-[10px] font-bold tracking-widest text-red-400 uppercase transition-all hover:text-red-600"
+                  className="rounded-md px-3 py-1.5 text-sm text-red-400 transition-colors hover:bg-red-50 hover:text-red-600"
                 >
-                  Remove
+                  Delete
                 </button>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
