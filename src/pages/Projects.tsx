@@ -107,47 +107,49 @@ function Projects() {
                 </div>
               </FadeIn>
             ) : (
-              <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:gap-20">
+              <div className="space-y-20 md:space-y-32">
                 {projects.map((project, idx) => (
                   <FadeIn key={project.id} delay={idx * 150}>
                     <Link
                       to={`/projects/${project.id}`}
-                      className="group block cursor-pointer space-y-10"
+                      className="group block cursor-pointer"
                     >
-                      {/* Project Image Container */}
-                      <div className="aspect-16/10 overflow-hidden rounded-[3.5rem] shadow-2xl transition-all duration-1000 group-hover:-translate-y-2 group-hover:shadow-refenti-gold/20">
-                        <LazyImage
-                          src={project.image}
-                          alt={project.name}
-                          className="h-full w-full object-cover grayscale-[0.2] transition-transform duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                        />
-                      </div>
-
-                      {/* Project Info Container */}
-                      <div className="space-y-6 px-6 md:px-10">
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-4">
-                            <p className="rounded-full border-[3px] border-refenti-gold bg-refenti-gold/20 px-5 py-2 text-xs font-black tracking-wider text-refenti-gold uppercase shadow-lg">
-                              {project.assetClass}
-                            </p>
-                            <div className="h-px w-8 bg-gray-200" />
-                          </div>
-                          <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal transition-colors duration-500 group-hover:text-refenti-gold md:text-6xl">
-                            {project.name}
-                          </h2>
-                          <p className="font-sans text-xs font-bold text-gray-400 uppercase">
-                            {project.location}
-                          </p>
+                      <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
+                        {/* Project Image Container */}
+                        <div className="overflow-hidden rounded-[3.5rem] shadow-lg transition-all duration-1000 group-hover:-translate-y-2 group-hover:shadow-refenti-gold/20">
+                          <LazyImage
+                            src={project.image}
+                            alt={project.name}
+                            className="aspect-[4/3] w-full object-cover grayscale-[0.3] transition-transform duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                          />
                         </div>
-                        <p className="max-w-md text-sm leading-relaxed font-light text-gray-600 opacity-80 transition-opacity duration-500 group-hover:opacity-100">
-                          {project.description}
-                        </p>
 
-                        <div className="pt-4">
-                          <span className="inline-flex -translate-x-2.5 items-center gap-4 text-xs font-bold text-refenti-gold uppercase opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
-                            View Asset Narrative
-                            <span className="text-lg">→</span>
-                          </span>
+                        {/* Project Info Container */}
+                        <div className="space-y-6 px-4 md:px-0">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-4">
+                              <p className="rounded-full border border-refenti-gold/60 bg-refenti-gold/10 px-5 py-2 text-xs font-black tracking-wider text-refenti-gold uppercase shadow-sm">
+                                {project.assetClass}
+                              </p>
+                              <div className="h-px w-8 bg-gray-200" />
+                            </div>
+                            <h2 className="font-display text-4xl leading-none font-light text-refenti-charcoal transition-colors duration-500 group-hover:text-refenti-gold md:text-5xl lg:text-6xl">
+                              {project.name}
+                            </h2>
+                            <p className="font-sans text-xs font-bold text-gray-400 uppercase">
+                              {project.location}
+                            </p>
+                          </div>
+                          <p className="max-w-sm text-sm leading-relaxed font-light text-gray-600 opacity-80 transition-opacity duration-500 group-hover:opacity-100 md:text-base">
+                            {project.description}
+                          </p>
+
+                          <div className="pt-4">
+                            <span className="inline-flex -translate-x-2.5 items-center gap-4 text-xs font-bold text-refenti-gold uppercase opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
+                              View Asset Narrative
+                              <span className="text-lg">→</span>
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </Link>
