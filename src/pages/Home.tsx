@@ -11,7 +11,7 @@ function EventCard({ event, index }: { event: EventItem; index: number }) {
 
   return (
     <div
-      className="group rounded-4xl border border-gray-100 bg-white p-6 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.05)] transition-all duration-1000"
+      className="group flex h-full flex-col rounded-4xl border border-gray-100 bg-white p-6 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.05)] transition-all duration-1000"
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <div className="relative mb-6 aspect-4/5 overflow-hidden rounded-3xl">
@@ -414,7 +414,7 @@ function Home() {
           {featuredEvents.length > 0 ? (
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 lg:grid-cols-3">
               {featuredEvents.map((event, idx) => (
-                <FadeIn key={event.id} delay={idx * 150}>
+                <FadeIn key={event.id} delay={idx * 150} className="h-full">
                   <EventCard event={event} index={idx} />
                 </FadeIn>
               ))}
