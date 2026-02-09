@@ -127,7 +127,7 @@ function Projects() {
                       <div className="space-y-6 px-6 md:px-10">
                         <div className="space-y-3">
                           <div className="flex items-center gap-4">
-                            <p className="text-xs font-bold text-refenti-gold uppercase">
+                            <p className="rounded-full border-[3px] border-refenti-gold bg-refenti-gold/20 px-5 py-2 text-xs font-black tracking-wider text-refenti-gold uppercase shadow-lg">
                               {project.assetClass}
                             </p>
                             <div className="h-px w-8 bg-gray-200" />
@@ -139,7 +139,7 @@ function Projects() {
                             {project.location}
                           </p>
                         </div>
-                        <p className="max-w-lg text-sm leading-relaxed font-light text-gray-600 opacity-80 transition-opacity duration-500 group-hover:opacity-100">
+                        <p className="max-w-md text-sm leading-relaxed font-light text-gray-600 opacity-80 transition-opacity duration-500 group-hover:opacity-100">
                           {project.description}
                         </p>
 
