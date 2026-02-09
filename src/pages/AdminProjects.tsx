@@ -23,11 +23,11 @@ function AdminProjects() {
   }
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete this project?")) {
+    if (window.confirm("Delete this project?")) {
       const { error } = await deleteProject(id)
       if (error) {
         console.error("Failed to delete project:", error.message)
-        alert("Failed to delete project. Please try again.")
+        alert("Failed to delete project.")
       } else {
         setProjects(projects.filter((p) => p.id !== id))
       }
@@ -35,61 +35,71 @@ function AdminProjects() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6 pb-12 md:p-8">
-      <header className="flex items-end justify-between border-b border-gray-100 pb-4">
-        <div className="space-y-2">
-          <p className="font-sans text-[10px] font-bold tracking-ultra text-refenti-gold uppercase">
-            Portfolio Management
-          </p>
-          <h1 className="font-display text-5xl leading-none font-light text-refenti-charcoal uppercase md:text-6xl">
-            Global <span className="text-refenti-gold">Assets</span>
+    <div className="mx-auto max-w-5xl p-6">
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <h1 className="text-lg font-semibold text-refenti-charcoal">
+            Projects
           </h1>
+          {!loading && (
+            <span className="rounded-full bg-refenti-gold/10 px-2.5 py-0.5 text-xs font-medium text-refenti-gold">
+              {projects.length}
+            </span>
+          )}
         </div>
         <button
           onClick={() => navigate("/admin/projects/new")}
-          className="rounded-xl bg-refenti-charcoal px-6 py-2.5 text-[10px] font-bold tracking-widest text-white uppercase transition-all hover:bg-refenti-gold"
+          className="rounded-lg bg-refenti-charcoal px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-refenti-gold"
         >
-          New Project
+          New project
         </button>
-      </header>
+      </div>
 
       {loading ? (
-        <div className="py-20 text-center text-gray-400">Loading...</div>
+        <div className="py-12 text-center text-sm text-gray-400">
+          Loading...
+        </div>
+      ) : projects.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-gray-200 py-12 text-center text-sm text-gray-400">
+          No projects yet
+        </div>
       ) : (
-        <div className="grid gap-6">
-          {projects.map((p) => (
+        <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+          {projects.map((p, idx) => (
             <div
               key={p.id}
-              className="group flex items-center justify-between rounded-xl border border-gray-50 bg-white p-4 shadow-sm transition-all duration-700 hover:shadow-xl"
+              className={`flex items-center gap-4 px-4 py-3 transition-colors hover:bg-gray-50 ${
+                idx !== projects.length - 1
+                  ? "border-b border-gray-100"
+                  : ""
+              }`}
             >
-              <div className="flex items-center gap-4">
-                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-3xl shadow-inner">
-                  <img
-                    src={p.image}
-                    className="h-full w-full object-cover"
-                    alt={p.name}
-                  />
-                </div>
-                <div>
-                  <h3 className="mb-2 font-display text-3xl leading-none text-refenti-charcoal">
-                    {p.name}
-                  </h3>
-                  {/* Fix: Property 'type' does not exist on type 'Project'. Using 'assetClass' instead. */}
-                  <p className="text-[10px] font-bold tracking-widest text-gray-300 uppercase">
-                    {p.location} • {p.assetClass}
-                  </p>
-                </div>
+              <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg">
+                <img
+                  src={p.image}
+                  className="h-full w-full object-cover"
+                  alt={p.name}
+                />
               </div>
-              <div className="flex gap-2">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold text-refenti-charcoal">
+                  {p.name}
+                </p>
+                <p className="truncate text-xs text-gray-400">{p.location}</p>
+              </div>
+              <span className="hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600 sm:inline-block">
+                {p.assetClass}
+              </span>
+              <div className="flex items-center gap-1">
                 <button
                   onClick={() => navigate(`/admin/projects/edit/${p.id}`)}
-                  className="rounded-lg bg-gray-50 px-4 py-2 text-[9px] font-bold tracking-widest uppercase transition-all hover:bg-refenti-gold hover:text-white"
+                  className="rounded-md px-3 py-1.5 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-refenti-charcoal"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(p.id)}
-                  className="rounded-lg bg-red-50 px-4 py-2 text-[9px] font-bold tracking-widest text-red-400 uppercase transition-all hover:bg-red-400 hover:text-white"
+                  className="rounded-md px-3 py-1.5 text-sm text-red-400 transition-colors hover:bg-red-50 hover:text-red-600"
                 >
                   Delete
                 </button>

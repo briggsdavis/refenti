@@ -17,7 +17,6 @@ function AdminInput({
   value,
   onChange,
   placeholder,
-  small,
 }: {
   label: string
   value: string
@@ -26,15 +25,13 @@ function AdminInput({
   small?: boolean
 }) {
   return (
-    <div className="group space-y-2">
-      <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase transition-colors group-focus-within:text-refenti-charcoal">
-        {label}
-      </label>
+    <div className="space-y-1.5">
+      <label className="text-sm font-medium text-gray-600">{label}</label>
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={`w-full border-b-2 border-gray-200 bg-transparent py-4 font-medium text-refenti-charcoal transition-all placeholder:text-gray-300 focus:border-refenti-gold focus:outline-none ${small ? "text-base" : "text-3xl md:text-4xl"}`}
+        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-refenti-charcoal placeholder:text-gray-400 focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
       />
     </div>
   )
@@ -45,7 +42,6 @@ function AdminSelect({
   value,
   onChange,
   options,
-  small,
 }: {
   label: string
   value: string
@@ -54,14 +50,12 @@ function AdminSelect({
   small?: boolean
 }) {
   return (
-    <div className="group space-y-2">
-      <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase transition-colors group-focus-within:text-refenti-charcoal">
-        {label}
-      </label>
+    <div className="space-y-1.5">
+      <label className="text-sm font-medium text-gray-600">{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full border-b-2 border-gray-200 bg-transparent py-4 font-medium text-refenti-charcoal transition-all focus:border-refenti-gold focus:outline-none ${small ? "text-base" : "text-3xl md:text-4xl"}`}
+        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-refenti-charcoal focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
       >
         {options.map((option) => (
           <option key={option} value={option}>
@@ -79,7 +73,6 @@ function AdminProjectEditor() {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState<Partial<Project>>({
     name: "",
-    // Fix: 'type' does not exist in type 'Partial<Project>'. Changed to 'assetClass'.
     assetClass: "Residential",
     location: "",
     image: "",
@@ -120,7 +113,7 @@ function AdminProjectEditor() {
       const { error } = await updateProject(id, projectData)
       if (error) {
         console.error("Failed to update project:", error.message)
-        alert("Failed to update project. Please try again.")
+        alert("Failed to update project.")
         setLoading(false)
       } else {
         navigate("/admin/projects")
@@ -129,7 +122,7 @@ function AdminProjectEditor() {
       const { error } = await createProject(projectData)
       if (error) {
         console.error("Failed to create project:", error.message)
-        alert("Failed to create project. Please try again.")
+        alert("Failed to create project.")
         setLoading(false)
       } else {
         navigate("/admin/projects")
@@ -177,31 +170,32 @@ function AdminProjectEditor() {
     }))
 
   return (
-    <div className="mx-auto max-w-5xl p-6 pb-12 md:p-8">
-      <header className="mb-6 flex items-center gap-4">
+    <div className="mx-auto max-w-4xl p-6">
+      <header className="mb-6 flex items-center gap-2 text-sm">
         <button
           onClick={() => navigate("/admin/projects")}
-          className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-gray-400 uppercase transition-colors hover:text-refenti-charcoal"
+          className="text-gray-400 transition-colors hover:text-refenti-charcoal"
         >
-          <span className="text-lg">←</span> Back to Assets
+          &larr; Projects
         </button>
-        <h1 className="font-display text-5xl font-light text-refenti-charcoal uppercase">
-          Project <span className="text-refenti-gold">Editor</span>
+        <span className="text-gray-300">/</span>
+        <h1 className="font-semibold text-refenti-charcoal">
+          {id ? "Edit project" : "New project"}
         </h1>
       </header>
 
       <form
         onSubmit={handleSave}
-        className="space-y-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-xl md:p-8"
+        className="space-y-6 rounded-lg border border-gray-200 bg-white p-6"
       >
-        {/* Primary Identification */}
+        {/* Basic Info */}
         <div className="space-y-4">
-          <h2 className="border-b border-gray-50 pb-4 text-[11px] font-bold tracking-ultra text-gray-300 uppercase">
-            Identification
+          <h2 className="text-sm font-semibold text-refenti-charcoal">
+            Basic Info
           </h2>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <AdminInput
-              label="Project Name"
+              label="Name"
               value={formData.name || ""}
               onChange={(v) => setFormData({ ...formData, name: v })}
               placeholder="e.g. Bole High-Rise"
@@ -213,7 +207,7 @@ function AdminProjectEditor() {
               placeholder="e.g. Bole, Addis Ababa"
             />
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <AdminSelect
               label="Asset Class"
               value={formData.assetClass || "Residential"}
@@ -232,8 +226,8 @@ function AdminProjectEditor() {
               placeholder="e.g. In Development, Completed"
             />
           </div>
-          <div className="space-y-3">
-            <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase">
+          <div className="space-y-1.5">
+            <label className="text-sm font-medium text-gray-600">
               Description
             </label>
             <textarea
@@ -243,19 +237,17 @@ function AdminProjectEditor() {
               }
               placeholder="Short description shown on the portfolio page..."
               rows={3}
-              className="w-full rounded-xl border-2 border-transparent bg-refenti-offwhite/50 p-4 text-base leading-relaxed font-medium text-refenti-charcoal transition-all placeholder:text-gray-300 focus:border-refenti-gold focus:outline-none"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm leading-relaxed text-refenti-charcoal placeholder:text-gray-400 focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
             />
           </div>
         </div>
 
-        {/* Media & Resources */}
-        <div className="space-y-4">
-          <h2 className="border-b border-gray-50 pb-4 text-[11px] font-bold tracking-ultra text-gray-300 uppercase">
-            Media & Resources
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2">
+        {/* Media */}
+        <div className="space-y-4 border-t border-gray-100 pt-6">
+          <h2 className="text-sm font-semibold text-refenti-charcoal">Media</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
             <FileUpload
-              label="Hero Banner"
+              label="Hero Image"
               value={formData.image || ""}
               onChange={(url) => setFormData({ ...formData, image: url })}
               accept="image/*"
@@ -281,19 +273,19 @@ function AdminProjectEditor() {
           </div>
         </div>
 
-        {/* Introductory Content */}
-        <div className="space-y-4">
-          <h2 className="border-b border-gray-50 pb-4 text-[11px] font-bold tracking-ultra text-gray-300 uppercase">
-            Storytelling
+        {/* Introduction */}
+        <div className="space-y-4 border-t border-gray-100 pt-6">
+          <h2 className="text-sm font-semibold text-refenti-charcoal">
+            Introduction
           </h2>
           <AdminInput
-            label="Intro Headline"
+            label="Intro Title"
             value={formData.introTitle || ""}
             onChange={(v) => setFormData({ ...formData, introTitle: v })}
           />
-          <div className="space-y-3">
-            <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase">
-              Narrative Description
+          <div className="space-y-1.5">
+            <label className="text-sm font-medium text-gray-600">
+              Intro Text
             </label>
             <textarea
               value={formData.introText}
@@ -301,8 +293,8 @@ function AdminProjectEditor() {
                 setFormData({ ...formData, introText: e.target.value })
               }
               placeholder="Provide a compelling narrative for this project..."
-              rows={6}
-              className="w-full rounded-xl border-2 border-transparent bg-refenti-offwhite/50 p-4 text-base leading-relaxed font-medium text-refenti-charcoal transition-all placeholder:text-gray-300 focus:border-refenti-gold focus:outline-none"
+              rows={5}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm leading-relaxed text-refenti-charcoal placeholder:text-gray-400 focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
             />
           </div>
           <FileUpload
@@ -319,39 +311,38 @@ function AdminProjectEditor() {
           />
         </div>
 
-        {/* Features Pills */}
-        <div className="space-y-4 border-t border-gray-50 pt-6">
+        {/* Features */}
+        <div className="space-y-4 border-t border-gray-100 pt-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-3xl font-light text-refenti-charcoal uppercase">
-              Feature{" "}
-              <span className="text-refenti-gold">Attributes</span>
+            <h2 className="text-sm font-semibold text-refenti-charcoal">
+              Features
             </h2>
             <button
               type="button"
               onClick={addFeature}
-              className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase underline transition-colors hover:text-refenti-charcoal"
+              className="text-sm font-medium text-refenti-gold transition-colors hover:text-refenti-charcoal"
             >
-              Add Attribute
+              + Add feature
             </button>
           </div>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-2">
             {formData.projectFeatures?.map((f, i) => (
               <div
                 key={i}
-                className="group flex items-center gap-2 rounded-full border-2 border-gray-100 bg-white px-4 py-2 transition-all focus-within:border-refenti-gold"
+                className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-1.5"
               >
                 <input
                   value={f}
                   onChange={(e) => updateFeature(i, e.target.value)}
-                  className="w-32 border-none bg-transparent text-[11px] font-bold tracking-widest text-refenti-charcoal uppercase focus:ring-0"
+                  className="w-28 border-none bg-transparent text-sm text-refenti-charcoal placeholder:text-gray-400 focus:outline-none"
                   placeholder="Feature..."
                 />
                 <button
                   type="button"
                   onClick={() => removeFeature(i)}
-                  className="font-bold text-gray-300 transition-colors hover:text-red-500"
+                  className="text-gray-300 transition-colors hover:text-red-500"
                 >
-                  ×
+                  &times;
                 </button>
               </div>
             ))}
@@ -359,58 +350,60 @@ function AdminProjectEditor() {
         </div>
 
         {/* Detail Sections */}
-        <div className="space-y-4 border-t border-gray-50 pt-6">
+        <div className="space-y-4 border-t border-gray-100 pt-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-2xl font-light text-refenti-charcoal uppercase">
-              Detailed{" "}
-              <span className="text-refenti-gold">Showcases</span>
+            <h2 className="text-sm font-semibold text-refenti-charcoal">
+              Detail Sections
             </h2>
             <button
               type="button"
               onClick={addDetailSection}
-              className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase underline transition-colors hover:text-refenti-charcoal"
+              className="text-sm font-medium text-refenti-gold transition-colors hover:text-refenti-charcoal"
             >
-              Add Section
+              + Add section
             </button>
           </div>
           <div className="space-y-4">
             {formData.detailSections?.map((s, i) => (
               <div
                 key={i}
-                className="group relative space-y-4 rounded-xl border-2 border-gray-100 bg-refenti-offwhite/30 p-4 transition-all hover:border-refenti-gold/20 md:p-6"
+                className="relative space-y-4 rounded-lg border border-gray-200 bg-gray-50/50 p-4"
               >
-                <button
-                  type="button"
-                  onClick={() => removeDetailSection(i)}
-                  className="absolute top-4 right-4 text-[10px] font-bold tracking-widest text-gray-300 uppercase transition-colors hover:text-red-600"
-                >
-                  REMOVE SECTION
-                </button>
-                <div className="space-y-4 pt-6">
-                  <AdminInput
-                    label="Section Title"
-                    value={s.title}
-                    onChange={(v) => updateDetailSection(i, "title", v)}
-                    small
-                    placeholder="e.g. Penthouse Interiors"
-                  />
-                  <FileUpload
-                    label="Section Image"
-                    value={s.image}
-                    onChange={(url) => updateDetailSection(i, "image", url)}
-                    accept="image/*"
-                    uploadFn={(file) => {
-                      const projectId =
-                        id || formData.name.toLowerCase().replace(/\s+/g, "-")
-                      return uploadProjectDetailImage(projectId, i, file)
-                    }}
-                    validator={validateImageFile}
-                    uniqueId={`section-${i}`}
-                  />
+                <div className="flex items-start justify-between">
+                  <span className="text-xs font-medium text-gray-400">
+                    Section {i + 1}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeDetailSection(i)}
+                    className="text-sm text-red-400 transition-colors hover:text-red-600"
+                  >
+                    Remove
+                  </button>
                 </div>
-                <div className="space-y-3">
-                  <label className="text-[10px] font-bold tracking-widest text-refenti-gold uppercase">
-                    Section Copy
+                <AdminInput
+                  label="Title"
+                  value={s.title}
+                  onChange={(v) => updateDetailSection(i, "title", v)}
+                  small
+                  placeholder="e.g. Penthouse Interiors"
+                />
+                <FileUpload
+                  label="Image"
+                  value={s.image}
+                  onChange={(url) => updateDetailSection(i, "image", url)}
+                  accept="image/*"
+                  uploadFn={(file) => {
+                    const projectId =
+                      id || formData.name.toLowerCase().replace(/\s+/g, "-")
+                    return uploadProjectDetailImage(projectId, i, file)
+                  }}
+                  validator={validateImageFile}
+                  uniqueId={`section-${i}`}
+                />
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium text-gray-600">
+                    Section Text
                   </label>
                   <textarea
                     placeholder="Describe this specific feature or area..."
@@ -419,7 +412,7 @@ function AdminProjectEditor() {
                       updateDetailSection(i, "text", e.target.value)
                     }
                     rows={4}
-                    className="w-full rounded-xl border-2 border-transparent bg-white p-4 text-sm leading-relaxed font-medium text-refenti-charcoal shadow-sm transition-all placeholder:text-gray-300 focus:border-refenti-gold focus:outline-none"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm leading-relaxed text-refenti-charcoal placeholder:text-gray-400 focus:border-refenti-gold focus:outline-none focus:ring-1 focus:ring-refenti-gold"
                   />
                 </div>
               </div>
@@ -429,9 +422,14 @@ function AdminProjectEditor() {
 
         <button
           type="submit"
-          className="w-full rounded-xl bg-refenti-charcoal py-3 font-sans font-bold tracking-ultra text-white uppercase shadow-2xl transition-all hover:bg-refenti-gold active:scale-[0.99]"
+          disabled={loading}
+          className="w-full rounded-lg bg-refenti-charcoal py-2.5 text-sm font-medium text-white transition-colors hover:bg-refenti-gold disabled:opacity-50"
         >
-          Publish Project Updates
+          {loading
+            ? "Saving..."
+            : id
+              ? "Save changes"
+              : "Create project"}
         </button>
       </form>
     </div>
