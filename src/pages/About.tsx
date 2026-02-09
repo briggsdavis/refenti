@@ -60,11 +60,11 @@ function About() {
           {/* Vision - Left aligned, rounded right */}
           <FadeIn direction="up" duration={800}>
             <div className="flex justify-start">
-              <div className="w-full max-w-xl rounded-l-none rounded-r-full bg-refenti-charcoal px-8 py-8 text-center shadow-2xl md:px-12 md:py-10">
-                <div className="mx-auto flex flex-col items-center space-y-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-refenti-gold shadow-lg md:h-16 md:w-16">
+              <div className="w-full max-w-xl rounded-l-none rounded-r-full bg-amber-50 px-8 py-8 text-center shadow-2xl md:px-12 md:py-10">
+                <div className="mx-auto flex flex-col items-center space-y-2">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-refenti-gold opacity-60 shadow-lg md:h-12 md:w-12">
                     <svg
-                      className="h-7 w-7 text-white md:h-8 md:w-8"
+                      className="h-5 w-5 text-white md:h-6 md:w-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -83,10 +83,10 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h2 className="font-display text-2xl font-light text-white uppercase md:text-3xl">
+                  <h2 className="font-display text-2xl font-light text-refenti-charcoal uppercase md:text-3xl">
                     Vision
                   </h2>
-                  <p className="max-w-md text-sm leading-relaxed font-light text-white/90 ">
+                  <p className="max-w-md text-sm leading-relaxed font-light text-refenti-charcoal/80 ">
                     "To operate as a disciplined, scalable real estate
                     investment and development platform aligned with long-term
                     capital and institutional stakeholders."
@@ -99,11 +99,11 @@ function About() {
           {/* Mission - Right aligned, rounded left */}
           <FadeIn direction="up" duration={800} delay={100}>
             <div className="flex justify-end">
-              <div className="w-full max-w-xl rounded-l-full rounded-r-none bg-refenti-charcoal px-8 py-8 text-center shadow-2xl md:px-12 md:py-10">
-                <div className="mx-auto flex flex-col items-center space-y-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-refenti-gold shadow-lg md:h-16 md:w-16">
+              <div className="w-full max-w-xl rounded-l-full rounded-r-none bg-amber-50 px-8 py-8 text-center shadow-2xl md:px-12 md:py-10">
+                <div className="mx-auto flex flex-col items-center space-y-2">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-refenti-gold opacity-60 shadow-lg md:h-12 md:w-12">
                     <svg
-                      className="h-7 w-7 text-white md:h-8 md:w-8"
+                      className="h-5 w-5 text-white md:h-6 md:w-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -116,10 +116,10 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h2 className="font-display text-2xl font-light text-white uppercase md:text-3xl">
+                  <h2 className="font-display text-2xl font-light text-refenti-charcoal uppercase md:text-3xl">
                     Mission
                   </h2>
-                  <p className="max-w-md text-sm leading-relaxed font-light text-white/90 ">
+                  <p className="max-w-md text-sm leading-relaxed font-light text-refenti-charcoal/80 ">
                     "To develop and steward real estate assets with a primary
                     focus on long-term capital appreciation, applying
                     institutional standards of governance, quality, and
