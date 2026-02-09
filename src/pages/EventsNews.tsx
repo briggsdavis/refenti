@@ -113,7 +113,7 @@ function EventsNews() {
                 <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
                   Institutional Updates
                 </p>
-                <h1 className="font-display text-5xl leading-none font-light text-refenti-charcoal uppercase md:text-7xl">
+                <h1 className="font-display text-6xl leading-none font-light text-refenti-charcoal uppercase md:text-9xl">
                   News & Events
                 </h1>
               </div>

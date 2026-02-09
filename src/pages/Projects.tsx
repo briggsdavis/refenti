@@ -59,7 +59,7 @@ function Projects() {
           <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-8">
             <div className="space-y-3 md:space-y-6">
               <FadeIn direction="none" duration={1000} delay={1000}>
-                <h1 className="font-display text-5xl leading-none font-light text-refenti-charcoal uppercase md:text-7xl">
+                <h1 className="font-display text-6xl leading-none font-light text-refenti-charcoal uppercase md:text-9xl">
                   Portfolio
                 </h1>
               </FadeIn>
