@@ -236,7 +236,7 @@ function ProjectDetail() {
               </div>
             </FadeIn>
             <FadeIn delay={100}>
-              <p className="max-w-xl text-sm leading-relaxed font-light text-gray-700">
+              <p className="max-w-md text-sm leading-relaxed font-light text-gray-700">
                 {project.introText}
               </p>
             </FadeIn>

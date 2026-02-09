@@ -94,8 +94,7 @@ function PhilosophySection() {
           <div className="space-y-6 md:space-y-8">
             <FadeIn delay={100}>
               <h2 className="font-display text-3xl leading-[1.1] font-light text-refenti-charcoal sm:text-4xl md:text-6xl">
-                Quality <br />{" "}
-                <span className="text-refenti-gold ">Assets</span> <br />{" "}
+                Quality <span className="text-refenti-gold ">Assets</span> <br />
                 in Growth Markets.
               </h2>
             </FadeIn>
@@ -166,7 +165,7 @@ function Home() {
           content="Refenti Group specializes in luxury real estate development across residential, mixed-use, commercial, and hospitality sectors. Precision-driven urban destinations in Ethiopia and Dubai."
         />
       </Helmet>
-      <section className="relative flex min-h-[80vh] w-full items-end justify-center overflow-hidden pb-12 md:min-h-screen md:pb-20">
+      <section className="relative flex min-h-[64vh] w-full items-end justify-center overflow-hidden pb-12 md:min-h-[80vh] md:pb-20">
         <div
           className="absolute inset-[-5%] animate-fade-in"
           style={{
