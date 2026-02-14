@@ -79,16 +79,6 @@ function PhilosophySection() {
     >
       <div
         className="relative w-full max-w-6xl overflow-hidden border border-gray-100 bg-white p-6 shadow-sm transition-all duration-700 ease-out md:p-14"
-        style={{
-          borderTopLeftRadius: baseRadius,
-          borderTopRightRadius: baseRadius,
-          // borderTopLeftRadius:
-          //   progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
-          // borderTopRightRadius:
-          //   progress >= 0.95 ? baseRadius : `${50}% ${archRadiusY}px`,
-          borderBottomLeftRadius: baseRadius,
-          borderBottomRightRadius: baseRadius,
-        }}
       >
         <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10">
           <div className="space-y-6 md:space-y-8">
