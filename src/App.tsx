@@ -9,6 +9,7 @@ import {
 } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import ProtectedRoute from "./components/ProtectedRoute"
+import { useSmoothScroll } from "./hooks/useSmoothScroll"
 import About from "./pages/About"
 import Admin from "./pages/Admin"
 import AdminLogin from "./pages/AdminLogin"
@@ -31,6 +32,9 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
+  // Initialize smooth scroll
+  useSmoothScroll()
+
   return (
     <BrowserRouter>
       <ScrollToTop />

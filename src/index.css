@@ -1,5 +1,6 @@
 @import "@fontsource-variable/nunito-sans";
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 /* Custom theme configuration using @theme directive */
 @theme {
@@ -94,17 +95,33 @@
 }
 
 /* Global styles */
-html {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
 html,
 body,
 #root {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {
@@ -114,7 +131,6 @@ body {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   font-family: "Nunito Sans", sans-serif;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Custom scrollbar */
