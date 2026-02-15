@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import FadeIn from "../components/FadeIn"
 import LazyImage from "../components/LazyImage"
 import { getProjects } from "../lib/api"
+import { priorityManager } from "../lib/priorityManager"
 import type { Project } from "../types"
 
 function Projects() {
@@ -12,6 +13,12 @@ function Projects() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Set viewport priority
+    priorityManager.setViewport("projects")
+
+    // Preload critical hero image immediately
+    priorityManager.preloadImage("/portfolio-hero.jpg", "critical")
+
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
@@ -38,6 +45,7 @@ function Projects() {
           name="description"
           content="Explore Refenti Group's portfolio of luxury real estate projects. From residential developments to mixed-use landmarks across Ethiopia and Dubai."
         />
+        <link rel="preload" as="image" href="/portfolio-hero.jpg" fetchpriority="high" />
       </Helmet>
       <div className="min-h-screen pb-16">
         {/* Cinematic Hero Banner */}
