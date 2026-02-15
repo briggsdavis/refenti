@@ -160,7 +160,7 @@ function Home() {
           content="Refenti Group specializes in luxury real estate development across residential, mixed-use, commercial, and hospitality sectors. Precision-driven urban destinations in Ethiopia and Dubai."
         />
       </Helmet>
-      <section className="relative flex min-h-[64vh] w-full items-end justify-center overflow-hidden pb-12 md:min-h-[80vh] md:pb-20">
+      <section className="relative flex min-h-[74vh] w-full items-end justify-center overflow-hidden pb-12 md:min-h-[92vh] md:pb-20">
         <div
           className="absolute inset-[-5%] animate-fade-in"
           style={{
