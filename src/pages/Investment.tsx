@@ -2,11 +2,18 @@ import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import FadeIn from "../components/FadeIn"
 import LazyImage from "../components/LazyImage"
+import { priorityManager } from "../lib/priorityManager"
 
 function Investment() {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
+    // Set viewport priority
+    priorityManager.setViewport("investment")
+
+    // Preload critical hero image immediately
+    priorityManager.preloadImage("/investment/investment-hero.webp", "critical")
+
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
@@ -48,6 +55,7 @@ function Investment() {
           name="description"
           content="Institutional real estate investment platform. RRG's disciplined approach to development, risk management, and governance across residential, commercial, and mixed-use assets."
         />
+        <link rel="preload" as="image" href="/investment/investment-hero.webp" fetchpriority="high" />
       </Helmet>
 
       {/* Hero Section */}

@@ -2,11 +2,18 @@ import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import FadeIn from "../components/FadeIn"
 import LazyImage from "../components/LazyImage"
+import { priorityManager } from "../lib/priorityManager"
 
 function About() {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
+    // Set viewport priority
+    priorityManager.setViewport("about")
+
+    // Preload critical hero image immediately
+    priorityManager.preloadImage("/about-hero.jpg", "critical")
+
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
@@ -22,6 +29,7 @@ function About() {
           name="description"
           content="Refenti Realty Group is an institutional real estate platform operating under Solstice Ventures Holding, focused on development, investment, and management of urban real estate assets."
         />
+        <link rel="preload" as="image" href="/about-hero.jpg" fetchpriority="high" />
       </Helmet>
 
       {/* Hero Section */}

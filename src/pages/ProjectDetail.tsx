@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async"
 import { Navigate, useParams } from "react-router-dom"
 import FadeIn from "../components/FadeIn"
 import { getProjectById } from "../lib/api"
+import { priorityManager } from "../lib/priorityManager"
 import type { Project } from "../types"
 
 function FeatureSection({
@@ -125,6 +126,9 @@ function ProjectDetail() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Set viewport priority
+    priorityManager.setViewport(`project-${id}`)
+
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll)
 
@@ -140,6 +144,10 @@ function ProjectDetail() {
         console.error("Failed to load project:", error.message)
       } else {
         setProject(data)
+        // Preload hero image as critical priority
+        if (data?.image) {
+          priorityManager.preloadImage(data.image, "critical")
+        }
       }
       setLoading(false)
     }

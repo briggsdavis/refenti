@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { getProjects } from "../lib/api"
+import { preloadOnHover } from "../lib/priorityManager"
 import type { Project } from "../types"
 
 function Navbar() {
@@ -55,13 +56,29 @@ function Navbar() {
   }, [isMobileMenuOpen])
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Investment", path: "/investment" },
-    { name: "Portfolio", path: "/projects", isDropdown: true },
+    { name: "Home", path: "/", heroImage: "/home-hero.jpg" },
+    { name: "About", path: "/about", heroImage: "/about-hero.jpg" },
+    {
+      name: "Investment",
+      path: "/investment",
+      heroImage: "/investment/investment-hero.webp",
+    },
+    {
+      name: "Portfolio",
+      path: "/projects",
+      isDropdown: true,
+      heroImage: "/portfolio-hero.jpg",
+    },
     { name: "News & Events", path: "/news" },
     { name: "Contact", path: "/contact" },
   ]
+
+  const handleLinkHover = (heroImage?: string) => {
+    if (heroImage) {
+      // Preload hero image on hover with high priority
+      preloadOnHover(heroImage)
+    }
+  }
 
   const handleMouseEnter = () => {
     if (menuTimeoutRef.current) clearTimeout(menuTimeoutRef.current)
@@ -112,6 +129,7 @@ function Navbar() {
                     >
                       <Link
                         to={link.path}
+                        onMouseEnter={() => handleLinkHover(link.heroImage)}
                         onClick={(e) => {
                           if (e.detail === 0) {
                             e.preventDefault()
@@ -149,6 +167,7 @@ function Navbar() {
                   >
                     <Link
                       to={link.path}
+                      onMouseEnter={() => handleLinkHover(link.heroImage)}
                       className={`relative text-xs font-bold text-refenti-charcoal/80 uppercase transition-all hover:text-refenti-gold ${isActive ? "text-refenti-gold after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:bg-refenti-gold" : ""} `}
                     >
                       {link.name}
@@ -222,7 +241,13 @@ function Navbar() {
                       key={project.id}
                       to={`/projects/${project.id}`}
                       role="menuitem"
-                      onMouseEnter={() => setHoveredProject(project)}
+                      onMouseEnter={() => {
+                        setHoveredProject(project)
+                        // Preload project hero image on hover
+                        if (project.image) {
+                          preloadOnHover(project.image)
+                        }
+                      }}
                       onClick={() => setIsMenuOpen(false)}
                       className={`group flex items-center justify-between transition-all duration-500 ${hoveredProject?.id === project.id ? "translate-x-2" : ""} `}
                     >

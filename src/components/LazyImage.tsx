@@ -6,14 +6,18 @@ interface LazyImageProps {
   className?: string
   threshold?: number
   transition?: string
+  priority?: "high" | "low" | "auto"
+  rootMargin?: string
 }
 
 function LazyImage({
   src,
   alt,
   className = "",
-  threshold = 0.1,
+  threshold = 0.01,
   transition = "transition-opacity duration-500",
+  priority = "auto",
+  rootMargin = "300% 0px", // Aggressive scroll-ahead: load 3 viewports ahead
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isInView, setIsInView] = useState(false)
@@ -27,12 +31,15 @@ function LazyImage({
           observer.disconnect()
         }
       },
-      { threshold },
+      {
+        threshold,
+        rootMargin, // Aggressive preloading margin
+      },
     )
 
     if (imgRef.current) observer.observe(imgRef.current)
     return () => observer.disconnect()
-  }, [threshold])
+  }, [threshold, rootMargin])
 
   return (
     <img
@@ -41,7 +48,8 @@ function LazyImage({
       alt={alt}
       className={`${className} ${isLoaded ? "opacity-100" : "opacity-0"} ${transition}`}
       onLoad={() => setIsLoaded(true)}
-      loading="lazy"
+      loading={priority === "high" ? "eager" : "lazy"}
+      fetchPriority={priority}
     />
   )
 }
