@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import FadeIn from "../components/FadeIn"
 import LazyImage from "../components/LazyImage"
 import { getEvents, getProjects } from "../lib/api"
+import { priorityManager } from "../lib/priorityManager"
 import type { EventItem, Project } from "../types"
 
 function EventCard({ event, index }: { event: EventItem; index: number }) {
@@ -123,6 +124,12 @@ function Home() {
   const [hoveredProject, setHoveredProject] = useState<Project | null>(null)
 
   useEffect(() => {
+    // Set viewport priority - this is the active page
+    priorityManager.setViewport("home")
+
+    // Preload critical hero image immediately
+    priorityManager.preloadImage("/home-hero.jpg", "critical")
+
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
 
@@ -159,6 +166,7 @@ function Home() {
           name="description"
           content="Refenti Group specializes in luxury real estate development across residential, mixed-use, commercial, and hospitality sectors. Precision-driven urban destinations in Ethiopia and Dubai."
         />
+        <link rel="preload" as="image" href="/home-hero.jpg" fetchpriority="high" />
       </Helmet>
       <section className="relative flex min-h-[74vh] w-full items-end justify-center overflow-hidden pb-12 md:min-h-[92vh] md:pb-20">
         <div
