@@ -104,9 +104,9 @@ function PhilosophySection() {
           <FadeIn delay={300} direction="right">
             <div className="relative aspect-[4/3] overflow-hidden border border-gray-50 shadow-sm">
               <img
-                src="/art.webp"
+                src="/quality.jpg"
                 className="h-full w-full object-cover opacity-90"
-                alt="Interior"
+                alt="Quality assets in growth markets"
               />
             </div>
           </FadeIn>
