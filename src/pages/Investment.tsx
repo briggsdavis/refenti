@@ -12,7 +12,7 @@ function Investment() {
     priorityManager.setViewport("investment")
 
     // Preload critical hero image immediately
-    priorityManager.preloadImage("/investment/investment-hero.webp", "critical")
+    priorityManager.preloadImage("/i.jpg", "critical")
 
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -55,13 +55,13 @@ function Investment() {
           name="description"
           content="Institutional real estate investment platform. RRG's disciplined approach to development, risk management, and governance across residential, commercial, and mixed-use assets."
         />
-        <link rel="preload" as="image" href="/investment/investment-hero.webp" fetchpriority="high" />
+        <link rel="preload" as="image" href="/i.jpg" fetchpriority="high" />
       </Helmet>
 
       {/* Hero Section */}
       <section className="relative flex min-h-[56vh] w-full items-end justify-center overflow-hidden pb-16 md:min-h-[72vh] md:pb-32">
         <img
-          src="/investment/investment-hero.webp"
+          src="/i.jpg"
           alt="Investment Hero"
           fetchPriority="high"
           className="absolute top-[-5%] left-0 h-[110%] w-full animate-fade-in object-cover"
@@ -128,7 +128,7 @@ function Investment() {
             <FadeIn direction="up" duration={800}>
               <div className="group overflow-hidden">
                 <LazyImage
-                  src="/investment/development.webp"
+                  src="/replacement.jpg"
                   alt="Development process"
                   className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />

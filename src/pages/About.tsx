@@ -12,7 +12,7 @@ function About() {
     priorityManager.setViewport("about")
 
     // Preload critical hero image immediately
-    priorityManager.preloadImage("/about-hero.jpg", "critical")
+    priorityManager.preloadImage("/a.jpg", "critical")
 
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -29,13 +29,13 @@ function About() {
           name="description"
           content="Refenti Realty Group is an institutional real estate platform operating under Solstice Ventures Holding, focused on development, investment, and management of urban real estate assets."
         />
-        <link rel="preload" as="image" href="/about-hero.jpg" fetchpriority="high" />
+        <link rel="preload" as="image" href="/a.jpg" fetchpriority="high" />
       </Helmet>
 
       {/* Hero Section */}
       <section className="relative flex min-h-[56vh] w-full items-end justify-center overflow-hidden pb-16 md:min-h-[72vh] md:pb-32">
         <img
-          src="/about-hero.jpg"
+          src="/a.jpg"
           alt="About Hero"
           fetchPriority="high"
           className="absolute top-[-5%] left-0 h-[110%] w-full animate-fade-in object-cover"
