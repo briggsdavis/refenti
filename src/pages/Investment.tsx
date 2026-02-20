@@ -22,7 +22,7 @@ function Investment() {
   const assetClasses = [
     {
       title: "Residential",
-      image: "/investment/investment-decor-1.webp",
+      image: "/resident.jpg",
       alt: "Residential development",
     },
     {
