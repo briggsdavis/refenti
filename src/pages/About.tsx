@@ -33,7 +33,7 @@ function About() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative flex min-h-[56vh] w-full items-end justify-center overflow-hidden pb-16 md:min-h-[72vh] md:pb-32">
+      <section className="relative flex min-h-[56vh] w-full items-end justify-center overflow-hidden pb-6 md:min-h-[72vh] md:pb-10">
         <img
           src="/a.jpg"
           alt="About Hero"
@@ -45,7 +45,7 @@ function About() {
             animationDuration: "1200ms",
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/30 via-[30%] to-transparent to-[52%]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/50 via-[40%] to-transparent to-[65%]" />
         <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-8">
           <div className="space-y-3 md:space-y-6">
             <FadeIn direction="none" duration={1000} delay={1000}>
