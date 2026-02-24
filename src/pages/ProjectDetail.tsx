@@ -16,10 +16,20 @@ function FeatureSection({
 }) {
   const [targetProgress, setTargetProgress] = useState(0)
   const [smoothedProgress, setSmoothedProgress] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
   const requestRef = useRef<number>(null)
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (isMobile) return
+
     const handleScroll = () => {
       if (!sectionRef.current) return
       const rect = sectionRef.current.getBoundingClientRect()
@@ -37,9 +47,11 @@ function FeatureSection({
     window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [isMobile])
 
   useEffect(() => {
+    if (isMobile) return
+
     const animate = () => {
       setSmoothedProgress((prev) => {
         const diff = targetProgress - prev
@@ -53,10 +65,10 @@ function FeatureSection({
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current)
     }
-  }, [targetProgress])
+  }, [targetProgress, isMobile])
 
   const isLeft = index % 2 === 0
-  const widthPercentage = 40 + smoothedProgress * 60
+  const widthPercentage = isMobile ? 100 : 40 + smoothedProgress * 60
 
   return (
     <div
@@ -76,7 +88,7 @@ function FeatureSection({
           <div
             className="absolute h-full"
             style={{
-              width: "50vw",
+              width: isMobile ? "100%" : "50vw",
               right: isLeft ? 0 : "auto",
               left: !isLeft ? 0 : "auto",
             }}

@@ -194,17 +194,6 @@ function AppContent() {
             </div>
             <div className="mx-auto mt-16 flex max-w-7xl items-center justify-between border-t border-gray-100 pt-8 text-sm text-gray-600 uppercase">
               <span>© {new Date().getFullYear()} Refenti Group</span>
-              <span>
-                Made by{" "}
-                <a
-                  href="https://briggsdavis.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-refenti-gold"
-                >
-                  Briggs Davis
-                </a>
-              </span>
             </div>
           </footer>
         </>
