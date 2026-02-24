@@ -168,7 +168,7 @@ function Home() {
         />
         <link rel="preload" as="image" href="/home-hero.jpg" fetchpriority="high" />
       </Helmet>
-      <section className="relative flex min-h-[74vh] w-full items-end justify-center overflow-hidden pb-12 md:min-h-[92vh] md:pb-20">
+      <section className="relative flex min-h-screen w-full items-end justify-center overflow-hidden pb-12 md:pb-20">
         <div
           className="absolute inset-[-5%] animate-fade-in"
           style={{
