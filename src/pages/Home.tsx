@@ -168,7 +168,7 @@ function Home() {
         />
         <link rel="preload" as="image" href="/home-hero.jpg" fetchpriority="high" />
       </Helmet>
-      <section className="relative flex min-h-[74vh] w-full items-end justify-center overflow-hidden pb-12 md:min-h-[92vh] md:pb-20">
+      <section className="relative flex min-h-[74vh] w-full items-end justify-center overflow-hidden pb-4 md:min-h-[92vh] md:pb-8">
         <div
           className="absolute inset-[-5%] animate-fade-in"
           style={{
@@ -180,7 +180,7 @@ function Home() {
             animationDuration: "1200ms",
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[20%] bg-linear-to-t from-refenti-offwhite to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[80%] bg-linear-to-t from-refenti-offwhite to-transparent" />
         <div className="relative z-10 mx-auto max-w-6xl space-y-3 px-4 text-center sm:px-6 md:space-y-6">
           <FadeIn direction="none" duration={1000} delay={1000}>
             <img
