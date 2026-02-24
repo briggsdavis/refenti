@@ -113,7 +113,7 @@ function Navbar() {
             <ul className="flex items-center gap-8 md:gap-10">
               <li className="flex items-center">
                 <Link to="/" className="flex items-center">
-                  <img src="/logo.png" alt="REFENTI" className="h-8 md:h-10" />
+                  <img src="/whitelogo.png" alt="REFENTI" className="h-8 md:h-10" />
                 </Link>
               </li>
 
