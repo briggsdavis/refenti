@@ -168,7 +168,7 @@ function Home() {
         />
         <link rel="preload" as="image" href="/home-hero.jpg" fetchpriority="high" />
       </Helmet>
-      <section className="relative flex min-h-[74vh] w-full items-end justify-center overflow-hidden pb-12 md:min-h-[92vh] md:pb-20">
+      <section className="relative flex min-h-screen w-full items-end justify-center overflow-hidden pb-12 md:pb-20">
         <div
           className="absolute inset-[-5%] animate-fade-in"
           style={{
@@ -180,12 +180,10 @@ function Home() {
             animationDuration: "1200ms",
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-refenti-offwhite via-refenti-offwhite/10 to-transparent" />
-
         <div className="relative z-10 mx-auto max-w-6xl space-y-3 px-4 text-center sm:px-6 md:space-y-6">
           <FadeIn direction="none" duration={1000} delay={1000}>
             <img
-              src="/reftext.png"
+              src="/whitelogo.png"
               alt="Refenti Realty Group"
               className="mx-auto w-full max-w-3xl"
             />
