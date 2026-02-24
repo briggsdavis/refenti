@@ -180,7 +180,7 @@ function Home() {
             animationDuration: "1200ms",
           }}
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[80%] bg-linear-to-t from-refenti-offwhite to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[20%] bg-linear-to-t from-refenti-offwhite to-transparent" />
         <div className="relative z-10 mx-auto max-w-6xl space-y-3 px-4 text-center sm:px-6 md:space-y-6">
           <FadeIn direction="none" duration={1000} delay={1000}>
             <img
