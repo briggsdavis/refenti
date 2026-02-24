@@ -185,7 +185,7 @@ function Home() {
         <div className="relative z-10 mx-auto max-w-6xl space-y-3 px-4 text-center sm:px-6 md:space-y-6">
           <FadeIn direction="none" duration={1000} delay={1000}>
             <img
-              src="/reftext.png"
+              src="/whitelogo.png"
               alt="Refenti Realty Group"
               className="mx-auto w-full max-w-3xl"
             />
