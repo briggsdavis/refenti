@@ -88,7 +88,7 @@ function FeatureSection({
           <div
             className="absolute h-full"
             style={{
-              width: "50vw",
+              width: isMobile ? "100%" : "50vw",
               right: isLeft ? 0 : "auto",
               left: !isLeft ? 0 : "auto",
             }}
