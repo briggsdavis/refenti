@@ -5,12 +5,22 @@ import FadeIn from "../components/FadeIn"
 import LazyImage from "../components/LazyImage"
 import { getProjects } from "../lib/api"
 import { priorityManager } from "../lib/priorityManager"
-import type { Project } from "../types"
+import { usePageContent } from "../lib/usePageContent"
+import type { Project, ProjectsContent } from "../types"
 
 function Projects() {
   const [scrollY, setScrollY] = useState(0)
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
+
+  const defaults: ProjectsContent = {
+    heroImage: "/portfolio-hero.jpg",
+    heroTitle: "Portfolio",
+    heroSubtitle: "Refined Urban Assets",
+    overviewLabel: "Portfolio Overview",
+    overviewBody: "Refenti's portfolio comprises selectively developed assets aligned with its investment and development mandate. Projects are presented on a representative basis and may include assets that are completed, under development, or in advanced planning stages. Portfolio presentation is intended to demonstrate platform capability rather than commercial availability.",
+  }
+  const { content } = usePageContent("projects", defaults)
 
   useEffect(() => {
     // Set viewport priority
@@ -45,7 +55,7 @@ function Projects() {
           name="description"
           content="Explore Refenti Group's portfolio of luxury real estate projects. From residential developments to mixed-use landmarks across Ethiopia and Dubai."
         />
-        <link rel="preload" as="image" href="/portfolio-hero.jpg" fetchpriority="high" />
+        <link rel="preload" as="image" href={content.heroImage} fetchpriority="high" />
       </Helmet>
       <div className="min-h-screen pb-16">
         {/* Cinematic Hero Banner */}
@@ -53,7 +63,7 @@ function Projects() {
           <div
             className="absolute inset-[-10%] animate-fade-in"
             style={{
-              backgroundImage: `url('/portfolio-hero.jpg')`,
+              backgroundImage: `url('${content.heroImage}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               transform: `translateY(${-scrollY * 0.15}px)`,
@@ -65,12 +75,12 @@ function Projects() {
             <div className="space-y-3 md:space-y-6">
               <FadeIn direction="none" duration={1000} delay={1000}>
                 <h1 className="font-display text-6xl leading-none font-semibold text-white uppercase md:text-9xl">
-                  Portfolio
+                  {content.heroTitle}
                 </h1>
               </FadeIn>
               <FadeIn direction="none" duration={1000} delay={1300}>
                 <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
-                  Refined Urban Assets
+                  {content.heroSubtitle}
                 </p>
               </FadeIn>
             </div>
@@ -85,16 +95,10 @@ function Projects() {
                 <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-refenti-gold via-refenti-gold/50 to-transparent" />
                 <div className="space-y-4">
                   <p className="font-sans text-xs font-bold tracking-wider text-refenti-gold uppercase">
-                    Portfolio Overview
+                    {content.overviewLabel}
                   </p>
                   <p className="text-sm leading-relaxed font-light text-gray-700 md:text-base">
-                    Refenti's portfolio comprises selectively developed assets
-                    aligned with its investment and development mandate.
-                    Projects are presented on a representative basis and may
-                    include assets that are completed, under development, or in
-                    advanced planning stages. Portfolio presentation is intended
-                    to demonstrate platform capability rather than commercial
-                    availability.
+                    {content.overviewBody}
                   </p>
                 </div>
               </div>

@@ -3,7 +3,8 @@ import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import FadeIn from "../components/FadeIn"
 import { getEvents, getNews } from "../lib/api"
-import type { EventItem, NewsItem } from "../types"
+import { usePageContent } from "../lib/usePageContent"
+import type { EventItem, EventsNewsContent, NewsItem } from "../types"
 
 function NewsCard({ item, index }: { item: NewsItem; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -62,6 +63,16 @@ function EventsNews() {
     "all",
   )
 
+  const defaults: EventsNewsContent = {
+    subheading: "Institutional Updates",
+    heading: "News & Events",
+    newsLabel: "Sector Insights",
+    newsHeading: "News",
+    eventsLabel: "Strategic Engagements",
+    eventsHeading: "Technical Events",
+  }
+  const { content } = usePageContent("events-news", defaults)
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll)
@@ -111,10 +122,10 @@ function EventsNews() {
             <div className="mb-12 space-y-6 text-center">
               <div className="space-y-3">
                 <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
-                  Institutional Updates
+                  {content.subheading}
                 </p>
                 <h1 className="font-display text-6xl leading-none font-light text-black uppercase md:text-9xl">
-                  News & Events
+                  {content.heading}
                 </h1>
               </div>
 
@@ -167,10 +178,10 @@ function EventsNews() {
                     <div className="flex flex-col items-start justify-between border-b border-gray-300 pb-8 md:flex-row md:items-end">
                       <div className="space-y-2">
                         <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
-                          Sector Insights
+                          {content.newsLabel}
                         </p>
                         <h2 className="font-display text-4xl font-light text-black uppercase md:text-6xl">
-                          News
+                          {content.newsHeading}
                         </h2>
                       </div>
                     </div>
@@ -192,10 +203,10 @@ function EventsNews() {
                   <FadeIn>
                     <div className="space-y-4 text-center">
                       <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
-                        Strategic Engagements
+                        {content.eventsLabel}
                       </p>
                       <h2 className="font-display text-4xl font-light text-black uppercase md:text-5xl">
-                        Technical Events
+                        {content.eventsHeading}
                       </h2>
                     </div>
                   </FadeIn>

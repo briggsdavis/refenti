@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import FadeIn from "../components/FadeIn"
 import { createInquiry } from "../lib/api"
-import type { Inquiry } from "../types"
+import { usePageContent } from "../lib/usePageContent"
+import type { ContactContent, Inquiry } from "../types"
 
 function Contact() {
   const [scrollY, setScrollY] = useState(0)
@@ -17,6 +18,17 @@ function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const defaults: ContactContent = {
+    heading: "Connect With Us",
+    subheading: "Inquiry Portal",
+    contactItems: [
+      { label: "Management", value: "info@refenti.com" },
+      { label: "Connect", value: "+251 986 1986 86" },
+      { label: "Our Hub", value: "Refenti (Bole Bulbula), Addis Ababa, Ethiopia" },
+    ],
+  }
+  const { content } = usePageContent("contact", defaults)
 
   const inquiryTypes = ["Partnership", "Investment", "Stakeholder"]
 
@@ -136,31 +148,23 @@ function Contact() {
               <FadeIn>
                 <div className="space-y-4 md:space-y-6">
                   <h2 className="font-display text-4xl leading-none font-light text-black uppercase md:text-5xl">
-                    Connect <br />
-                    <span className="text-refenti-gold ">With Us</span>
+                    {content.heading}
                   </h2>
                   <p className="font-display text-xs font-bold text-refenti-gold uppercase">
-                    Inquiry Portal
+                    {content.subheading}
                   </p>
                 </div>
               </FadeIn>
 
               <div className="space-y-8 md:space-y-10">
-                {[
-                  { label: "Management", val: "info@refenti.com" },
-                  { label: "Connect", val: "+251 986 1986 86" },
-                  {
-                    label: "Our Hub",
-                    val: "Refenti (Bole Bulbula), Addis Ababa, Ethiopia",
-                  },
-                ].map((item, idx) => (
+                {content.contactItems.map((item, idx) => (
                   <FadeIn key={item.label} delay={100 + idx * 100}>
                     <div className="space-y-1 md:space-y-2">
                       <p className="text-xs font-bold text-gray-400 uppercase">
                         {item.label}
                       </p>
                       <p className="text-xl font-light break-words md:text-2xl">
-                        {item.val}
+                        {item.value}
                       </p>
                     </div>
                   </FadeIn>

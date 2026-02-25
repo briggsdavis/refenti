@@ -5,7 +5,8 @@ import FadeIn from "../components/FadeIn"
 import LazyImage from "../components/LazyImage"
 import { getEvents, getProjects } from "../lib/api"
 import { priorityManager } from "../lib/priorityManager"
-import type { EventItem, Project } from "../types"
+import { usePageContent } from "../lib/usePageContent"
+import type { EventItem, HomeContent, Project } from "../types"
 
 function EventCard({ event, index }: { event: EventItem; index: number }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -52,7 +53,7 @@ function EventCard({ event, index }: { event: EventItem; index: number }) {
   )
 }
 
-function PhilosophySection() {
+function PhilosophySection({ content }: { content: HomeContent }) {
   // const [progress, setProgress] = useState(0)
   // const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -85,26 +86,19 @@ function PhilosophySection() {
           <div className="space-y-6 md:space-y-8">
             <FadeIn delay={100}>
               <h2 className="font-display text-3xl leading-[1.1] font-light text-black sm:text-4xl md:text-6xl">
-                Quality <span className="text-refenti-gold ">Assets</span> <br />
-                in Growth Markets.
+                {content.philosophyHeading}
               </h2>
             </FadeIn>
             <FadeIn delay={200}>
               <p className="max-w-sm text-sm leading-relaxed font-light text-gray-600 md:text-base">
-                Refenti Realty Group is a real estate investment and development
-                platform that originates, structures, and manages assets across
-                residential, mixed-use, commercial, and hospitality sectors. The
-                platform operates under Solstice Ventures Holding and applies
-                consistent governance standards, structured development
-                processes, and disciplined capital deployment across each
-                project in its portfolio.
+                {content.philosophyBody}
               </p>
             </FadeIn>
           </div>
           <FadeIn delay={300} direction="right">
             <div className="relative aspect-[4/3] overflow-hidden border border-gray-50 shadow-sm">
               <img
-                src="/quality.jpg"
+                src={content.philosophyImage}
                 className="h-full w-full object-cover opacity-90"
                 alt="Quality assets in growth markets"
               />
@@ -122,6 +116,25 @@ function Home() {
   const [featuredEvents, setFeaturedEvents] = useState<EventItem[]>([])
   const [loading, setLoading] = useState(true)
   const [hoveredProject, setHoveredProject] = useState<Project | null>(null)
+
+  const defaults: HomeContent = {
+    heroImage: "/home-hero.jpg",
+    heroTagline: "Refining urban landscapes",
+    philosophyHeading: "Quality Assets in Growth Markets.",
+    philosophyBody: "Refenti Realty Group is a real estate investment and development platform that originates, structures, and manages assets across residential, mixed-use, commercial, and hospitality sectors. The platform operates under Solstice Ventures Holding and applies consistent governance standards, structured development processes, and disciplined capital deployment across each project in its portfolio.",
+    philosophyImage: "/quality.jpg",
+    platformHeading: "A Platform Built for Long-Term Value",
+    platformBody: "The platform operates with a long-term orientation, disciplined capital deployment, and a structured development approach designed to support governance, execution certainty, and long-term asset performance. Refenti operates under Solstice Ventures Holding (SVH) and serves as a public, non-operational institutional reference point.",
+    portfolioBadge: "The Collection",
+    portfolioTitle: "Portfolio",
+    portfolioBody: "Refenti's portfolio represents the application of a consistent investment and development logic across a selective set of real estate assets. Each project reflects how the platform originates, structures, and stewards assets with a primary focus on long-term capital appreciation, supported by disciplined execution and operational resilience.",
+    portfolioCta: "View Projects",
+    portfolioSubtext: "Selective Development",
+    updatesHeading: "Featured Updates",
+    updatesSubheading: "Current Milestones",
+    updatesCta: "View All News & Events",
+  }
+  const { content } = usePageContent("home", defaults)
 
   useEffect(() => {
     // Set viewport priority - this is the active page
@@ -166,13 +179,13 @@ function Home() {
           name="description"
           content="Refenti Group specializes in luxury real estate development across residential, mixed-use, commercial, and hospitality sectors. Precision-driven urban destinations in Ethiopia and Dubai."
         />
-        <link rel="preload" as="image" href="/home-hero.jpg" fetchpriority="high" />
+        <link rel="preload" as="image" href={content.heroImage} fetchpriority="high" />
       </Helmet>
       <section className="relative flex min-h-screen w-full items-end justify-center overflow-hidden pb-12 md:pb-20">
         <div
           className="absolute inset-[-5%] animate-fade-in"
           style={{
-            backgroundImage: `url('/home-hero.jpg')`,
+            backgroundImage: `url('${content.heroImage}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             transform: `translateY(${-scrollY * 0.1}px)`,
@@ -190,31 +203,23 @@ function Home() {
           </FadeIn>
           <FadeIn direction="none" duration={1000} delay={1300}>
             <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-90 md:text-sm">
-              Refining urban landscapes
+              {content.heroTagline}
             </p>
           </FadeIn>
         </div>
       </section>
 
-      <PhilosophySection />
+      <PhilosophySection content={content} />
 
       <section className="px-4 pt-20 pb-24 md:pt-40 md:pb-54">
         <div className="mx-auto max-w-6xl">
           <FadeIn>
             <div className="space-y-6 text-center md:space-y-8">
               <h2 className="font-display text-3xl leading-[1.2] font-light text-black md:text-5xl">
-                A Platform Built for{" "}
-                <span className="text-refenti-gold ">
-                  Long-Term Value
-                </span>
+                {content.platformHeading}
               </h2>
               <p className="mx-auto max-w-3xl text-sm leading-relaxed font-light text-gray-600 md:text-base">
-                The platform operates with a long-term orientation, disciplined
-                capital deployment, and a structured development approach
-                designed to support governance, execution certainty, and
-                long-term asset performance. Refenti operates under Solstice
-                Ventures Holding (SVH) and serves as a public, non-operational
-                institutional reference point.
+                {content.platformBody}
               </p>
             </div>
           </FadeIn>
@@ -232,11 +237,11 @@ function Home() {
                     <div className="inline-flex items-center gap-3 rounded-full border border-refenti-gold/20 bg-refenti-gold/5 px-4 py-2">
                       <div className="h-2 w-2 rounded-full bg-refenti-gold" />
                       <span className="font-sans text-xs font-bold tracking-wider text-refenti-gold uppercase">
-                        The Collection
+                        {content.portfolioBadge}
                       </span>
                     </div>
                     <h2 className="font-display text-4xl leading-tight font-light text-black uppercase md:text-5xl">
-                      Portfolio
+                      {content.portfolioTitle}
                     </h2>
                   </div>
                 </FadeIn>
@@ -247,20 +252,14 @@ function Home() {
                 <FadeIn delay={100}>
                   <div className="space-y-8">
                     <p className="text-sm leading-relaxed font-light text-gray-700 md:text-base md:leading-relaxed">
-                      Refenti's portfolio represents the application of a
-                      consistent investment and development logic across a
-                      selective set of real estate assets. Each project reflects
-                      how the platform originates, structures, and stewards
-                      assets with a primary focus on long-term capital
-                      appreciation, supported by disciplined execution and
-                      operational resilience.
+                      {content.portfolioBody}
                     </p>
                     <div className="flex items-center gap-4">
                       <Link
                         to="/projects"
                         className="group inline-flex items-center gap-3 rounded-xl bg-refenti-charcoal px-6 py-3 text-xs font-bold text-white uppercase shadow-lg transition-all duration-300 hover:bg-refenti-gold hover:shadow-xl"
                       >
-                        View Projects
+                        {content.portfolioCta}
                         <svg
                           className="h-4 w-4 transition-transform group-hover:translate-x-1"
                           fill="none"
@@ -277,7 +276,7 @@ function Home() {
                       </Link>
                       <div className="flex items-center gap-2 text-xs font-light text-gray-400">
                         <div className="h-px w-8 bg-gray-200" />
-                        <span>Selective Development</span>
+                        <span>{content.portfolioSubtext}</span>
                       </div>
                     </div>
                   </div>
@@ -379,17 +378,17 @@ function Home() {
             <div className="mb-8 space-y-4 text-center md:mb-10 md:space-y-6">
               <div className="space-y-2 md:space-y-3">
                 <h2 className="font-display text-3xl font-light text-black md:text-6xl">
-                  Featured Updates
+                  {content.updatesHeading}
                 </h2>
                 <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-80">
-                  Current Milestones
+                  {content.updatesSubheading}
                 </p>
               </div>
               <Link
                 to="/news"
                 className="inline-flex items-center gap-2 rounded-full border border-refenti-gold/30 bg-white px-6 py-3 text-xs font-bold text-refenti-gold uppercase shadow-sm transition-all duration-300 hover:border-refenti-gold hover:bg-refenti-gold hover:text-white hover:shadow-md"
               >
-                View All News & Events
+                {content.updatesCta}
                 <svg
                   className="h-3 w-3"
                   fill="none"

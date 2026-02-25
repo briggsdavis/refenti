@@ -3,16 +3,60 @@ import { Helmet } from "react-helmet-async"
 import FadeIn from "../components/FadeIn"
 import LazyImage from "../components/LazyImage"
 import { priorityManager } from "../lib/priorityManager"
+import { usePageContent } from "../lib/usePageContent"
+import type { AboutContent } from "../types"
 
 function About() {
   const [scrollY, setScrollY] = useState(0)
+
+  const defaults: AboutContent = {
+    heroImage: "/a.jpg",
+    heroTitle: "About",
+    heroSubtitle: "Institutional Real Estate Platform",
+    visionHeading: "Vision",
+    visionText:
+      "To operate as a disciplined, scalable real estate investment and development platform aligned with long-term capital and institutional stakeholders.",
+    missionHeading: "Mission",
+    missionText:
+      "To develop and steward real estate assets with a primary focus on long-term capital appreciation, applying institutional standards of governance, quality, and discipline in structurally undersupplied markets.",
+    valuesHeading: "Values",
+    values: [
+      {
+        title: "Governance discipline",
+        description: "Institutional standards and oversight frameworks",
+      },
+      {
+        title: "Execution certainty",
+        description: "Reliable delivery on commitments and timelines",
+      },
+      {
+        title: "Structured risk management",
+        description:
+          "Systematic approach to identifying and mitigating risk",
+      },
+      {
+        title: "Long-term orientation",
+        description: "Focus on sustained capital appreciation",
+      },
+    ],
+    originHeading: "Origin & Philosophy",
+    originImage: "/drone.jpg",
+    originBody:
+      "Refenti Realty Group was established as a platform-led real estate investment and development entity, intentionally structured to support long-term capital appreciation.\n\nThe platform prioritizes governance discipline, repeatability, and institutional alignment over opportunistic or project-led development. Projects are originated and developed within a consistent framework designed to support scalability, execution certainty, and long-term stewardship across diverse assets and market cycles.",
+    governanceLabel: "GOVERNANCE",
+    governanceHeading:
+      "Governance & Alignment with Solstice Ventures Holding",
+    governanceBody:
+      "Refenti Realty Group operates under Solstice Ventures Holding (SVH).\n\nThe platform aligns with group-level governance standards, oversight mechanisms, and institutional controls established by SVH. This alignment supports accountability, consistency, and disciplined capital deployment across the platform.",
+  }
+  const { content } = usePageContent("about", defaults)
 
   useEffect(() => {
     // Set viewport priority
     priorityManager.setViewport("about")
 
     // Preload critical hero image immediately
-    priorityManager.preloadImage("/a.jpg", "critical")
+    priorityManager.preloadImage(content.heroImage, "critical")
 
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -29,13 +73,13 @@ function About() {
           name="description"
           content="Refenti Realty Group is an institutional real estate platform operating under Solstice Ventures Holding, focused on development, investment, and management of urban real estate assets."
         />
-        <link rel="preload" as="image" href="/a.jpg" fetchpriority="high" />
+        <link rel="preload" as="image" href={content.heroImage} fetchpriority="high" />
       </Helmet>
 
       {/* Hero Section */}
       <section className="relative flex min-h-[56vh] w-full items-end justify-center overflow-hidden pb-6 md:min-h-[72vh] md:pb-10">
         <img
-          src="/a.jpg"
+          src={content.heroImage}
           alt="About Hero"
           fetchPriority="high"
           className="absolute top-[-5%] left-0 h-[110%] w-full animate-fade-in object-cover"
@@ -49,12 +93,12 @@ function About() {
           <div className="space-y-3 md:space-y-6">
             <FadeIn direction="none" duration={1000} delay={1000}>
               <h1 className="font-display text-6xl leading-none font-semibold text-white uppercase md:text-9xl">
-                About
+                {content.heroTitle}
               </h1>
             </FadeIn>
             <FadeIn direction="none" duration={1000} delay={1300}>
               <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
-                Institutional Real Estate Platform
+                {content.heroSubtitle}
               </p>
             </FadeIn>
           </div>
@@ -91,12 +135,10 @@ function About() {
                     </svg>
                   </div>
                   <h2 className="font-display text-2xl font-light text-black uppercase md:text-3xl">
-                    Vision
+                    {content.visionHeading}
                   </h2>
                   <p className="max-w-md text-sm leading-relaxed font-light text-refenti-charcoal/80 ">
-                    "To operate as a disciplined, scalable real estate
-                    investment and development platform aligned with long-term
-                    capital and institutional stakeholders."
+                    "{content.visionText}"
                   </p>
                 </div>
               </div>
@@ -124,13 +166,10 @@ function About() {
                     </svg>
                   </div>
                   <h2 className="font-display text-2xl font-light text-black uppercase md:text-3xl">
-                    Mission
+                    {content.missionHeading}
                   </h2>
                   <p className="max-w-md text-sm leading-relaxed font-light text-refenti-charcoal/80 ">
-                    "To develop and steward real estate assets with a primary
-                    focus on long-term capital appreciation, applying
-                    institutional standards of governance, quality, and
-                    discipline in structurally undersupplied markets."
+                    "{content.missionText}"
                   </p>
                 </div>
               </div>
@@ -141,33 +180,16 @@ function About() {
           <FadeIn direction="up" duration={800} delay={200}>
             <div className="space-y-8 pt-16">
               <h2 className="text-center font-display text-3xl leading-tight font-light tracking-wide text-refenti-gold uppercase md:text-4xl">
-                Values
+                {content.valuesHeading}
               </h2>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                {[
-                  {
-                    value: "Governance discipline",
-                    description: "Institutional standards and oversight frameworks",
-                  },
-                  {
-                    value: "Execution certainty",
-                    description: "Reliable delivery on commitments and timelines",
-                  },
-                  {
-                    value: "Structured risk management",
-                    description: "Systematic approach to identifying and mitigating risk",
-                  },
-                  {
-                    value: "Long-term orientation",
-                    description: "Focus on sustained capital appreciation",
-                  },
-                ].map((item, idx) => (
+                {content.values.map((item, idx) => (
                   <div
                     key={idx}
                     className="bg-white px-8 py-8 text-center shadow-md transition-shadow hover:shadow-lg"
                   >
                     <p className="mb-3 text-lg font-light text-refenti-charcoal md:text-xl">
-                      {item.value}
+                      {item.title}
                     </p>
                     <p className="text-xs leading-relaxed text-refenti-charcoal/60 md:text-sm">
                       {item.description}
@@ -187,7 +209,7 @@ function About() {
             <FadeIn direction="up" duration={800}>
               <div className="group overflow-hidden">
                 <LazyImage
-                  src="/drone.jpg"
+                  src={content.originImage}
                   alt="Aerial view of real estate development"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -196,24 +218,12 @@ function About() {
             <FadeIn direction="up" duration={800} delay={100}>
               <div className="space-y-8">
                 <h2 className="font-display text-4xl leading-tight font-light text-black uppercase md:text-6xl">
-                  Origin &{" "}
-                  <span className="text-refenti-gold ">Philosophy</span>
+                  {content.originHeading}
                 </h2>
                 <div className="space-y-6 leading-relaxed font-light text-refenti-charcoal md:text-lg">
-                  <p>
-                    Refenti Realty Group was established as a platform-led real
-                    estate investment and development entity, intentionally
-                    structured to support long-term capital appreciation.
-                  </p>
-                  <p>
-                    The platform prioritizes governance discipline,
-                    repeatability, and institutional alignment over
-                    opportunistic or project-led development. Projects are
-                    originated and developed within a consistent framework
-                    designed to support scalability, execution certainty, and
-                    long-term stewardship across diverse assets and market
-                    cycles.
-                  </p>
+                  {content.originBody.split("\n\n").map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
                 </div>
               </div>
             </FadeIn>
@@ -227,25 +237,15 @@ function About() {
           <FadeIn direction="none" duration={1000}>
             <div className="space-y-8 border border-gray-100 bg-white px-8 py-12 shadow-lg md:px-16 md:py-20">
               <p className="text-xs font-bold tracking-wider text-refenti-gold uppercase">
-                GOVERNANCE
+                {content.governanceLabel}
               </p>
               <h2 className="font-display text-3xl leading-tight font-light text-black uppercase md:text-5xl">
-                Governance & Alignment with{" "}
-                <span className="text-refenti-gold ">
-                  Solstice Ventures Holding
-                </span>
+                {content.governanceHeading}
               </h2>
               <div className="space-y-6 leading-relaxed font-light text-refenti-charcoal md:text-lg">
-                <p>
-                  Refenti Realty Group operates under Solstice Ventures Holding
-                  (SVH).
-                </p>
-                <p>
-                  The platform aligns with group-level governance standards,
-                  oversight mechanisms, and institutional controls established
-                  by SVH. This alignment supports accountability, consistency,
-                  and disciplined capital deployment across the platform.
-                </p>
+                {content.governanceBody.split("\n\n").map((paragraph, idx) => (
+                  <p key={idx}>{paragraph}</p>
+                ))}
               </div>
             </div>
           </FadeIn>

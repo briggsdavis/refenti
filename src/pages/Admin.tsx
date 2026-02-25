@@ -1,5 +1,6 @@
 import { Link, Route, Routes, useLocation } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
+import AdminContent from "./AdminContent"
 import AdminEvents from "./AdminEvents"
 import AdminInquiries from "./AdminInquiries"
 import AdminNews from "./AdminNews"
@@ -15,6 +16,7 @@ function AdminNavbar() {
     { name: "Events", path: "/admin/events" },
     { name: "News", path: "/admin/news" },
     { name: "Inquiries", path: "/admin/inquiries" },
+    { name: "Page Content", path: "/admin/content" },
   ]
 
   return (
@@ -62,6 +64,7 @@ function Admin() {
           <Route path="/events" element={<AdminEvents />} />
           <Route path="/news" element={<AdminNews />} />
           <Route path="/inquiries" element={<AdminInquiries />} />
+          <Route path="/content" element={<AdminContent />} />
         </Routes>
       </div>
     </div>

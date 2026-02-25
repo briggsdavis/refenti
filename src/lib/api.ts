@@ -2,6 +2,7 @@ import type {
   EventItem,
   Inquiry,
   NewsItem,
+  PageContent,
   Project,
   ProjectDetailSection,
 } from "../types"
@@ -479,4 +480,63 @@ export const deleteInquiry = async (id: string): Promise<DataResult<void>> => {
     return { data: null, error: { message: error.message, details: error } }
 
   return { data: undefined as void, error: null }
+}
+
+// ============================================================================
+// PAGE CONTENT
+// ============================================================================
+
+type PageContentRow = {
+  id: string
+  page_slug: string
+  content: Record<string, unknown>
+  updated_at: string
+}
+
+const fromDbPageContent = (row: PageContentRow): PageContent => ({
+  id: row.id,
+  pageSlug: row.page_slug,
+  content: row.content,
+  updatedAt: row.updated_at,
+})
+
+export const getPageContent = async (
+  pageSlug: string,
+): Promise<DataResult<PageContent>> => {
+  const { data, error } = await supabase
+    .from("page_content")
+    .select("*")
+    .eq("page_slug", pageSlug)
+    .single()
+
+  if (error) {
+    return {
+      data: null,
+      error: {
+        message:
+          error.code === "PGRST116"
+            ? "Page content not found"
+            : error.message,
+        details: error,
+      },
+    }
+  }
+
+  return { data: fromDbPageContent(data), error: null }
+}
+
+export const updatePageContent = async (
+  pageSlug: string,
+  content: Record<string, unknown>,
+): Promise<DataResult<PageContent>> => {
+  const { data, error } = await supabase
+    .from("page_content")
+    .upsert({ page_slug: pageSlug, content, id: pageSlug })
+    .select()
+    .single()
+
+  if (error)
+    return { data: null, error: { message: error.message, details: error } }
+
+  return { data: fromDbPageContent(data), error: null }
 }

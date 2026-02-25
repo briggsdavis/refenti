@@ -40,6 +40,35 @@ const getFileExtension = (file: File): string => {
   return parts[parts.length - 1].toLowerCase()
 }
 
+// Upload utilities for Page Content
+export const uploadPageImage = async (
+  pageSlug: string,
+  section: string,
+  file: File,
+): Promise<DataResult<string>> => {
+  const validation = validateImageFile(file)
+  if (!validation.valid) {
+    return { data: null, error: { message: validation.error! } }
+  }
+
+  const ext = getFileExtension(file)
+  const path = `pages/${pageSlug}/${section}-${Date.now()}.${ext}`
+
+  const { error: uploadError } = await supabase.storage
+    .from("refenti-media")
+    .upload(path, file)
+
+  if (uploadError) {
+    return { data: null, error: { message: uploadError.message } }
+  }
+
+  const {
+    data: { publicUrl },
+  } = supabase.storage.from("refenti-media").getPublicUrl(path)
+
+  return { data: publicUrl, error: null }
+}
+
 // Upload utilities for Projects
 export const uploadProjectHero = async (
   projectId: string,
