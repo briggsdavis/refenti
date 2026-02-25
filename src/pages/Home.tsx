@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import FadeIn from "../components/FadeIn"
 import LazyImage from "../components/LazyImage"
+import { useSiteSettings } from "../contexts/SiteSettingsContext"
 import { getEvents, getProjects } from "../lib/api"
 import { priorityManager } from "../lib/priorityManager"
 import type { EventItem, Project } from "../types"
@@ -122,6 +123,7 @@ function Home() {
   const [featuredEvents, setFeaturedEvents] = useState<EventItem[]>([])
   const [loading, setLoading] = useState(true)
   const [hoveredProject, setHoveredProject] = useState<Project | null>(null)
+  const { settings } = useSiteSettings()
 
   useEffect(() => {
     // Set viewport priority - this is the active page
@@ -373,57 +375,59 @@ function Home() {
         </div>
       </section>
 
-      <section className="px-4 py-14 sm:px-6 md:py-28">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn>
-            <div className="mb-8 space-y-4 text-center md:mb-10 md:space-y-6">
-              <div className="space-y-2 md:space-y-3">
-                <h2 className="font-display text-3xl font-light text-black md:text-6xl">
-                  Featured Updates
-                </h2>
-                <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-80">
-                  Current Milestones
-                </p>
-              </div>
-              <Link
-                to="/news"
-                className="inline-flex items-center gap-2 rounded-full border border-refenti-gold/30 bg-white px-6 py-3 text-xs font-bold text-refenti-gold uppercase shadow-sm transition-all duration-300 hover:border-refenti-gold hover:bg-refenti-gold hover:text-white hover:shadow-md"
-              >
-                View All News & Events
-                <svg
-                  className="h-3 w-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+      {settings.showNewsEvents && (
+        <section className="px-4 py-14 sm:px-6 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <FadeIn>
+              <div className="mb-8 space-y-4 text-center md:mb-10 md:space-y-6">
+                <div className="space-y-2 md:space-y-3">
+                  <h2 className="font-display text-3xl font-light text-black md:text-6xl">
+                    Featured Updates
+                  </h2>
+                  <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-80">
+                    Current Milestones
+                  </p>
+                </div>
+                <Link
+                  to="/news"
+                  className="inline-flex items-center gap-2 rounded-full border border-refenti-gold/30 bg-white px-6 py-3 text-xs font-bold text-refenti-gold uppercase shadow-sm transition-all duration-300 hover:border-refenti-gold hover:bg-refenti-gold hover:text-white hover:shadow-md"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </Link>
-            </div>
-          </FadeIn>
-
-          {featuredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 lg:grid-cols-3">
-              {featuredEvents.map((event, idx) => (
-                <FadeIn key={event.id} delay={idx * 150} className="h-full">
-                  <EventCard event={event} index={idx} />
-                </FadeIn>
-              ))}
-            </div>
-          ) : (
-            <FadeIn delay={200}>
-              <div className="py-20 text-center font-display text-lg text-gray-500  md:text-xl">
-                No recent updates at this moment.
+                  View All News & Events
+                  <svg
+                    className="h-3 w-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </Link>
               </div>
             </FadeIn>
-          )}
-        </div>
-      </section>
+
+            {featuredEvents.length > 0 ? (
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 lg:grid-cols-3">
+                {featuredEvents.map((event, idx) => (
+                  <FadeIn key={event.id} delay={idx * 150} className="h-full">
+                    <EventCard event={event} index={idx} />
+                  </FadeIn>
+                ))}
+              </div>
+            ) : (
+              <FadeIn delay={200}>
+                <div className="py-20 text-center font-display text-lg text-gray-500  md:text-xl">
+                  No recent updates at this moment.
+                </div>
+              </FadeIn>
+            )}
+          </div>
+        </section>
+      )}
     </div>
   )
 }

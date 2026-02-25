@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
+import { useSiteSettings } from "../contexts/SiteSettingsContext"
 import { getProjects } from "../lib/api"
 import { preloadOnHover } from "../lib/priorityManager"
 import type { Project } from "../types"
@@ -12,6 +13,7 @@ function Navbar() {
   const [hoveredProject, setHoveredProject] = useState<Project | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const location = useLocation()
+  const { settings } = useSiteSettings()
   const menuTimeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -73,6 +75,10 @@ function Navbar() {
     { name: "Contact", path: "/contact" },
   ]
 
+  const visibleNavLinks = settings.showNewsEvents
+    ? navLinks
+    : navLinks.filter((l) => l.path !== "/news")
+
   const handleLinkHover = (heroImage?: string) => {
     if (heroImage) {
       // Preload hero image on hover with high priority
@@ -117,7 +123,7 @@ function Navbar() {
                 </Link>
               </li>
 
-              {navLinks.map((link) => {
+              {visibleNavLinks.map((link) => {
                 const isActive = location.pathname === link.path
                 if (link.isDropdown) {
                   return (
@@ -208,7 +214,7 @@ function Navbar() {
             className={`absolute right-0 left-0 z-99 mt-2 rounded-3xl bg-white/70 backdrop-blur-xl transition-all duration-700 ease-out ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 scale-98 opacity-0"}`}
           >
             <div className="space-y-1 px-6 py-8 md:px-8 md:py-10">
-              {navLinks.map((link) => {
+              {visibleNavLinks.map((link) => {
                 const isActive = location.pathname === link.path
                 return (
                   <Link

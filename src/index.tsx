@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client"
 import { HelmetProvider } from "react-helmet-async"
 import App from "./App"
 import { AuthProvider } from "./contexts/AuthContext"
+import { SiteSettingsProvider } from "./contexts/SiteSettingsContext"
 import "./index.css"
 
 const rootElement = document.querySelector("#root")
@@ -13,7 +14,9 @@ root.render(
   <StrictMode>
     <HelmetProvider>
       <AuthProvider>
-        <App />
+        <SiteSettingsProvider>
+          <App />
+        </SiteSettingsProvider>
       </AuthProvider>
     </HelmetProvider>
   </StrictMode>,

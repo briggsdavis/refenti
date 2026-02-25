@@ -1,5 +1,6 @@
 import { Link, Route, Routes, useLocation } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
+import { useSiteSettings } from "../contexts/SiteSettingsContext"
 import AdminEvents from "./AdminEvents"
 import AdminInquiries from "./AdminInquiries"
 import AdminNews from "./AdminNews"
@@ -9,6 +10,7 @@ import AdminProjects from "./AdminProjects"
 function AdminNavbar() {
   const location = useLocation()
   const { signOut } = useAuth()
+  const { settings, setShowNewsEvents } = useSiteSettings()
 
   const links = [
     { name: "Projects", path: "/admin/projects" },
@@ -39,12 +41,33 @@ function AdminNavbar() {
           ))}
         </div>
       </div>
-      <button
-        onClick={() => signOut()}
-        className="text-sm text-gray-400 transition-colors hover:text-red-500"
-      >
-        Sign out
-      </button>
+      <div className="flex items-center gap-6">
+        <label className="flex cursor-pointer items-center gap-2">
+          <span className="text-xs font-medium text-gray-500">
+            News & Events
+          </span>
+          <button
+            role="switch"
+            aria-checked={settings.showNewsEvents}
+            onClick={() => setShowNewsEvents(!settings.showNewsEvents)}
+            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+              settings.showNewsEvents ? "bg-refenti-gold" : "bg-gray-300"
+            }`}
+          >
+            <span
+              className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform ${
+                settings.showNewsEvents ? "translate-x-4.5" : "translate-x-0.5"
+              }`}
+            />
+          </button>
+        </label>
+        <button
+          onClick={() => signOut()}
+          className="text-sm text-gray-400 transition-colors hover:text-red-500"
+        >
+          Sign out
+        </button>
+      </div>
     </nav>
   )
 }

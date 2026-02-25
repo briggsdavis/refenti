@@ -480,3 +480,44 @@ export const deleteInquiry = async (id: string): Promise<DataResult<void>> => {
 
   return { data: undefined as void, error: null }
 }
+
+// ============================================================================
+// SITE SETTINGS
+// ============================================================================
+
+export interface SiteSettings {
+  showNewsEvents: boolean
+}
+
+export const getSiteSettings = async (): Promise<DataResult<SiteSettings>> => {
+  const { data, error } = await supabase
+    .from("site_settings")
+    .select("*")
+    .eq("id", "default")
+    .single()
+
+  if (error)
+    return { data: null, error: { message: error.message, details: error } }
+
+  return { data: { showNewsEvents: data.show_news_events }, error: null }
+}
+
+export const updateSiteSettings = async (
+  settings: Partial<SiteSettings>,
+): Promise<DataResult<SiteSettings>> => {
+  const dbUpdates: Record<string, unknown> = {}
+  if (settings.showNewsEvents !== undefined)
+    dbUpdates.show_news_events = settings.showNewsEvents
+
+  const { data, error } = await supabase
+    .from("site_settings")
+    .update(dbUpdates)
+    .eq("id", "default")
+    .select()
+    .single()
+
+  if (error)
+    return { data: null, error: { message: error.message, details: error } }
+
+  return { data: { showNewsEvents: data.show_news_events }, error: null }
+}
