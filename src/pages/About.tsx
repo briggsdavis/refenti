@@ -45,11 +45,10 @@ function About() {
             animationDuration: "1200ms",
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-refenti-offwhite via-refenti-offwhite/50 via-[40%] to-transparent to-[65%]" />
         <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-8">
           <div className="space-y-3 md:space-y-6">
             <FadeIn direction="none" duration={1000} delay={1000}>
-              <h1 className="font-display text-6xl leading-none font-light text-black uppercase md:text-9xl">
+              <h1 className="font-display text-6xl leading-none font-light text-white uppercase md:text-9xl">
                 About
               </h1>
             </FadeIn>
