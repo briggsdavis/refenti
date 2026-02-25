@@ -505,14 +505,12 @@ export const getSiteSettings = async (): Promise<DataResult<SiteSettings>> => {
 export const updateSiteSettings = async (
   settings: Partial<SiteSettings>,
 ): Promise<DataResult<SiteSettings>> => {
-  const dbUpdates: Record<string, unknown> = {}
-  if (settings.showNewsEvents !== undefined)
-    dbUpdates.show_news_events = settings.showNewsEvents
-
   const { data, error } = await supabase
     .from("site_settings")
-    .update(dbUpdates)
-    .eq("id", "default")
+    .upsert({
+      id: "default",
+      show_news_events: settings.showNewsEvents ?? true,
+    })
     .select()
     .single()
 

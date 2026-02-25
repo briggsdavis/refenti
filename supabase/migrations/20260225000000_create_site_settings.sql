@@ -17,8 +17,8 @@ CREATE POLICY "Public can read site_settings"
   TO anon, authenticated
   USING (true);
 
--- Only authenticated users can update
-CREATE POLICY "Authenticated can update site_settings"
-  ON site_settings FOR UPDATE
+-- Authenticated can modify settings
+CREATE POLICY "Authenticated can modify site_settings"
+  ON site_settings FOR ALL
   TO authenticated
   USING (true);
