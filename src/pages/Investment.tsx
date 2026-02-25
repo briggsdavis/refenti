@@ -74,7 +74,7 @@ function Investment() {
         <div className="relative z-10 mx-auto max-w-6xl space-y-6 px-4 text-center md:space-y-8">
           <div className="space-y-3 md:space-y-6">
             <FadeIn direction="none" duration={1000} delay={1000}>
-              <h1 className="font-display text-6xl leading-none font-bold text-white uppercase md:text-9xl">
+              <h1 className="font-display text-6xl leading-none font-semibold text-white uppercase md:text-9xl">
                 Investment
               </h1>
             </FadeIn>
