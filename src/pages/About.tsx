@@ -44,8 +44,7 @@ function About() {
     originBody:
       "Refenti Realty Group was established as a platform-led real estate investment and development entity, intentionally structured to support long-term capital appreciation.\n\nThe platform prioritizes governance discipline, repeatability, and institutional alignment over opportunistic or project-led development. Projects are originated and developed within a consistent framework designed to support scalability, execution certainty, and long-term stewardship across diverse assets and market cycles.",
     governanceLabel: "GOVERNANCE",
-    governanceHeading:
-      "Governance & Alignment with Solstice Ventures Holding",
+    governanceHeading: "Governance",
     governanceBody:
       "Refenti Realty Group operates under Solstice Ventures Holding (SVH).\n\nThe platform aligns with group-level governance standards, oversight mechanisms, and institutional controls established by SVH. This alignment supports accountability, consistency, and disciplined capital deployment across the platform.",
   }
@@ -97,7 +96,7 @@ function About() {
               </h1>
             </FadeIn>
             <FadeIn direction="none" duration={1000} delay={1300}>
-              <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
+              <p className="font-sans text-lg font-bold text-refenti-gold uppercase">
                 {content.heroSubtitle}
               </p>
             </FadeIn>
@@ -217,7 +216,7 @@ function About() {
             </FadeIn>
             <FadeIn direction="up" duration={800} delay={100}>
               <div className="space-y-8">
-                <h2 className="font-display text-4xl leading-tight font-light text-black uppercase md:text-6xl">
+                <h2 className="font-display text-3xl leading-tight font-light text-black uppercase md:text-5xl">
                   {content.originHeading}
                 </h2>
                 <div className="space-y-6 leading-relaxed font-light text-refenti-charcoal md:text-lg">

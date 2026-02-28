@@ -202,7 +202,7 @@ function Home() {
             />
           </FadeIn>
           <FadeIn direction="none" duration={1000} delay={1300}>
-            <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-90 md:text-sm">
+            <p className="font-sans text-lg font-bold text-refenti-gold uppercase opacity-90 md:text-xl">
               {content.heroTagline}
             </p>
           </FadeIn>

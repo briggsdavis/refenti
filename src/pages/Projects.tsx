@@ -79,7 +79,7 @@ function Projects() {
                 </h1>
               </FadeIn>
               <FadeIn direction="none" duration={1000} delay={1300}>
-                <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
+                <p className="font-sans text-lg font-bold text-refenti-gold uppercase">
                   {content.heroSubtitle}
                 </p>
               </FadeIn>
