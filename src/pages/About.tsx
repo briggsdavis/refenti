@@ -234,7 +234,7 @@ function About() {
       <section className="px-4 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
           <FadeIn direction="none" duration={1000}>
-            <div className="space-y-8 border border-gray-100 bg-white px-8 py-12 shadow-lg md:px-16 md:py-20">
+            <div className="space-y-8 bg-white px-8 py-12 shadow-lg md:px-16 md:py-20">
               <p className="text-xs font-bold tracking-wider text-refenti-gold uppercase">
                 {content.governanceLabel}
               </p>

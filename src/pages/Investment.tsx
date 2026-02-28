@@ -193,7 +193,7 @@ function Investment() {
       <section className="px-4 py-20 md:px-12 md:py-28">
         <div className="mx-auto max-w-6xl">
           <FadeIn direction="none" duration={1000}>
-            <div className="space-y-12 border border-gray-100 bg-white px-8 py-12 shadow-lg md:px-16 md:py-20">
+            <div className="space-y-12 bg-white px-8 py-12 shadow-lg md:px-16 md:py-20">
               <div className="space-y-4">
                 <p className="text-xs font-bold tracking-wider text-refenti-gold uppercase">
                   {content.riskLabel}
@@ -275,7 +275,7 @@ function Investment() {
                   delay={idx * 100}
                   className="h-full"
                 >
-                  <div className="group flex h-full flex-col overflow-hidden border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                  <div className="group flex h-full flex-col overflow-hidden bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
                     <div className="aspect-[16/27] overflow-hidden">
                       <LazyImage
                         src={asset.image}
@@ -302,7 +302,7 @@ function Investment() {
               </h2>
             </FadeIn>
             <FadeIn direction="up" duration={800} delay={100}>
-              <div className="space-y-6 border border-gray-100 bg-white px-8 py-10 shadow-sm md:px-12">
+              <div className="space-y-6 bg-white px-8 py-10 shadow-sm md:px-12">
                 <p className="leading-relaxed font-light text-refenti-charcoal md:text-lg">
                   {content.structuresBody}
                 </p>
