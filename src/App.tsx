@@ -105,7 +105,7 @@ function AppContent() {
                   Refenti Realty Group is a real estate investment and
                   development platform operating under{" "}
                   <a
-                    href="https://solstice-ventures-beta.webflow.io/"
+                    href="https://www.sol-ventures.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-refenti-gold transition-colors hover:underline"
@@ -193,7 +193,7 @@ function AppContent() {
               </div>
             </div>
             <div className="mx-auto mt-16 flex max-w-7xl items-center justify-between border-t border-gray-100 pt-8 text-sm text-gray-600 uppercase">
-              <span>© {new Date().getFullYear()} Refenti Group</span>
+              <span>© {new Date().getFullYear()} Refenti Realty Group</span>
             </div>
           </footer>
         </>

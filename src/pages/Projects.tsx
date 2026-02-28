@@ -40,7 +40,17 @@ function Projects() {
       if (error) {
         console.error("Failed to load projects:", error.message)
       } else {
-        setProjects(data)
+        const ORDER = ["Bulbula", "Terraz", "Kazanches"]
+        const sorted = [...data].sort((a, b) => {
+          const ai = ORDER.findIndex((n) =>
+            a.name.toLowerCase().includes(n.toLowerCase()),
+          )
+          const bi = ORDER.findIndex((n) =>
+            b.name.toLowerCase().includes(n.toLowerCase()),
+          )
+          return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi)
+        })
+        setProjects(sorted)
       }
       setLoading(false)
     }
