@@ -196,7 +196,7 @@ function About() {
                   return (
                     <div
                       key={idx}
-                      className="bg-white px-8 py-8 text-center shadow-md transition-shadow hover:shadow-lg"
+                      className="bg-white px-8 py-8 text-center shadow-2xl"
                     >
                       <div className="mx-auto flex flex-col items-center space-y-2">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-refenti-gold opacity-40 shadow-lg md:h-12 md:w-12">
@@ -263,7 +263,7 @@ function About() {
       <section className="px-4 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
           <FadeIn direction="none" duration={1000}>
-            <div className="space-y-8 bg-white px-8 py-12 shadow-lg md:px-16 md:py-20">
+            <div className="space-y-8 bg-white px-8 py-12 shadow-2xl md:px-16 md:py-20">
               <p className="text-xs font-bold tracking-wider text-refenti-gold uppercase">
                 {content.governanceLabel}
               </p>

@@ -101,7 +101,7 @@ function Projects() {
         <div className="relative z-10 px-6 pt-16 pb-20 md:px-12 md:py-32">
           <FadeIn delay={200}>
             <div className="mx-auto max-w-5xl">
-              <div className="relative overflow-hidden bg-white/80 p-8 shadow-xl backdrop-blur-sm md:p-12">
+              <div className="relative overflow-hidden bg-white/80 p-8 shadow-2xl backdrop-blur-sm md:p-12">
                 <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-refenti-gold via-refenti-gold/50 to-transparent" />
                 <div className="space-y-4">
                   <p className="font-sans text-xs font-bold tracking-wider text-refenti-gold uppercase">
