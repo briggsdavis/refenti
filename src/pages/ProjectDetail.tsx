@@ -190,7 +190,7 @@ function ProjectDetail() {
         />
       </Helmet>
       {/* Hero Banner */}
-      <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden pb-6 md:min-h-[90vh] md:pb-10">
+      <section className="relative flex min-h-screen w-full items-end justify-center overflow-hidden pb-6 md:pb-10">
         <div
           key={`hero-${project.id}`}
           className="absolute inset-[-5%] animate-fade-in"

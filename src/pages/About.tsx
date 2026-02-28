@@ -44,8 +44,7 @@ function About() {
     originBody:
       "Refenti Realty Group was established as a platform-led real estate investment and development entity, intentionally structured to support long-term capital appreciation.\n\nThe platform prioritizes governance discipline, repeatability, and institutional alignment over opportunistic or project-led development. Projects are originated and developed within a consistent framework designed to support scalability, execution certainty, and long-term stewardship across diverse assets and market cycles.",
     governanceLabel: "GOVERNANCE",
-    governanceHeading:
-      "Governance & Alignment with Solstice Ventures Holding",
+    governanceHeading: "Governance",
     governanceBody:
       "Refenti Realty Group operates under Solstice Ventures Holding (SVH).\n\nThe platform aligns with group-level governance standards, oversight mechanisms, and institutional controls established by SVH. This alignment supports accountability, consistency, and disciplined capital deployment across the platform.",
   }
@@ -77,7 +76,7 @@ function About() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative flex min-h-[56vh] w-full items-end justify-center overflow-hidden pb-6 md:min-h-[72vh] md:pb-10">
+      <section className="relative flex min-h-screen w-full items-end justify-center overflow-hidden pb-6 md:pb-10">
         <img
           src={content.heroImage}
           alt="About Hero"
@@ -97,7 +96,7 @@ function About() {
               </h1>
             </FadeIn>
             <FadeIn direction="none" duration={1000} delay={1300}>
-              <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
+              <p className="font-sans text-lg font-bold text-refenti-gold uppercase">
                 {content.heroSubtitle}
               </p>
             </FadeIn>
@@ -183,19 +182,48 @@ function About() {
                 {content.valuesHeading}
               </h2>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                {content.values.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white px-8 py-8 text-center shadow-md transition-shadow hover:shadow-lg"
-                  >
-                    <p className="mb-3 text-lg font-light text-refenti-charcoal md:text-xl">
-                      {item.title}
-                    </p>
-                    <p className="text-xs leading-relaxed text-refenti-charcoal/60 md:text-sm">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
+                {content.values.map((item, idx) => {
+                  const iconPaths = [
+                    // Governance discipline – shield with check
+                    "M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z",
+                    // Execution certainty – circle check
+                    "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+                    // Structured risk management – bar chart
+                    "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z",
+                    // Long-term orientation – trending up
+                    "M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941",
+                  ]
+                  return (
+                    <div
+                      key={idx}
+                      className="bg-white px-8 py-8 text-center shadow-2xl"
+                    >
+                      <div className="mx-auto flex flex-col items-center space-y-2">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-refenti-gold opacity-40 shadow-lg md:h-12 md:w-12">
+                          <svg
+                            className="h-5 w-5 text-white md:h-6 md:w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.5}
+                              d={iconPaths[idx]}
+                            />
+                          </svg>
+                        </div>
+                        <p className="font-display text-lg font-light text-refenti-charcoal uppercase md:text-xl">
+                          {item.title}
+                        </p>
+                        <p className="text-xs leading-relaxed font-light text-refenti-charcoal/60 md:text-sm">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </FadeIn>
@@ -217,7 +245,7 @@ function About() {
             </FadeIn>
             <FadeIn direction="up" duration={800} delay={100}>
               <div className="space-y-8">
-                <h2 className="font-display text-4xl leading-tight font-light text-black uppercase md:text-6xl">
+                <h2 className="font-display text-3xl leading-tight font-light text-black uppercase md:text-5xl">
                   {content.originHeading}
                 </h2>
                 <div className="space-y-6 leading-relaxed font-light text-refenti-charcoal md:text-lg">
@@ -231,11 +259,11 @@ function About() {
         </div>
       </section>
 
-      {/* Section 3: Governance & Alignment with SVH */}
+      {/* Section 3: Governance */}
       <section className="px-4 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
           <FadeIn direction="none" duration={1000}>
-            <div className="space-y-8 border border-gray-100 bg-white px-8 py-12 shadow-lg md:px-16 md:py-20">
+            <div className="space-y-8 bg-white px-8 py-12 shadow-2xl md:px-16 md:py-20">
               <p className="text-xs font-bold tracking-wider text-refenti-gold uppercase">
                 {content.governanceLabel}
               </p>

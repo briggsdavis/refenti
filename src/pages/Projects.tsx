@@ -40,7 +40,17 @@ function Projects() {
       if (error) {
         console.error("Failed to load projects:", error.message)
       } else {
-        setProjects(data)
+        const ORDER = ["Bulbula", "Terraz", "Kazanches"]
+        const sorted = [...data].sort((a, b) => {
+          const ai = ORDER.findIndex((n) =>
+            a.name.toLowerCase().includes(n.toLowerCase()),
+          )
+          const bi = ORDER.findIndex((n) =>
+            b.name.toLowerCase().includes(n.toLowerCase()),
+          )
+          return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi)
+        })
+        setProjects(sorted)
       }
       setLoading(false)
     }
@@ -59,7 +69,7 @@ function Projects() {
       </Helmet>
       <div className="min-h-screen pb-16">
         {/* Cinematic Hero Banner */}
-        <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden pb-6 md:min-h-[90vh] md:pb-10">
+        <section className="relative flex min-h-screen w-full items-end justify-center overflow-hidden pb-6 md:pb-10">
           <div
             className="absolute inset-[-10%] animate-fade-in"
             style={{
@@ -79,7 +89,7 @@ function Projects() {
                 </h1>
               </FadeIn>
               <FadeIn direction="none" duration={1000} delay={1300}>
-                <p className="font-sans text-xs font-bold text-refenti-gold uppercase">
+                <p className="font-sans text-lg font-bold text-refenti-gold uppercase">
                   {content.heroSubtitle}
                 </p>
               </FadeIn>
@@ -91,7 +101,7 @@ function Projects() {
         <div className="relative z-10 px-6 pt-16 pb-20 md:px-12 md:py-32">
           <FadeIn delay={200}>
             <div className="mx-auto max-w-5xl">
-              <div className="relative overflow-hidden border border-gray-200/50 bg-white/80 p-8 shadow-xl backdrop-blur-sm md:p-12">
+              <div className="relative overflow-hidden bg-white/80 p-8 shadow-2xl backdrop-blur-sm md:p-12">
                 <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-refenti-gold via-refenti-gold/50 to-transparent" />
                 <div className="space-y-4">
                   <p className="font-sans text-xs font-bold tracking-wider text-refenti-gold uppercase">

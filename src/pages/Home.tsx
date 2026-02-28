@@ -13,7 +13,7 @@ function EventCard({ event, index }: { event: EventItem; index: number }) {
 
   return (
     <div
-      className="group flex h-full flex-col border border-gray-100 bg-white p-6 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.05)] transition-all duration-1000"
+      className="group flex h-full flex-col bg-white p-6 shadow-2xl transition-all duration-1000"
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <div className="relative mb-6 aspect-4/5 overflow-hidden">
@@ -80,7 +80,7 @@ function PhilosophySection({ content }: { content: HomeContent }) {
       className="flex items-center justify-center px-4 pt-16 md:px-8 md:pt-28"
     >
       <div
-        className="relative w-full max-w-6xl overflow-hidden border border-gray-100 bg-white p-6 shadow-sm transition-all duration-700 ease-out md:p-14"
+        className="relative w-full max-w-6xl overflow-hidden bg-white p-6 shadow-2xl transition-all duration-700 ease-out md:p-14"
       >
         <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10">
           <div className="space-y-6 md:space-y-8">
@@ -96,7 +96,7 @@ function PhilosophySection({ content }: { content: HomeContent }) {
             </FadeIn>
           </div>
           <FadeIn delay={300} direction="right">
-            <div className="relative aspect-[4/3] overflow-hidden border border-gray-50 shadow-sm">
+            <div className="relative aspect-[4/3] overflow-hidden shadow-sm">
               <img
                 src={content.philosophyImage}
                 className="h-full w-full object-cover opacity-90"
@@ -155,7 +155,17 @@ function Home() {
       if (projectsResult.error) {
         console.error("Failed to load projects:", projectsResult.error.message)
       } else {
-        setProjects(projectsResult.data)
+        const ORDER = ["Bulbula", "Terraz", "Kazanches"]
+        const sorted = [...projectsResult.data].sort((a, b) => {
+          const ai = ORDER.findIndex((n) =>
+            a.name.toLowerCase().includes(n.toLowerCase()),
+          )
+          const bi = ORDER.findIndex((n) =>
+            b.name.toLowerCase().includes(n.toLowerCase()),
+          )
+          return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi)
+        })
+        setProjects(sorted)
       }
 
       if (eventsResult.error) {
@@ -202,7 +212,7 @@ function Home() {
             />
           </FadeIn>
           <FadeIn direction="none" duration={1000} delay={1300}>
-            <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-90 md:text-sm">
+            <p className="font-sans text-lg font-bold text-refenti-gold uppercase opacity-90 md:text-xl">
               {content.heroTagline}
             </p>
           </FadeIn>
@@ -228,7 +238,7 @@ function Home() {
 
       <section className="px-6 pb-20 md:px-12 md:pb-32">
         <div className="mx-auto max-w-7xl">
-          <div className="overflow-hidden border border-gray-100 bg-white shadow-xl">
+          <div className="overflow-hidden bg-white shadow-2xl">
             <div className="grid gap-0 md:grid-cols-5">
               {/* Left Column - Heading */}
               <div className="flex flex-col justify-center border-b border-gray-100 bg-gradient-to-br from-refenti-offwhite to-white p-8 md:col-span-2 md:border-r md:border-b-0 md:p-12">
