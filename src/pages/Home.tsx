@@ -6,7 +6,7 @@ import LazyImage from "../components/LazyImage"
 import { getEvents, getProjects } from "../lib/api"
 import { priorityManager } from "../lib/priorityManager"
 import { usePageContent } from "../lib/usePageContent"
-import type { EventItem, HomeContent, Project } from "../types"
+import type { EventItem, EventsNewsContent, HomeContent, Project } from "../types"
 
 function EventCard({ event, index }: { event: EventItem; index: number }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -135,6 +135,21 @@ function Home() {
     updatesCta: "View All News & Events",
   }
   const { content } = usePageContent("home", defaults)
+
+  const eventsNewsDefaults: EventsNewsContent = {
+    subheading: "",
+    heading: "",
+    newsLabel: "",
+    newsHeading: "",
+    eventsLabel: "",
+    eventsHeading: "",
+    showInNavbar: true,
+    showFeaturedUpdates: true,
+  }
+  const { content: eventsNewsContent } = usePageContent(
+    "events-news",
+    eventsNewsDefaults,
+  )
 
   useEffect(() => {
     // Set viewport priority - this is the active page
@@ -382,57 +397,59 @@ function Home() {
         </div>
       </section>
 
-      <section className="px-4 py-14 sm:px-6 md:py-28">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn>
-            <div className="mb-8 space-y-4 text-center md:mb-10 md:space-y-6">
-              <div className="space-y-2 md:space-y-3">
-                <h2 className="font-display text-3xl font-light text-black md:text-6xl">
-                  {content.updatesHeading}
-                </h2>
-                <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-80">
-                  {content.updatesSubheading}
-                </p>
-              </div>
-              <Link
-                to="/news"
-                className="inline-flex items-center gap-2 rounded-full border border-refenti-gold/30 bg-white px-6 py-3 text-xs font-bold text-refenti-gold uppercase shadow-sm transition-all duration-300 hover:border-refenti-gold hover:bg-refenti-gold hover:text-white hover:shadow-md"
-              >
-                {content.updatesCta}
-                <svg
-                  className="h-3 w-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+      {eventsNewsContent.showFeaturedUpdates !== false && (
+        <section className="px-4 py-14 sm:px-6 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <FadeIn>
+              <div className="mb-8 space-y-4 text-center md:mb-10 md:space-y-6">
+                <div className="space-y-2 md:space-y-3">
+                  <h2 className="font-display text-3xl font-light text-black md:text-6xl">
+                    {content.updatesHeading}
+                  </h2>
+                  <p className="font-sans text-xs font-bold text-refenti-gold uppercase opacity-80">
+                    {content.updatesSubheading}
+                  </p>
+                </div>
+                <Link
+                  to="/news"
+                  className="inline-flex items-center gap-2 rounded-full border border-refenti-gold/30 bg-white px-6 py-3 text-xs font-bold text-refenti-gold uppercase shadow-sm transition-all duration-300 hover:border-refenti-gold hover:bg-refenti-gold hover:text-white hover:shadow-md"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </Link>
-            </div>
-          </FadeIn>
-
-          {featuredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 lg:grid-cols-3">
-              {featuredEvents.map((event, idx) => (
-                <FadeIn key={event.id} delay={idx * 150} className="h-full">
-                  <EventCard event={event} index={idx} />
-                </FadeIn>
-              ))}
-            </div>
-          ) : (
-            <FadeIn delay={200}>
-              <div className="py-20 text-center font-display text-lg text-gray-500  md:text-xl">
-                No recent updates at this moment.
+                  {content.updatesCta}
+                  <svg
+                    className="h-3 w-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </Link>
               </div>
             </FadeIn>
-          )}
-        </div>
-      </section>
+
+            {featuredEvents.length > 0 ? (
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 lg:grid-cols-3">
+                {featuredEvents.map((event, idx) => (
+                  <FadeIn key={event.id} delay={idx * 150} className="h-full">
+                    <EventCard event={event} index={idx} />
+                  </FadeIn>
+                ))}
+              </div>
+            ) : (
+              <FadeIn delay={200}>
+                <div className="py-20 text-center font-display text-lg text-gray-500  md:text-xl">
+                  No recent updates at this moment.
+                </div>
+              </FadeIn>
+            )}
+          </div>
+        </section>
+      )}
     </div>
   )
 }
