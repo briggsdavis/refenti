@@ -141,4 +141,6 @@ export interface EventsNewsContent {
   newsHeading: string
   eventsLabel: string
   eventsHeading: string
+  showInNavbar: boolean
+  showFeaturedUpdates: boolean
 }

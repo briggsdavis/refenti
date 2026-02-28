@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { getProjects } from "../lib/api"
 import { preloadOnHover } from "../lib/priorityManager"
-import type { Project } from "../types"
+import { usePageContent } from "../lib/usePageContent"
+import type { EventsNewsContent, Project } from "../types"
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -13,6 +14,21 @@ function Navbar() {
   const [isVisible, setIsVisible] = useState(false)
   const location = useLocation()
   const menuTimeoutRef = useRef<number | null>(null)
+
+  const eventsNewsDefaults: EventsNewsContent = {
+    subheading: "",
+    heading: "",
+    newsLabel: "",
+    newsHeading: "",
+    eventsLabel: "",
+    eventsHeading: "",
+    showInNavbar: true,
+    showFeaturedUpdates: true,
+  }
+  const { content: eventsNewsContent } = usePageContent(
+    "events-news",
+    eventsNewsDefaults,
+  )
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 1600)
@@ -65,7 +81,7 @@ function Navbar() {
     }
   }, [isMobileMenuOpen])
 
-  const navLinks = [
+  const allNavLinks = [
     { name: "Home", path: "/", heroImage: "/home-hero.jpg" },
     { name: "About", path: "/about", heroImage: "/about-hero.jpg" },
     {
@@ -82,6 +98,11 @@ function Navbar() {
     { name: "News & Events", path: "/news" },
     { name: "Contact", path: "/contact" },
   ]
+
+  const navLinks =
+    eventsNewsContent.showInNavbar === false
+      ? allNavLinks.filter((l) => l.path !== "/news")
+      : allNavLinks
 
   const handleLinkHover = (heroImage?: string) => {
     if (heroImage) {

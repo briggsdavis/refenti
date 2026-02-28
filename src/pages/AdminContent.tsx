@@ -226,6 +226,42 @@ function ImageField({
   )
 }
 
+function ToggleField({
+  label,
+  description,
+  value,
+  onChange,
+}: {
+  label: string
+  description?: string
+  value: boolean
+  onChange: (v: boolean) => void
+}) {
+  return (
+    <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3">
+      <div>
+        <label className="text-xs font-bold text-gray-500 uppercase">
+          {label}
+        </label>
+        {description && (
+          <p className="mt-0.5 text-xs text-gray-400">{description}</p>
+        )}
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={value ?? true}
+        onClick={() => onChange(!(value ?? true))}
+        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ${(value ?? true) ? "bg-refenti-gold" : "bg-gray-300"}`}
+      >
+        <span
+          className={`pointer-events-none inline-block h-5 w-5 translate-y-0.5 rounded-full bg-white shadow-sm transition-transform duration-200 ${(value ?? true) ? "translate-x-5.5" : "translate-x-0.5"}`}
+        />
+      </button>
+    </div>
+  )
+}
+
 // Array editor for {title, description} pairs
 function PairArrayEditor({
   label,
@@ -897,6 +933,20 @@ function EventsNewsForm({
 }: FormProps<EventsNewsContent>) {
   return (
     <>
+      <SectionLabel>Visibility</SectionLabel>
+      <ToggleField
+        label="Show in Navigation Bar"
+        description="Display the News & Events link in the main navigation"
+        value={c.showInNavbar}
+        onChange={(v) => set("showInNavbar", v)}
+      />
+      <ToggleField
+        label="Show Featured Updates on Home Page"
+        description="Display the Featured Updates section on the home page"
+        value={c.showFeaturedUpdates}
+        onChange={(v) => set("showFeaturedUpdates", v)}
+      />
+
       <SectionLabel>Page Header</SectionLabel>
       <TextField
         label="Subheading"
