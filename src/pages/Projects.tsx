@@ -59,7 +59,7 @@ function Projects() {
       </Helmet>
       <div className="min-h-screen pb-16">
         {/* Cinematic Hero Banner */}
-        <section className="relative flex min-h-[70vh] w-full items-end justify-center overflow-hidden pb-6 md:min-h-[90vh] md:pb-10">
+        <section className="relative flex min-h-screen w-full items-end justify-center overflow-hidden pb-6 md:pb-10">
           <div
             className="absolute inset-[-10%] animate-fade-in"
             style={{

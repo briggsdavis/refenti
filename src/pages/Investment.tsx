@@ -106,7 +106,7 @@ function Investment() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative flex min-h-[56vh] w-full items-end justify-center overflow-hidden pb-6 md:min-h-[72vh] md:pb-10">
+      <section className="relative flex min-h-screen w-full items-end justify-center overflow-hidden pb-6 md:pb-10">
         <img
           src={content.heroImage}
           alt="Investment Hero"
